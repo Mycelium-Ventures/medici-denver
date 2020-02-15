@@ -53,40 +53,38 @@ const App = (props) => {
 
   return (
     <div className="App body">
-      <React.Suspense fallback={Loading}>
-        <Header/>
-        {/* <SignUpModal
-          onSignUp={this.handleSignUpModal}
-          signupModal={this.state.signupModal}
-        />
+      <Header/>
+      {/* <SignUpModal
+        onSignUp={this.handleSignUpModal}
+        signupModal={this.state.signupModal}
+      />
 
-        <ContractData
-          drizzle={drizzle}
-          drizzleState={drizzleState}
-          contract="ERC20Test"
-          method="balanceOf"
-          methodArgs={["0xc630fcA4c856a4920976F73375578189A687c031"]}
-          render={data => data}
-        />
-        */}
+      <ContractData
+        drizzle={drizzle}
+        drizzleState={drizzleState}
+        contract="ERC20Test"
+        method="balanceOf"
+        methodArgs={["0xc630fcA4c856a4920976F73375578189A687c031"]}
+        render={data => data}
+      />
+      */}
 
-        <Switch>
-          {/* Mapping path to page/component in ./routes */}
-          {_.map(routes, (item, i) => {
-            const props = _.omit(item, ['page', 'path', 'type']);
-            const R = item.type || Route;
-            return (
-              <R
-                path={item.path}
-                key={i}
-                exact={true}
-                component={item.page}
-                {...props}
-              />
-            )
-          })}
-        </Switch>
-      </React.Suspense>
+      <Switch>
+        {/* Mapping path to page/component in ./routes */}
+        {_.map(routes, (item, i) => {
+          const props = _.omit(item, ['page', 'path', 'type']);
+          const R = item.type || Route;
+          return (
+            <R
+              path={item.path}
+              key={i}
+              exact={true}
+              component={item.page}
+              {...props}
+            />
+          )
+        })}
+      </Switch>
     </div>
   );
 

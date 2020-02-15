@@ -5,7 +5,7 @@ export const contractEventNotifier = store => next => action => {
     const contract = action.name
     const contractEvent = action.event.event
     const contractMessage = action.event.returnValues._message
-    const display = `${contract}(${contractEvent}): ${contractMessage} ${action.event.returnValues.user} ${action.event.returnValues.userID}`
+    const display = `${contract}(${contractEvent}): ${contractMessage}`
 
     // interact with your service
     console.log("Contract event fired", display)

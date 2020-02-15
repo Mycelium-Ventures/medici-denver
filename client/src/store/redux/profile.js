@@ -27,7 +27,7 @@ const initialState = {
   twitchLinked: false,
   ytLinked: false,
   did: null,
-  name: 'Clarence Liu'
+  name: ''
 }
 
 // this only runs once on startup

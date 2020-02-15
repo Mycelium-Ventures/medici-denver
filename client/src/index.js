@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'connected-react-router'
 import { Provider } from 'react-redux'
-import drizzle, { store, history } from './store'
+import drizzle, { store, history, persistor } from './store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import './index.css';
 import App from './App';
+import Loading from './pages/Loading'
 
 // import Loading from './pages/Loading'
 
@@ -14,13 +16,17 @@ import { DrizzleContext } from '@drizzle/react-plugin'
 
 
 ReactDOM.render(
-  <Provider store={store}>
-    <DrizzleContext.Provider store={store} drizzle={drizzle}>
-      <ConnectedRouter history={history}>
-        <App/>
-      </ConnectedRouter>
-    </DrizzleContext.Provider>
-  </Provider>,
+  <PersistGate loading={Loading} persistor={persistor}>
+    <Provider store={store}>
+      <DrizzleContext.Provider store={store} drizzle={drizzle}>
+        <React.Suspense fallback={Loading}>
+          <ConnectedRouter history={history}>
+            <App/>
+          </ConnectedRouter>
+        </React.Suspense>
+      </DrizzleContext.Provider>
+    </Provider>
+  </PersistGate>,
   document.getElementById('root')
 );
 
