@@ -1,0 +1,475 @@
+{
+  "fileName": "EventWatch.sol",
+  "contractName": "EventWatch",
+  "source": "pragma solidity ^0.5.0;\n\ncontract EventWatch {\n    //Creation Events\n    event NewUser(address user, bytes32 userID);\n    event SubscribeChannel(address indexed user, address indexed channel);\n    event LikeVideo(address indexed user, address indexed channel, bytes32 indexed video);\n    event NewChannel(address channel, bytes32 channelID);\n}",
+  "sourcePath": "contracts/EventWatch.sol",
+  "sourceMap": "25:318:20:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:318:20;;;;;;;",
+  "deployedSourceMap": "25:318:20:-;;;;;",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "channel",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "video",
+          "type": "bytes32"
+        }
+      ],
+      "name": "LikeVideo",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "channel",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "channelID",
+          "type": "bytes32"
+        }
+      ],
+      "name": "NewChannel",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "userID",
+          "type": "bytes32"
+        }
+      ],
+      "name": "NewUser",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "channel",
+          "type": "address"
+        }
+      ],
+      "name": "SubscribeChannel",
+      "type": "event"
+    }
+  ],
+  "ast": {
+    "absolutePath": "contracts/EventWatch.sol",
+    "exportedSymbols": {
+      "EventWatch": [
+        2676
+      ]
+    },
+    "id": 2677,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2649,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:20"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2676,
+        "linearizedBaseContracts": [
+          2676
+        ],
+        "name": "EventWatch",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 2655,
+            "name": "NewUser",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 2654,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2651,
+                  "indexed": false,
+                  "name": "user",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2655,
+                  "src": "87:12:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2650,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "87:7:20",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2653,
+                  "indexed": false,
+                  "name": "userID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2655,
+                  "src": "101:14:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2652,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "101:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "86:30:20"
+            },
+            "src": "73:44:20"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 2661,
+            "name": "SubscribeChannel",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 2660,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2657,
+                  "indexed": true,
+                  "name": "user",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2661,
+                  "src": "145:20:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2656,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "145:7:20",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2659,
+                  "indexed": true,
+                  "name": "channel",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2661,
+                  "src": "167:23:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2658,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "167:7:20",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "144:47:20"
+            },
+            "src": "122:70:20"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 2669,
+            "name": "LikeVideo",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 2668,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2663,
+                  "indexed": true,
+                  "name": "user",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2669,
+                  "src": "213:20:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2662,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "213:7:20",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2665,
+                  "indexed": true,
+                  "name": "channel",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2669,
+                  "src": "235:23:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2664,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "235:7:20",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2667,
+                  "indexed": true,
+                  "name": "video",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2669,
+                  "src": "260:21:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2666,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "260:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "212:70:20"
+            },
+            "src": "197:86:20"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 2675,
+            "name": "NewChannel",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 2674,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2671,
+                  "indexed": false,
+                  "name": "channel",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2675,
+                  "src": "305:15:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2670,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "305:7:20",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2673,
+                  "indexed": false,
+                  "name": "channelID",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2675,
+                  "src": "322:17:20",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 2672,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "322:7:20",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "304:36:20"
+            },
+            "src": "288:53:20"
+          }
+        ],
+        "scope": 2677,
+        "src": "25:318:20"
+      }
+    ],
+    "src": "0:343:20"
+  },
+  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a72315820c9eff97341877100407f1e8d3d459c28e8843356aecc0c65b5eccc384209a1c364736f6c63430005100032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a72315820c9eff97341877100407f1e8d3d459c28e8843356aecc0c65b5eccc384209a1c364736f6c63430005100032",
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang",
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "evmVersion": "petersburg"
+  },
+  "networks": {
+    "3": {
+      "address": "0x1b373314f3dcdb892b77fb7491aaca08f61e424a",
+      "events": {
+        "0xc9ecad6eae30b69c2e49bd1e68726ae8e5fa2b62ca116cb070225cccba5b3719": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "userID",
+              "type": "bytes32"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
