@@ -21,8 +21,9 @@ class ConnectModal extends Component {
     this.connectTwitch = this.connectTwitch.bind(this);
   }
 
-  connectTwitch = (event) => {
-    authTwitch();
+  connectTwitch = async (event) => {
+    var result = await authTwitch();
+    console.log(result);
     this.setState({connectTWI: !this.state.connectTWI })
   }
 
