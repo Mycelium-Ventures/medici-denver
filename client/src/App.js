@@ -1,21 +1,22 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import _ from 'lodash';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header";
-import { DrizzleContext } from "@drizzle/react-plugin"
 
-import drizzle from "./store"
+import { connect } from 'react-redux'
 
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
+
 import routes from './routes'
+
+import { ActionCheckAccts } from './store/redux/profile'
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Loading...</div>
 )
 
-class App extends Component {
-
+const App = (props) => {
 
   // handleRoute = () => {
   // <Router>
@@ -29,43 +30,57 @@ class App extends Component {
   // </Router>;
   // };
 
-  render() {
-    return (
-      <div className="App body">
-        <DrizzleContext.Provider drizzle={drizzle}>
-          <HashRouter>
-            <React.Suspense fallback={loading()}>
-              <Header/>
-              {/* <SignUpModal
-                onSignUp={this.handleSignUpModal}
-                signupModal={this.state.signupModal}
-              />
-              <ConnectModal
-                onConnect={this.handleConnectModal}
-                connectModal={this.state.connectModal}
-              /> */}
-              <Switch>
-                {/* Mapping path to page/component in ./routes */}
-                {_.map(routes, (item, i) => {
-                  const props = _.omit(item, ['page', 'path', 'type']);
-                  const R = item.type || Route;
-                  return (
-                    <R
-                      path={item.path}
-                      key={i}
-                      exact={true}
-                      component={item.page}
-                      {...props}
-                    />
-                  )
-                })}
-              </Switch>
-            </React.Suspense>
-          </HashRouter>
-        </DrizzleContext.Provider>
-      </div>
-    );
+  // const showConnect = !props.profile.youtubeLinked
+
+  /*
+  ******************************************************************
+  * We always check web3 on startup to see if there are connected
+  * accounts
+  ******************************************************************
+   */
+  useEffect(() => {
+    props.dispatch(ActionCheckAccts())
+  }, [])
+
+  if (!props.profile.ready){
+    return loading()
   }
+
+  return (
+    <div className="App body">
+      <React.Suspense fallback={loading()}>
+        <Header/>
+        {/* <SignUpModal
+          onSignUp={this.handleSignUpModal}
+          signupModal={this.state.signupModal}
+        />
+        */}
+        <Switch>
+          {/* Mapping path to page/component in ./routes */}
+          {_.map(routes, (item, i) => {
+            const props = _.omit(item, ['page', 'path', 'type']);
+            const R = item.type || Route;
+            return (
+              <R
+                path={item.path}
+                key={i}
+                exact={true}
+                component={item.page}
+                {...props}
+              />
+            )
+          })}
+        </Switch>
+      </React.Suspense>
+    </div>
+  );
+
 }
 
-export default App;
+// this gets spread directly on props
+// if this result changes there will be a re-render as well
+const mapStateToProps = (state) => {
+  return {profile: state.reducers.profile}
+}
+
+export default connect(mapStateToProps)(App)
