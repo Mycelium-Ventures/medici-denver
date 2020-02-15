@@ -47,6 +47,7 @@ export const ActionCheckAccts = () => {
     }
     */
 
+    // we are always calling Fortmatic now
     if (state.reducers.profile.ethAddress === null){
       const ethAddress = await fmWeb3.currentProvider.enable()
 
@@ -57,9 +58,11 @@ export const ActionCheckAccts = () => {
     }
 
     // TODO: check redux for connected Twitch
+    /*
     await new Promise((resolve) => {
-      setTimeout(() => resolve(), 3000)
+      setTimeout(() => resolve(), 500)
     })
+    */
 
     dispatch({
       type: ProfileActionTypes.READY

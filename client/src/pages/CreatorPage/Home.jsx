@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Chart from "react-highcharts";
 
+import { fmWeb3 } from '@store'
+
 class Overview extends Component {
   state = {};
 

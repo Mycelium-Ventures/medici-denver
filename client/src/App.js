@@ -13,20 +13,15 @@ import routes from './routes'
 
 import { ActionCheckAccts } from './store/redux/profile'
 
-import { DrizzleContext } from "@drizzle/react-plugin"
-import { newContextComponents } from "@drizzle/react-components"
-
-const { ContractData } = newContextComponents
-
-const loading = () => (
-  <div className="animated fadeIn pt-3 text-center">Loading...</div>
-)
+// import { DrizzleContext } from "@drizzle/react-plugin"
+// import { newContextComponents } from "@drizzle/react-components"
+// const { ContractData } = newContextComponents
 
 const App = (props) => {
 
-  const drizzleContext = useContext(DrizzleContext.Context)
+  // const drizzleContext = useContext(DrizzleContext.Context)
 
-  const { drizzle, drizzleState } = drizzleContext
+  // const { drizzle, drizzleState } = drizzleContext
 
   // handleRoute = () => {
   // <Router>
@@ -50,7 +45,7 @@ const App = (props) => {
    */
   useEffect(() => {
     props.dispatch(ActionCheckAccts())
-  }, [props.drizzleStatus.initialized])
+  }, []) // [props.drizzleInitialized])
 
   if (!props.profile.ready){
     return <Loading/>
@@ -58,13 +53,13 @@ const App = (props) => {
 
   return (
     <div className="App body">
-      <React.Suspense fallback={loading()}>
+      <React.Suspense fallback={Loading}>
         <Header/>
         {/* <SignUpModal
           onSignUp={this.handleSignUpModal}
           signupModal={this.state.signupModal}
         />
-        */}
+
         <ContractData
           drizzle={drizzle}
           drizzleState={drizzleState}
@@ -73,6 +68,7 @@ const App = (props) => {
           methodArgs={["0xc630fcA4c856a4920976F73375578189A687c031"]}
           render={data => data}
         />
+        */}
 
         <Switch>
           {/* Mapping path to page/component in ./routes */}
@@ -101,7 +97,7 @@ const App = (props) => {
 const mapStateToProps = (state) => {
   return {
     profile: state.reducers.profile,
-    drizzleStatus: state.drizzleStatus
+    // drizzleInitialized: state.drizzleStatus.initialized
   }
 }
 
