@@ -1,133 +1,52 @@
 pragma solidity ^0.5.0;
+import "./utils/EnumerableSet.sol";
+import "./utils/EnumerableSetDictionary.sol";
 
-import "./utils/EnumerableBytes32Set.sol";
-import "./utils/EnumerableAddressSet.sol";
+//Read access free
+//Write access internal
+contract ORM {
+    using EnumerableSet for EnumerableSet.Set;
+    using EnumerableSetDictionary for EnumerableSetDictionary.SetDictionary;
 
-import "./OracleExternal.sol";
+    EnumerableSetDictionary.SetDictionary internal SetClasses;
 
-contract ORM is OracleExternal {
-    using EnumerableAddressSet for EnumerableAddressSet.AddressSet;
-    using EnumerableBytes32Set for EnumerableBytes32Set.Bytes32Set;
-
-    //Creation Events
-    event NewUser(address user, bytes32 userID);
-    event NewChannel(address channel, bytes32 channelID);
-    //Interaction Events
-    event SubscribeChannel(address indexed user, address indexed channel);
-    event LikeVideo(address indexed user, address indexed channel, bytes32 indexed video);
-
-    //Sets
-    EnumerableAddressSet.AddressSet private users;
-    EnumerableAddressSet.AddressSet private channels;
-    EnumerableBytes32Set.Bytes32Set private videos;
-
-    //Base Metadata
-    mapping(address => bytes32) public UserIDs;
-    mapping(address => bytes32) public ChannelIDs;
-
-    //Relationship Mapping
-    mapping(address => EnumerableAddressSet.AddressSet) private UserSubscriptions;
-    mapping(address => EnumerableAddressSet.AddressSet) private ChannelSubscribers;
-    mapping(address => EnumerableBytes32Set.Bytes32Set) private ChannelVideos;
-    mapping(bytes32 => EnumerableAddressSet.AddressSet) private VideoLikes;
-    mapping(bytes32 => address) private VideoChannel;
-
-    //Users
-    function addUsers(address[] calldata _users, bytes32[] calldata _userIDs) external onlyAuthorizedNode {
-        require(_users.length == _userIDs.length, "Error arrays don't match");
-
-        for (uint256 i = 0; i < _users.length; i++) {
-            _addUser(_users[i], _userIDs[i]);
-        }
+    function _addSetClass(bytes32 _class) internal returns (bool) {
+        return SetClasses.addKey(_class);
     }
 
-    function addUser(address _user, bytes32 _userID) external onlyAuthorizedNode {
-        _addUser(_user, _userID);
+    function _getSetClass(bytes32 _class) internal view returns (EnumerableSet.Set storage) {
+        return SetClasses.getValueForKey(_class);
     }
 
-    function _addUser(address _user, bytes32 _userID) internal {
-        users.add(_user);
-        UserIDs[_user] = _userID;
-
-        emit NewUser(_user, _userID);
+    function _containsKey(bytes32 _class) internal view returns (bool) {
+        return SetClasses.containsKey(_class);
     }
 
-    //Channels
-    function addChannels(address[] calldata _channels, bytes32[] calldata _channelIDs) external onlyAuthorizedNode {
-        require(_channels.length == _channelIDs.length, "Error arrays don't match");
-
-        for (uint256 i = 0; i < _channels.length; i++) {
-            _addChannel(_channels[i], _channelIDs[i]);
-        }
+    function _getSetClassKeys() internal view returns (bytes32[] memory) {
+        return SetClasses.enumerateKeys();
     }
 
-    function addChannel(address _channel, bytes32 _channelID) external onlyAuthorizedNode {
-        _addChannel(_channel, _channelID);
-    }
-    function _addChannel(address _channel, bytes32 _channelID) internal {
-        channels.add(_channel);
-        ChannelIDs[_channel] = _channelID;
-
-        emit NewChannel(_channel, _channelID);
+    function _add(bytes32 _class, bytes32 _data) internal returns (bool) {
+        return _getSetClass(_class).add(_data);
     }
 
-    //Videos
-    function addVideos(address[] calldata _channels, bytes32[] calldata _videoIDs) external onlyAuthorizedNode {
-        require(_channels.length == _videoIDs.length, "Error arrays don't match");
-
-        for (uint256 i = 0; i < _channels.length; i++) {
-            _addVideo(_channels[i], _videoIDs[i]);
-        }
+    function _remove(bytes32 _class, bytes32 _data) internal returns (bool) {
+        return _getSetClass(_class).remove(_data);
     }
 
-    function _addVideo(address _channel, bytes32 _videoID) internal {
-        videos.add(_videoID);
-        VideoChannel[_videoID] = _channel;
-        ChannelVideos[_channel].add(_videoID);
+    function _contains(bytes32 _class, bytes32 _data) internal view returns (bool) {
+        return _getSetClass(_class).contains(_data);
     }
 
-
-    //Subscriptions
-    function subscribeToChannels(address[] calldata _users, address[] calldata _channels) external onlyAuthorizedNode {
-        require(_users.length == _channels.length, "Error arrays don't match");
-
-        for (uint256 i = 0; i < _users.length; i++) {
-            _subscribeToChannel(_users[i], _channels[i]);
-        }
+    function _enumerate(bytes32 _class) internal view returns (bytes32[] memory) {
+        return _getSetClass(_class).enumerate();
     }
 
-    function _subscribeToChannel(address _user, address _channel) internal {
-        UserSubscriptions[_user].add(_channel);
-        ChannelSubscribers[_channel].add(_user);
-        emit SubscribeChannel(_user, _channel);
+    function _length(bytes32 _class) internal view returns (uint256) {
+        return _getSetClass(_class).length();
     }
 
-    //Likes
-    function likeVideos(address[] calldata _users, bytes32[] calldata _videoIDs) external onlyAuthorizedNode {
-        require(_users.length == _videoIDs.length, "Error arrays don't match");
-
-        for (uint256 i = 0; i < _users.length; i++) {
-            _likeVideo(_users[i], _videoIDs[i]);
-        }
-    }
-
-    function _likeVideo(address _user, bytes32 _videoID) internal {
-        address channel = VideoChannel[_videoID];
-        require(channel != address(0), "Video does not have channel.");
-
-        VideoLikes[_videoID].add(_user);
-        emit LikeVideo(_user, channel, _videoID);
-    }
-
-
-    // Modifiers
-    modifier onlyUser() {
-        require(users.contains(msg.sender) || msg.sender == owner(), "Not an authorized user to fulfill requests");
-    _;
-    }
-
-    modifier onlyChannel() {
-        require(channels.contains(msg.sender) || msg.sender == owner(), "Not an authorized channel to fulfill requests");
-    _;
+    function _get(bytes32 _class, uint256 index) internal view returns (bytes32) {
+        return _getSetClass(_class).get(index);
     }
 }
