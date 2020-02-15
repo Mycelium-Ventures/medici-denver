@@ -4,7 +4,7 @@
   "source": "pragma solidity ^0.5.0;\n\n// Constructor for Upgradeable Contract due to Proxy architecture\nimport \"@openzeppelin/upgrades/contracts/Initializable.sol\";\nimport \"@openzeppelin/contracts-ethereum-package/contracts/ownership/Ownable.sol\";\nimport \"@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol\";\n\n/**\n * @title The Chainlink Oracle contract (OZ Upgradeable version)\n * @notice Node operators can deploy this contract to fulfill requests sent to them\n * @dev Upgradeable version of Oracle contract. Uses OpenZeppelin's Initializable, Ownable contracts.\n *      Other Chainlink interfaces are unchanged.\n */\ncontract OracleExternal is Initializable, Ownable {\n  using SafeMath for uint256;\n\n  mapping(address => bool) public authorizedNodes;\n\n  /**\n   * @notice Called by the Chainlink node to fulfill requests\n   * @dev Given params must hash back to the commitment stored from `oracleRequest`.\n   * Will call the callback address' callback function without bubbling up error\n   * checking in a `require` so that the node can get paid.\n   * @param _callbackAddress The callback address to call for fulfillment\n   * @param _callbackFunctionId The callback function ID to use for fulfillment\n   * @param _data The data to return to the consuming contract\n   * @return Status if the external call was successful\n   */\n    //0xa99fea5f\n  function fulfillExternalRequest(\n    address _callbackAddress,\n    bytes4 _callbackFunctionId,\n    bytes calldata _data\n  )\n    external\n    onlyAuthorizedNode\n    returns (bool)\n  {\n    // All updates to the oracle's fulfillment should come before calling the\n    // callback(addr+functionId) as it is untrusted.\n    // See: https://solidity.readthedocs.io/en/develop/security-considerations.html#use-the-checks-effects-interactions-pattern\n    // Replace with encodeWithSelector to avoid padding\n    (bool success,) = _callbackAddress.call(abi.encodeWithSelector(_callbackFunctionId, _data));\n    return success;\n  }\n\n  /**\n   * @notice Use this to check if a node is authorized for fulfilling requests\n   * @param _node The address of the Chainlink node\n   * @return The authorization status of the node\n   */\n  function getAuthorizationStatus(address _node) external view returns (bool) {\n    return authorizedNodes[_node];\n  }\n\n  /**\n   * @notice Sets the fulfillment permission for a given node. Use `true` to allow, `false` to disallow.\n   * @param _node The address of the Chainlink node\n   * @param _allowed Bool value to determine if the node can fulfill requests\n   */\n  function setFulfillmentPermission(address _node, bool _allowed) external onlyOwner {\n    authorizedNodes[_node] = _allowed;\n  }\n\n  /**\n   * @dev Reverts if `msg.sender` is not authorized to fulfill requests\n   */\n  modifier onlyAuthorizedNode() {\n    require(authorizedNodes[msg.sender] || msg.sender == owner(), \"Not an authorized node to fulfill requests\");\n    _;\n  }\n\n  // Reserved storage space to allow for layout changes in the future.\n  uint256[50] private ______gap;\n\n}",
   "sourcePath": "contracts/OracleExternal.sol",
   "sourceMap": "624:2387:23:-;;;;;;;;;",
-  "deployedSourceMap": "624:2387:23:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;624:2387:23;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1351:618;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1351:618:23;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;1351:618:23;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;1351:618:23;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;1351:618:23;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1746:137:7;;;:::i;:::-;;709:47:23;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;709:47:23;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;2533:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2533:127:23;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;959:77:7;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1310:92;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;741:142;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;741:142:7;;;;;;;;;;;;;;;;;;;:::i;:::-;;2166:116:23;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2166:116:23;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;2032:107:7;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2032:107:7;;;;;;;;;;;;;;;;;;;:::i;:::-;;1351:618:23;1524:4;2792:15;:27;2808:10;2792:27;;;;;;;;;;;;;;;;;;;;;;;;;:52;;;;2837:7;:5;:7::i;:::-;2823:21;;:10;:21;;;2792:52;2784:107;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1854:12;1871:16;:21;;1916:19;1937:5;;1893:50;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;1893:50:23;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;1893:50:23;;;;;;;38:4:-1;29:7;25:18;67:10;61:17;96:58;199:8;192:4;186;182:15;179:29;167:10;160:49;0:215;;;1893:50:23;1871:73;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;1871:73:23;;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;1853:91:23;;;1957:7;1950:14;;;1351:618;;;;;;:::o;1746:137:7:-;1163:9;:7;:9::i;:::-;1155:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1844:1;1807:40;;1828:6;;;;;;;;;;;1807:40;;;;;;;;;;;;1874:1;1857:6;;:19;;;;;;;;;;;;;;;;;;1746:137::o;709:47:23:-;;;;;;;;;;;;;;;;;;;;;;:::o;2533:127::-;1163:9:7;:7;:9::i;:::-;1155:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2647:8:23;2622:15;:22;2638:5;2622:22;;;;;;;;;;;;;;;;:33;;;;;;;;;;;;;;;;;;2533:127;;:::o;959:77:7:-;997:7;1023:6;;;;;;;;;;;1016:13;;959:77;:::o;1310:92::-;1350:4;1389:6;;;;;;;;;;;1373:22;;:12;:10;:12::i;:::-;:22;;;1366:29;;1310:92;:::o;741:142::-;1024:12:20;;;;;;;;;;;:31;;;;1040:15;:13;:15::i;:::-;1024:31;:47;;;;1060:11;;;;;;;;;;;1059:12;1024:47;1016:106;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1129:19;1152:12;;;;;;;;;;;1151:13;1129:35;;1174:14;1170:80;;;1213:4;1198:12;;:19;;;;;;;;;;;;;;;;;;1239:4;1225:11;;:18;;;;;;;;;;;;;;;;;;1170:80;815:6:7;806;;:15;;;;;;;;;;;;;;;;;;869:6;;;;;;;;;;;836:40;;865:1;836:40;;;;;;;;;;;;1268:14:20;1264:55;;;1307:5;1292:12;;:20;;;;;;;;;;;;;;;;;;1264:55;741:142:7;;:::o;2166:116:23:-;2236:4;2255:15;:22;2271:5;2255:22;;;;;;;;;;;;;;;;;;;;;;;;;2248:29;;2166:116;;;:::o;2032:107:7:-;1163:9;:7;:9::i;:::-;1155:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2104:28;2123:8;2104:18;:28::i;:::-;2032:107;:::o;867:96:0:-;912:15;946:10;939:17;;867:96;:::o;1409:498:20:-;1456:4;1797:12;1820:4;1797:28;;1831:10;1876:4;1864:17;1858:23;;1901:1;1895:2;:7;1888:14;;;;1409:498;:::o;2240:225:7:-;2333:1;2313:22;;:8;:22;;;;2305:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2422:8;2393:38;;2414:6;;;;;;;;;;;2393:38;;;;;;;;;;;;2450:8;2441:6;;:17;;;;;;;;;;;;;;;;;;2240:225;:::o",
+  "deployedSourceMap": "624:2387:23:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;624:2387:23;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1351:618;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1351:618:23;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;21:11:-1;8;5:28;2:2;;;46:1;43;36:12;2:2;1351:618:23;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;1351:618:23;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;1351:618:23;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1746:137:7;;;:::i;:::-;;709:47:23;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;709:47:23;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;2533:127;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2533:127:23;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;959:77:7;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1310:92;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;741:142;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;741:142:7;;;;;;;;;;;;;;;;;;;:::i;:::-;;2166:116:23;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2166:116:23;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;2032:107:7;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2032:107:7;;;;;;;;;;;;;;;;;;;:::i;:::-;;1351:618:23;1524:4;2792:15;:27;2808:10;2792:27;;;;;;;;;;;;;;;;;;;;;;;;;:52;;;;2837:7;:5;:7::i;:::-;2823:21;;:10;:21;;;2792:52;2784:107;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1854:12;1871:16;:21;;1916:19;1937:5;;1893:50;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;1893:50:23;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;1893:50:23;;;;;;;38:4:-1;29:7;25:18;67:10;61:17;96:58;199:8;192:4;186;182:15;179:29;167:10;160:49;0:215;;;1893:50:23;1871:73;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;1871:73:23;;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;1853:91:23;;;1957:7;1950:14;;;1351:618;;;;;;:::o;1746:137:7:-;1163:9;:7;:9::i;:::-;1155:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1844:1;1807:40;;1828:6;;;;;;;;;;;1807:40;;;;;;;;;;;;1874:1;1857:6;;:19;;;;;;;;;;;;;;;;;;1746:137::o;709:47:23:-;;;;;;;;;;;;;;;;;;;;;;:::o;2533:127::-;1163:9:7;:7;:9::i;:::-;1155:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2647:8:23;2622:15;:22;2638:5;2622:22;;;;;;;;;;;;;;;;:33;;;;;;;;;;;;;;;;;;2533:127;;:::o;959:77:7:-;997:7;1023:6;;;;;;;;;;;1016:13;;959:77;:::o;1310:92::-;1350:4;1389:6;;;;;;;;;;;1373:22;;:12;:10;:12::i;:::-;:22;;;1366:29;;1310:92;:::o;741:142::-;1024:12:19;;;;;;;;;;;:31;;;;1040:15;:13;:15::i;:::-;1024:31;:47;;;;1060:11;;;;;;;;;;;1059:12;1024:47;1016:106;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1129:19;1152:12;;;;;;;;;;;1151:13;1129:35;;1174:14;1170:80;;;1213:4;1198:12;;:19;;;;;;;;;;;;;;;;;;1239:4;1225:11;;:18;;;;;;;;;;;;;;;;;;1170:80;815:6:7;806;;:15;;;;;;;;;;;;;;;;;;869:6;;;;;;;;;;;836:40;;865:1;836:40;;;;;;;;;;;;1268:14:19;1264:55;;;1307:5;1292:12;;:20;;;;;;;;;;;;;;;;;;1264:55;741:142:7;;:::o;2166:116:23:-;2236:4;2255:15;:22;2271:5;2255:22;;;;;;;;;;;;;;;;;;;;;;;;;2248:29;;2166:116;;;:::o;2032:107:7:-;1163:9;:7;:9::i;:::-;1155:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2104:28;2123:8;2104:18;:28::i;:::-;2032:107;:::o;867:96:0:-;912:15;946:10;939:17;;867:96;:::o;1409:498:19:-;1456:4;1797:12;1820:4;1797:28;;1831:10;1876:4;1864:17;1858:23;;1901:1;1895:2;:7;1888:14;;;;1409:498;:::o;2240:225:7:-;2333:1;2313:22;;:8;:22;;;;2305:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2422:8;2393:38;;2414:6;;;;;;;;;;;2393:38;;;;;;;;;;;;2450:8;2441:6;;:17;;;;;;;;;;;;;;;;;;2240:225;:::o",
   "abi": [
     {
       "anonymous": false,
@@ -192,14 +192,14 @@
     "absolutePath": "contracts/OracleExternal.sol",
     "exportedSymbols": {
       "OracleExternal": [
-        3421
+        3056
       ]
     },
-    "id": 3422,
+    "id": 3057,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3329,
+        "id": 2964,
         "literals": [
           "solidity",
           "^",
@@ -212,10 +212,10 @@
       {
         "absolutePath": "@openzeppelin/upgrades/contracts/Initializable.sol",
         "file": "@openzeppelin/upgrades/contracts/Initializable.sol",
-        "id": 3330,
+        "id": 2965,
         "nodeType": "ImportDirective",
-        "scope": 3422,
-        "sourceUnit": 2863,
+        "scope": 3057,
+        "sourceUnit": 2648,
         "src": "91:60:23",
         "symbolAliases": [],
         "unitAlias": ""
@@ -223,9 +223,9 @@
       {
         "absolutePath": "@openzeppelin/contracts-ethereum-package/contracts/ownership/Ownable.sol",
         "file": "@openzeppelin/contracts-ethereum-package/contracts/ownership/Ownable.sol",
-        "id": 3331,
+        "id": 2966,
         "nodeType": "ImportDirective",
-        "scope": 3422,
+        "scope": 3057,
         "sourceUnit": 665,
         "src": "152:82:23",
         "symbolAliases": [],
@@ -234,9 +234,9 @@
       {
         "absolutePath": "@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol",
         "file": "@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol",
-        "id": 3332,
+        "id": 2967,
         "nodeType": "ImportDirective",
-        "scope": 3422,
+        "scope": 3057,
         "sourceUnit": 541,
         "src": "235:78:23",
         "symbolAliases": [],
@@ -248,17 +248,17 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 3333,
+              "id": 2968,
               "name": "Initializable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2862,
+              "referencedDeclaration": 2647,
               "src": "651:13:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Initializable_$2862",
+                "typeIdentifier": "t_contract$_Initializable_$2647",
                 "typeString": "contract Initializable"
               }
             },
-            "id": 3334,
+            "id": 2969,
             "nodeType": "InheritanceSpecifier",
             "src": "651:13:23"
           },
@@ -266,7 +266,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 3335,
+              "id": 2970,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 664,
@@ -276,7 +276,7 @@
                 "typeString": "contract Ownable"
               }
             },
-            "id": 3336,
+            "id": 2971,
             "nodeType": "InheritanceSpecifier",
             "src": "666:7:23"
           }
@@ -284,26 +284,26 @@
         "contractDependencies": [
           29,
           664,
-          2862
+          2647
         ],
         "contractKind": "contract",
         "documentation": "@title The Chainlink Oracle contract (OZ Upgradeable version)\n@notice Node operators can deploy this contract to fulfill requests sent to them\n@dev Upgradeable version of Oracle contract. Uses OpenZeppelin's Initializable, Ownable contracts.\n     Other Chainlink interfaces are unchanged.",
         "fullyImplemented": true,
-        "id": 3421,
+        "id": 3056,
         "linearizedBaseContracts": [
-          3421,
+          3056,
           664,
           29,
-          2862
+          2647
         ],
         "name": "OracleExternal",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 3339,
+            "id": 2974,
             "libraryName": {
               "contractScope": null,
-              "id": 3337,
+              "id": 2972,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 540,
@@ -316,7 +316,7 @@
             "nodeType": "UsingForDirective",
             "src": "678:27:23",
             "typeName": {
-              "id": 3338,
+              "id": 2973,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "697:7:23",
@@ -328,10 +328,10 @@
           },
           {
             "constant": false,
-            "id": 3343,
+            "id": 2978,
             "name": "authorizedNodes",
             "nodeType": "VariableDeclaration",
-            "scope": 3421,
+            "scope": 3056,
             "src": "709:47:23",
             "stateVariable": true,
             "storageLocation": "default",
@@ -340,9 +340,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 3342,
+              "id": 2977,
               "keyType": {
-                "id": 3340,
+                "id": 2975,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "717:7:23",
@@ -358,7 +358,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 3341,
+                "id": 2976,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "728:4:23",
@@ -373,22 +373,22 @@
           },
           {
             "body": {
-              "id": 3369,
+              "id": 3004,
               "nodeType": "Block",
               "src": "1532:437:23",
               "statements": [
                 {
                   "assignments": [
-                    3357,
+                    2992,
                     null
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3357,
+                      "id": 2992,
                       "name": "success",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3369,
+                      "scope": 3004,
                       "src": "1854:12:23",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -397,7 +397,7 @@
                         "typeString": "bool"
                       },
                       "typeName": {
-                        "id": 3356,
+                        "id": 2991,
                         "name": "bool",
                         "nodeType": "ElementaryTypeName",
                         "src": "1854:4:23",
@@ -411,7 +411,7 @@
                     },
                     null
                   ],
-                  "id": 3366,
+                  "id": 3001,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
@@ -420,11 +420,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 3362,
+                            "id": 2997,
                             "name": "_callbackFunctionId",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3347,
+                            "referencedDeclaration": 2982,
                             "src": "1916:19:23",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes4",
@@ -433,11 +433,11 @@
                           },
                           {
                             "argumentTypes": null,
-                            "id": 3363,
+                            "id": 2998,
                             "name": "_data",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3349,
+                            "referencedDeclaration": 2984,
                             "src": "1937:5:23",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes_calldata_ptr",
@@ -458,18 +458,18 @@
                           ],
                           "expression": {
                             "argumentTypes": null,
-                            "id": 3360,
+                            "id": 2995,
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4303,
+                            "referencedDeclaration": 4414,
                             "src": "1893:3:23",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
                               "typeString": "abi"
                             }
                           },
-                          "id": 3361,
+                          "id": 2996,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -483,7 +483,7 @@
                             "typeString": "function (bytes4) pure returns (bytes memory)"
                           }
                         },
-                        "id": 3364,
+                        "id": 2999,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -507,18 +507,18 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 3358,
+                        "id": 2993,
                         "name": "_callbackAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3345,
+                        "referencedDeclaration": 2980,
                         "src": "1871:16:23",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         }
                       },
-                      "id": 3359,
+                      "id": 2994,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -532,7 +532,7 @@
                         "typeString": "function (bytes memory) payable returns (bool,bytes memory)"
                       }
                     },
-                    "id": 3365,
+                    "id": 3000,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -552,39 +552,39 @@
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 3367,
+                    "id": 3002,
                     "name": "success",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 3357,
+                    "referencedDeclaration": 2992,
                     "src": "1957:7:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 3355,
-                  "id": 3368,
+                  "functionReturnParameters": 2990,
+                  "id": 3003,
                   "nodeType": "Return",
                   "src": "1950:14:23"
                 }
               ]
             },
             "documentation": "@notice Called by the Chainlink node to fulfill requests\n@dev Given params must hash back to the commitment stored from `oracleRequest`.\nWill call the callback address' callback function without bubbling up error\nchecking in a `require` so that the node can get paid.\n@param _callbackAddress The callback address to call for fulfillment\n@param _callbackFunctionId The callback function ID to use for fulfillment\n@param _data The data to return to the consuming contract\n@return Status if the external call was successful",
-            "id": 3370,
+            "id": 3005,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 3352,
+                "id": 2987,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 3351,
+                  "id": 2986,
                   "name": "onlyAuthorizedNode",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 3416,
+                  "referencedDeclaration": 3051,
                   "src": "1492:18:23",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -598,15 +598,15 @@
             "name": "fulfillExternalRequest",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3350,
+              "id": 2985,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3345,
+                  "id": 2980,
                   "name": "_callbackAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3370,
+                  "scope": 3005,
                   "src": "1388:24:23",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -615,7 +615,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3344,
+                    "id": 2979,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1388:7:23",
@@ -630,10 +630,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 3347,
+                  "id": 2982,
                   "name": "_callbackFunctionId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3370,
+                  "scope": 3005,
                   "src": "1418:26:23",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -642,7 +642,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 3346,
+                    "id": 2981,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "1418:6:23",
@@ -656,10 +656,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 3349,
+                  "id": 2984,
                   "name": "_data",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3370,
+                  "scope": 3005,
                   "src": "1450:20:23",
                   "stateVariable": false,
                   "storageLocation": "calldata",
@@ -668,7 +668,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 3348,
+                    "id": 2983,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "1450:5:23",
@@ -684,15 +684,15 @@
               "src": "1382:92:23"
             },
             "returnParameters": {
-              "id": 3355,
+              "id": 2990,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3354,
+                  "id": 2989,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3370,
+                  "scope": 3005,
                   "src": "1524:4:23",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -701,7 +701,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3353,
+                    "id": 2988,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "1524:4:23",
@@ -716,7 +716,7 @@
               ],
               "src": "1523:6:23"
             },
-            "scope": 3421,
+            "scope": 3056,
             "src": "1351:618:23",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -724,7 +724,7 @@
           },
           {
             "body": {
-              "id": 3381,
+              "id": 3016,
               "nodeType": "Block",
               "src": "2242:40:23",
               "statements": [
@@ -733,25 +733,25 @@
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 3377,
+                      "id": 3012,
                       "name": "authorizedNodes",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3343,
+                      "referencedDeclaration": 2978,
                       "src": "2255:15:23",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                         "typeString": "mapping(address => bool)"
                       }
                     },
-                    "id": 3379,
+                    "id": 3014,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 3378,
+                      "id": 3013,
                       "name": "_node",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3372,
+                      "referencedDeclaration": 3007,
                       "src": "2271:5:23",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -769,30 +769,30 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 3376,
-                  "id": 3380,
+                  "functionReturnParameters": 3011,
+                  "id": 3015,
                   "nodeType": "Return",
                   "src": "2248:29:23"
                 }
               ]
             },
             "documentation": "@notice Use this to check if a node is authorized for fulfilling requests\n@param _node The address of the Chainlink node\n@return The authorization status of the node",
-            "id": 3382,
+            "id": 3017,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getAuthorizationStatus",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3373,
+              "id": 3008,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3372,
+                  "id": 3007,
                   "name": "_node",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3382,
+                  "scope": 3017,
                   "src": "2198:13:23",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -801,7 +801,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3371,
+                    "id": 3006,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2198:7:23",
@@ -818,15 +818,15 @@
               "src": "2197:15:23"
             },
             "returnParameters": {
-              "id": 3376,
+              "id": 3011,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3375,
+                  "id": 3010,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3382,
+                  "scope": 3017,
                   "src": "2236:4:23",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -835,7 +835,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3374,
+                    "id": 3009,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "2236:4:23",
@@ -850,7 +850,7 @@
               ],
               "src": "2235:6:23"
             },
-            "scope": 3421,
+            "scope": 3056,
             "src": "2166:116:23",
             "stateMutability": "view",
             "superFunction": null,
@@ -858,14 +858,14 @@
           },
           {
             "body": {
-              "id": 3397,
+              "id": 3032,
               "nodeType": "Block",
               "src": "2616:44:23",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 3395,
+                    "id": 3030,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -874,25 +874,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 3391,
+                        "id": 3026,
                         "name": "authorizedNodes",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3343,
+                        "referencedDeclaration": 2978,
                         "src": "2622:15:23",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 3393,
+                      "id": 3028,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 3392,
+                        "id": 3027,
                         "name": "_node",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3384,
+                        "referencedDeclaration": 3019,
                         "src": "2638:5:23",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -914,11 +914,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 3394,
+                      "id": 3029,
                       "name": "_allowed",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3386,
+                      "referencedDeclaration": 3021,
                       "src": "2647:8:23",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -931,23 +931,23 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 3396,
+                  "id": 3031,
                   "nodeType": "ExpressionStatement",
                   "src": "2622:33:23"
                 }
               ]
             },
             "documentation": "@notice Sets the fulfillment permission for a given node. Use `true` to allow, `false` to disallow.\n@param _node The address of the Chainlink node\n@param _allowed Bool value to determine if the node can fulfill requests",
-            "id": 3398,
+            "id": 3033,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 3389,
+                "id": 3024,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 3388,
+                  "id": 3023,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
@@ -965,15 +965,15 @@
             "name": "setFulfillmentPermission",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3387,
+              "id": 3022,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3384,
+                  "id": 3019,
                   "name": "_node",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3398,
+                  "scope": 3033,
                   "src": "2567:13:23",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -982,7 +982,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3383,
+                    "id": 3018,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2567:7:23",
@@ -997,10 +997,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 3386,
+                  "id": 3021,
                   "name": "_allowed",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3398,
+                  "scope": 3033,
                   "src": "2582:13:23",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1009,7 +1009,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3385,
+                    "id": 3020,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "2582:4:23",
@@ -1025,12 +1025,12 @@
               "src": "2566:30:23"
             },
             "returnParameters": {
-              "id": 3390,
+              "id": 3025,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2616:0:23"
             },
-            "scope": 3421,
+            "scope": 3056,
             "src": "2533:127:23",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1038,7 +1038,7 @@
           },
           {
             "body": {
-              "id": 3415,
+              "id": 3050,
               "nodeType": "Block",
               "src": "2778:125:23",
               "statements": [
@@ -1052,7 +1052,7 @@
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
                         },
-                        "id": 3410,
+                        "id": 3045,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1061,34 +1061,34 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 3401,
+                            "id": 3036,
                             "name": "authorizedNodes",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3343,
+                            "referencedDeclaration": 2978,
                             "src": "2792:15:23",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                               "typeString": "mapping(address => bool)"
                             }
                           },
-                          "id": 3404,
+                          "id": 3039,
                           "indexExpression": {
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 3402,
+                              "id": 3037,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 4316,
+                              "referencedDeclaration": 4427,
                               "src": "2808:3:23",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 3403,
+                            "id": 3038,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1121,7 +1121,7 @@
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           },
-                          "id": 3409,
+                          "id": 3044,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1130,18 +1130,18 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 3405,
+                              "id": 3040,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 4316,
+                              "referencedDeclaration": 4427,
                               "src": "2823:3:23",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 3406,
+                            "id": 3041,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1162,7 +1162,7 @@
                             "arguments": [],
                             "expression": {
                               "argumentTypes": [],
-                              "id": 3407,
+                              "id": 3042,
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
@@ -1173,7 +1173,7 @@
                                 "typeString": "function () view returns (address)"
                               }
                             },
-                            "id": 3408,
+                            "id": 3043,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1202,7 +1202,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "4e6f7420616e20617574686f72697a6564206e6f646520746f2066756c66696c6c207265717565737473",
-                        "id": 3411,
+                        "id": 3046,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1229,21 +1229,21 @@
                           "typeString": "literal_string \"Not an authorized node to fulfill requests\""
                         }
                       ],
-                      "id": 3400,
+                      "id": 3035,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4319,
-                        4320
+                        4430,
+                        4431
                       ],
-                      "referencedDeclaration": 4320,
+                      "referencedDeclaration": 4431,
                       "src": "2784:7:23",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 3412,
+                    "id": 3047,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1257,23 +1257,23 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3413,
+                  "id": 3048,
                   "nodeType": "ExpressionStatement",
                   "src": "2784:107:23"
                 },
                 {
-                  "id": 3414,
+                  "id": 3049,
                   "nodeType": "PlaceholderStatement",
                   "src": "2897:1:23"
                 }
               ]
             },
             "documentation": "@dev Reverts if `msg.sender` is not authorized to fulfill requests",
-            "id": 3416,
+            "id": 3051,
             "name": "onlyAuthorizedNode",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 3399,
+              "id": 3034,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2775:2:23"
@@ -1283,10 +1283,10 @@
           },
           {
             "constant": false,
-            "id": 3420,
+            "id": 3055,
             "name": "______gap",
             "nodeType": "VariableDeclaration",
-            "scope": 3421,
+            "scope": 3056,
             "src": "2978:29:23",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1296,7 +1296,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3417,
+                "id": 3052,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "2978:7:23",
@@ -1305,11 +1305,11 @@
                   "typeString": "uint256"
                 }
               },
-              "id": 3419,
+              "id": 3054,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "3530",
-                "id": 3418,
+                "id": 3053,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
@@ -1335,7 +1335,7 @@
             "visibility": "private"
           }
         ],
-        "scope": 3422,
+        "scope": 3057,
         "src": "624:2387:23"
       }
     ],
