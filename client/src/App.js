@@ -76,6 +76,7 @@ const App = (props) => {
       <React.Suspense fallback={Loading}>
         <Header/>
         <ConnectModal
+          welcome={true}
           connectModal={connect}
           onConnect={setConnect}
         />
