@@ -7,7 +7,7 @@ import ConnectModal from './ConnectModal'
 const Header = (props) => {
 
   // default this to true if we're not linked
-  const [showConnect, setShowConnect] = useState(false) // !props.profile.twitchLinked && !props.profile.ytLinked)
+  const [connect, setConnect] = useState(false) // !props.profile.twitchLinked && !props.profile.ytLinked)
 
   // console.log(props.router)
 
@@ -26,13 +26,13 @@ const Header = (props) => {
           </Link>
         </li>
         <li className="nav-item login-btn">
-          <button onClick={() => setShowConnect(true)}>Connected Accounts</button>
+          <button onClick={() => setConnect(true)}>Connected Accounts</button>
         </li>
       </ul>
       <ConnectModal
-        closeModal={() => setShowConnect(false)}
-        connectModal={showConnect}
-      />
+        connectModal={connect}
+        onConnect={setConnect}
+        />
     </nav>
   );
 }
