@@ -5,7 +5,7 @@
 .body {
   background-color: #1e0338;
   overflow: hidden;
-  /* height: 100vh; */
+  height: 100vh;
 }
 
 .App-logo {
@@ -332,4 +332,48 @@
 
 .nav-header .login-btn {
   margin-top: 5px !important;
+}
+
+/*
+Home page
+*/
+.home-points {
+  color: white;
+  font-size: 15px;
+}
+
+.home-points strong {
+  font-size: 22px;
+  color: #FAA9C6;
+}
+
+.home-points-increase {
+  color: #1CD1A1
+}
+
+.home-points-increase strong{
+  color: #1CD1A1;
+  font-size: 22px;
+}
+
+/* .graph-tooltip {
+  text-align: center;
+}
+
+.graph-tooltip hr {
+  border: 1px solid grey;  
+}
+
+.graph-tooltip b{
+  color: green;
+} */
+
+.tool-tip {
+  text-align: center;
+  font-size: 14px;
+  line-height: 0.8;
+}
+
+.green-text {
+  color: green;
 }
