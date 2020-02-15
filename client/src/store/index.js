@@ -5,7 +5,7 @@ import { contractEventNotifier, contractAddNotifier } from "../middleware"
 // import onChange from "./onchange"
 
 import { reducers } from "./reducers.js"
-import contractMetadataReducer from "./reducers/contractMetadataReducer"
+// import contractMetadataReducer from "./reducers/contractMetadataReducer"
 
 // Load saved Web3 contracts
 const persistedState = loadLocalStorage("state")
