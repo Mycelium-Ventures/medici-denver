@@ -1,0 +1,42 @@
+{
+    "initiators": [
+        {
+            "type": "web"
+        }
+    ],
+    "tasks": [
+        {
+            "type": "randomAddressID",
+            "confirmations": null,
+            "params": {}
+        },
+        {
+            "type": "encodeFunctionCall",
+            "params": {
+                "jsonInterface": {
+                    "name": "addUser",
+                    "type": "function",
+                    "inputs": [
+                        {
+                            "type": "address",
+                            "name": "_user"
+                        },
+                        {
+                            "type": "bytes32",
+                            "name": "_userID"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "ethtx2",
+            "confirmations": null,
+            "params": {
+                "address": "0x1B373314F3dCDB892b77FB7491aAca08f61e424a"
+            }
+        }
+    ],
+    "startAt": null,
+    "endAt": null
+}

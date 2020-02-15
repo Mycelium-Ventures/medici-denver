@@ -103,6 +103,18 @@ functions:
       - http:
           path: encodeFunctionCall
           method: post
+  randomAddressAddress:
+    handler: handler.randomAddressAddress
+    events:
+      - http:
+          path: randomAddressAddress
+          method: post
+  randomAddressID:
+    handler: handler.randomAddressID
+    events:
+      - http:
+          path: randomAddressID
+          method: post
 
 plugins:
   - serverless-offline

@@ -13,15 +13,15 @@ pragma solidity ^0.5.0;
  *
  * As of v2.5.0, only `bytes32` sets are supported.
  *
- * Include with `using EnumerableSet for EnumerableSet.Bytes32Set;`.
+ * Include with `using EnumerableSet for EnumerableSet.Set;`.
  *
  * _Available since v2.5.0._
  *
  * @author Alberto Cuesta Cañada
  */
-library EnumerableBytes32Set {
+library EnumerableSet {
 
-    struct Bytes32Set {
+    struct Set {
         // Position of the value in the `values` array, plus 1 because index 0
         // means a value is not in the set.
         mapping (bytes32 => uint256) index;
@@ -32,7 +32,7 @@ library EnumerableBytes32Set {
      * @dev Add a value to a set. O(1).
      * Returns false if the value was already in the set.
      */
-    function add(Bytes32Set storage set, bytes32 value)
+    function add(Set storage set, bytes32 value)
         internal
         returns (bool)
     {
@@ -48,7 +48,7 @@ library EnumerableBytes32Set {
      * @dev Removes a value from a set. O(1).
      * Returns false if the value was not present in the set.
      */
-    function remove(Bytes32Set storage set, bytes32 value)
+    function remove(Set storage set, bytes32 value)
         internal
         returns (bool)
     {
@@ -81,7 +81,7 @@ library EnumerableBytes32Set {
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
-    function contains(Bytes32Set storage set, bytes32 value)
+    function contains(Set storage set, bytes32 value)
         internal
         view
         returns (bool)
@@ -97,7 +97,7 @@ library EnumerableBytes32Set {
      * WARNING: This function may run out of gas on large sets: use {length} and
      * {get} instead in these cases.
      */
-    function enumerate(Bytes32Set storage set)
+    function enumerate(Set storage set)
         internal
         view
         returns (bytes32[] memory)
@@ -112,7 +112,7 @@ library EnumerableBytes32Set {
     /**
      * @dev Returns the number of elements on the set. O(1).
      */
-    function length(Bytes32Set storage set)
+    function length(Set storage set)
         internal
         view
         returns (uint256)
@@ -128,7 +128,7 @@ library EnumerableBytes32Set {
     *
     * - `index` must be strictly less than {length}.
     */
-    function get(Bytes32Set storage set, uint256 index)
+    function get(Set storage set, uint256 index)
         internal
         view
         returns (bytes32)
