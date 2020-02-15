@@ -2427,9 +2427,50 @@
   "networks": {
     "3": {
       "links": {},
-      "events": {},
       "address": "0x737B262BFcD16A11dF2F3A681fDf15218Ef6eC20",
-      "updated_at": 1581794281266
+      "updated_at": 1581794281266,
+      "events": {
+        "0xa8c762fae9757a7aefaa4d2026c9b16af3b1265f3374ed7a689d0336795ee27c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_table",
+              "type": "bytes32"
+            }
+          ]
+        },
+        "0x060df603306baa87050778b5ce94a1a38056c1ac5b1a7df3ee860c699662731b": {
+            "anonymous": false,
+            "inputs": [
+                {
+                "indexed": true,
+                "name": "_table",
+                "type": "bytes32"
+                },
+                {
+                "indexed": true,
+                "name": "_row",
+                "type": "bytes32"
+                }
+            ]
+        },
+        "c5d91f356cea4a2933ed9f78ec87b4f91a05986ee2a3154f0bd20bfad9d1b3b8": {
+            "anonymous": false,
+            "inputs": [
+                {
+                "indexed": true,
+                "name": "_table",
+                "type": "bytes32"
+                },
+                {
+                "indexed": true,
+                "name": "_row",
+                "type": "bytes32"
+                }
+            ]
+        }
+      }
     }
   }
 }

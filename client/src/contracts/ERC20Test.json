@@ -370,14 +370,14 @@
     "absolutePath": "contracts/token/ERC20Test.sol",
     "exportedSymbols": {
       "ERC20Test": [
-        3699
+        3728
       ]
     },
-    "id": 3700,
+    "id": 3729,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3695,
+        "id": 3724,
         "literals": [
           "solidity",
           "^",
@@ -390,9 +390,9 @@
       {
         "absolutePath": "@openzeppelin/contracts-ethereum-package/contracts/token/ERC20/ERC20Mintable.sol",
         "file": "@openzeppelin/contracts-ethereum-package/contracts/token/ERC20/ERC20Mintable.sol",
-        "id": 3696,
+        "id": 3725,
         "nodeType": "ImportDirective",
-        "scope": 3700,
+        "scope": 3729,
         "sourceUnit": 1126,
         "src": "26:90:27",
         "symbolAliases": [],
@@ -404,7 +404,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 3697,
+              "id": 3726,
               "name": "ERC20Mintable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 1125,
@@ -414,7 +414,7 @@
                 "typeString": "contract ERC20Mintable"
               }
             },
-            "id": 3698,
+            "id": 3727,
             "nodeType": "InheritanceSpecifier",
             "src": "140:13:27"
           }
@@ -430,9 +430,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 3699,
+        "id": 3728,
         "linearizedBaseContracts": [
-          3699,
+          3728,
           1125,
           233,
           1076,
@@ -443,7 +443,7 @@
         "name": "ERC20Test",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 3700,
+        "scope": 3729,
         "src": "118:40:27"
       }
     ],
@@ -459,10 +459,5 @@
       "runs": 200
     },
     "evmVersion": "petersburg"
-  },
-  "networks": {
-    "3": {
-      "address": "0x5cd0065D3fb758b8516C53308dE448023a2512f7"
-    }
   }
 }
