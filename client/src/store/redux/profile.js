@@ -23,6 +23,7 @@ const initialState = {
   ready: false,
   loading: true,
   ethAddress: null,
+  twitchId: null,
   twitchLinked: false,
   ytLinked: false,
   did: null,

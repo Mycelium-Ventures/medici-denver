@@ -10,6 +10,9 @@ const options = (provider) => ({
     }
   },
   contracts: [ERC20Test, EventWatch],
+  events: {
+    EventWatch: ["0xc9ecad6eae30b69c2e49bd1e68726ae8e5fa2b62ca116cb070225cccba5b3719"]
+  },
   polls: {
     accounts: 1500
   }

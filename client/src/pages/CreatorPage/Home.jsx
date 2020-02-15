@@ -1,35 +1,41 @@
-import React, { setState, setEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "react-highcharts";
 import { fmWeb3 } from '../../store'
-
+import numeral from 'numeral'
 import ERC20Test from "../../contracts/ERC20Test.json"
 
-const fromAddress = '0xc630fcA4c856a4920976F73375578189A687c031'
-const toAddress = '0xfEB943725Ed070e8D5645736484Ba6494dcBA31a'
-const contractAddress = '0x5cd0065D3fb758b8516C53308dE448023a2512f7';
 
 const Overview = (props) => {
 
+  const fromAddress = '0xc630fcA4c856a4920976F73375578189A687c031'
+  const toAddress = '0xfEB943725Ed070e8D5645736484Ba6494dcBA31a'
+  const contractAddress = '0x5cd0065D3fb758b8516C53308dE448023a2512f7'
+
   const contractInstance = new fmWeb3.eth.Contract(ERC20Test.abi, contractAddress)
 
-  // const [balance, setBalance] = setState(0)
+  const [balance, setBalance] = useState(0)
 
   /*
   // send ETH20 test
   contractInstance.methods.transfer(toAddress, 5).send({from: '0xc630fcA4c856a4920976F73375578189A687c031'}, (err, res) => {
     console.log(err, res)
   })
+  */
 
-
-  setEffect(() => {
+  useEffect(() => {
 
     contractInstance.methods.balanceOf(fromAddress).call((err, res) => {
-      console.log(err, res)
+      if (err){
+        console.error(err)
+        return
+      }
+
+      setBalance(res)
     })
 
   }, [])
 
-   */
+
 
 
   var data = [[1220832000000, 800], [1220918400000, 980], [1221004800000, 1400], [1221091200000, 1100], [1221177600000, 1900], [1221436800000, 1400], [1221523200000, 1200], [1221609600000, 800], [1221696000000, 950], [1221782400000, 1300], [1222041600000, 1400], [1222128000000, 1550], [1222214400000, 1700]];
@@ -107,7 +113,7 @@ const Overview = (props) => {
           <h6>Your Platform Subs: 1500</h6>
         </div>
         <div className="col-lg-3 text-right pl-1 mt-3">
-          <h6>Your Points: 20,000</h6>
+          <h6>Your Points: {numeral(balance).format('0,0')}</h6>
         </div>
       </div>
       <div className="row sec-1">
