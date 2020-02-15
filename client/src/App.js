@@ -22,18 +22,7 @@ const loading = () => (
 )
 
 class App extends Component {
-  state = {
-    signupModal: false,
-    connectModal: false
-  };
 
-  handleSignUpModal = () => {
-    this.setState({ signupModal: !this.state.signupModal });
-  };
-
-  handleConnectModal = () => {
-    this.setState({ connectModal: !this.state.connectModal });
-  };
 
   // handleRoute = () => {
   // <Router>
@@ -53,18 +42,15 @@ class App extends Component {
         <DrizzleContext.Provider drizzle={drizzle}>
           <HashRouter>
             <React.Suspense fallback={loading()}>
-              <Header
-                onLogin={this.handleSignUpModal}
-                onConnect={this.handleConnectModal}
-              />
-              <SignUpModal
+              <Header/>
+              {/* <SignUpModal
                 onSignUp={this.handleSignUpModal}
                 signupModal={this.state.signupModal}
               />
               <ConnectModal
                 onConnect={this.handleConnectModal}
                 connectModal={this.state.connectModal}
-              />
+              /> */}
               <Switch>
                 {/* Mapping path to page/component in ./routes */}
                 {_.map(routes, (item, i) => {

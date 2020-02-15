@@ -3,6 +3,23 @@ import { Link } from "react-router-dom";
 
 class Header extends Component {
   // state = {  }
+
+  login = (ev) => {
+    // const script = document.createElement("script");
+    // script.src = "https://apis.google.com/js/client.js";
+
+    // script.onload = () => {
+    //   gapi.load('client', () => {
+    //     gapi.client.setApiKey("AIzaSyCsaYweg-GbZgotY248kb4FniRCOhsQq8Y");
+    //     gapi.client.load('youtube', 'v3', () => {
+    //       this.setState({ gapiReady: true });
+    //     });
+    //   });
+    // };
+
+    // document.body.appendChild(script);
+  }
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light nav-header">
@@ -16,12 +33,12 @@ class Header extends Component {
             </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" onClick={() => this.props.onConnect()}>
+            <a className="nav-link">
               Account
             </a>
           </li>
           <li className="nav-item login-btn">
-            <button onClick={() => this.props.onLogin()}>Login</button>
+            <button onClick={() => this.login()}>Login</button>
           </li>
         </ul>
       </nav>
