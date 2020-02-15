@@ -1,15 +1,8 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-
 import _ from 'lodash';
-
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header";
-
-import SignUpModal from "./components/SignUpModal";
-import ConnectModal from "./components/ConnectModal";
-
 import { DrizzleContext } from "@drizzle/react-plugin"
 
 import drizzle from "./store"

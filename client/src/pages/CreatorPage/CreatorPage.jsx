@@ -86,7 +86,7 @@ class CreatorSidebar extends Component {
                 width={30}
                 height={30}
               />
-              Your channel
+              Your Channel
             </a>
             <a
               className={`${wallet ? "active" : ""}`}
@@ -108,7 +108,7 @@ class CreatorSidebar extends Component {
                 width={30}
                 height={30}
               />
-              Manage rewards
+              Manage Rewards
             </a>
           </div>
           <div className="col-9">

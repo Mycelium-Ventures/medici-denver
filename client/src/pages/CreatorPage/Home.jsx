@@ -76,13 +76,18 @@ class Overview extends Component {
       <main className="container">
         <div className="row acc-title p-4 ml-2">
           <div className="col-lg-9 text-left pl-1 mt-3">
-            <h6>John Starmer</h6>
+            <h6>Your Platform Subs: 1500</h6>
           </div>
           <div className="col-lg-3 text-right pl-1 mt-3">
-            <h6>0$</h6>
+            <h6>Your Points: 20,000</h6>
           </div>
         </div>
-        <div className="row">
+        <div className="row sec-1">
+          <div className="col-lg-2 text-left pl-5">
+            <h6>Home</h6>
+          </div>
+        </div>
+        <div className="row pt-3">
           <div className="home-points pl-5">
             <span><strong>2000</strong> Points distributed in the last 90 days</span>
             <span className="pl-3 home-points-increase"><strong>+80%</strong> since last week</span>
