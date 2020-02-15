@@ -32,8 +32,8 @@ class ConnectModal extends Component {
         <Modal.Body>
           <div className="container">
             <div className="row">
-              <div className="col-md-11"></div>
-              <div className="col-md-1 pr-1">
+              <div className="col-0 col-md-11"></div>
+              <div className="col-12 col-md-1 text-right">
                 <Button
                   className="text-right cl-btn"
                   onClick={() => this.props.closeModal()}
@@ -52,9 +52,8 @@ class ConnectModal extends Component {
                 </p>
               </div>
               <div className="card-body c-modal m-4">
-
                 <div className="row inner-row text-left">
-                  <div className="col-lg-2 pt-2">
+                  <div className="col-2 col-lg-2 pt-2">
                     <img
                       src={require("../assets/twitch.png")}
                       width={30}
