@@ -20,7 +20,7 @@ const Header = (props) => {
             <Link className="nav-link" to="/creator">
               Streamer Dashboard
             </Link> :
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/user">
               Viewer Dashboard
             </Link>
           }
