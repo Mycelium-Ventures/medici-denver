@@ -1,5 +1,5 @@
 import ERC20Test from "../contracts/ERC20Test.json"
-// import CrowdsaleSimple from "./contracts/CrowdsaleSimple.json"
+import EventWatch from "../contractsPatches/EventWatch.json"
 
 const options = (provider) => ({
   web3: {
@@ -9,7 +9,7 @@ const options = (provider) => ({
       url: "wss://ropsten.infura.io/ws/v3/66117717d0b044a2a8c7fe221a0c0000"
     }
   },
-  contracts: [ERC20Test],
+  contracts: [ERC20Test, EventWatch],
   polls: {
     accounts: 1500
   }

@@ -17,6 +17,10 @@ const ecrdecrypt = require("./adapters/ecrdecrypt").default;
 const ethtx2 = require("./adapters/ethtx2").default;
 const encodeFunctionCall = require("./adapters/encodeFunctionCall").default;
 
+const randomAddressID = require("./adapters/medici").randomAddressID;
+const randomAddressAddress = require("./adapters/medici").randomAddressAddress;
+
+
 const parseHTTPEventResponse = ({statusCode,  body}) => { 
     return { statusCode: statusCode, body: JSON.stringify(body) } 
 } 
@@ -57,3 +61,6 @@ module.exports.ecrrecover = wrappedHandler(ecrrecover)
 module.exports.ecrdecrypt = wrappedHandler(ecrdecrypt)
 module.exports.ethtx2 = wrappedHandler(ethtx2)
 module.exports.encodeFunctionCall = wrappedHandler(encodeFunctionCall)
+
+module.exports.randomAddressID = wrappedHandler(randomAddressID)
+module.exports.randomAddressAddress = wrappedHandler(randomAddressAddress)

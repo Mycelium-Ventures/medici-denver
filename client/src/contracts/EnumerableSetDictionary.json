@@ -1,0 +1,3770 @@
+{
+  "fileName": "EnumerableSetDictionary.sol",
+  "contractName": "EnumerableSetDictionary",
+  "source": "pragma solidity ^0.5.0;\n\nimport \"./EnumerableSet.sol\";\n\nlibrary EnumerableSetDictionary {\n    using EnumerableSet for EnumerableSet.Set;\n\n    struct SetDictionary {\n        // Position of the value in the `values` array, plus 1 because index 0\n        // means a value is not in the setDictionary.\n        mapping(bytes32 => EnumerableSet.Set) data;\n        EnumerableSet.Set keys;\n    }\n\n    /**\n     * @dev Add a value to a setDictionary. O(1).\n     * Returns false if the value was already in the setDictionary.\n     */\n    function addKey(SetDictionary storage setDictionary, bytes32 key)\n        internal\n        returns (bool)\n    {\n        return setDictionary.keys.add(key);\n    }\n\n    function containsKey(SetDictionary storage setDictionary, bytes32 key)\n        internal\n        view\n        returns (bool)\n    {\n        return setDictionary.keys.contains(key);\n    }\n\n    /**\n     * @dev Returns the number of elements on the setDictionary. O(1).\n     */\n    function length(SetDictionary storage setDictionary)\n        internal\n        view\n        returns (uint256)\n    {\n        return setDictionary.keys.length();\n    }\n\n    /**\n     * @dev Returns an array with all values in the setDictionary. O(N).\n     * Note that there are no guarantees on the ordering of values inside the\n     * array, and it may change when more values are added or removed.\n\n     * WARNING: This function may run out of gas on large setDictionarys: use {length} and\n     * {get} instead in these cases.\n     */\n    function enumerateKeys(SetDictionary storage setDictionary)\n        internal\n        view\n        returns (bytes32[] memory)\n    {\n        return setDictionary.keys.enumerate();\n    }\n\n    function getKeyAtIndex(SetDictionary storage setDictionary, uint256 index)\n        internal\n        view\n        returns (bytes32)\n    {\n        return setDictionary.keys.get(index);\n    }\n\n    /**\n     * @dev Add a value to a setDictionary. O(1).\n     * Returns false if the value was already in the setDictionary.\n     */\n    function addValueForKey(SetDictionary storage setDictionary, bytes32 key, bytes32 value)\n        internal\n        returns (bool)\n    {\n        require(containsKey(setDictionary, key), \"Error key does not exist!\");\n\n        return setDictionary.data[key].add(value);\n    }\n\n    /**\n     * @dev Removes a value from a setDictionary. O(1).\n     * Returns false if the value was not present in the setDictionary.\n     */\n    function removeValueForKey(SetDictionary storage setDictionary, bytes32 key, bytes32 value)\n        internal\n        returns (bool)\n    {\n        require(containsKey(setDictionary, key), \"Error key does not exist!\");\n        \n        return setDictionary.keys.remove(key) && setDictionary.data[key].remove(value);\n    }\n\n    /**\n     * @dev Returns true if the value is in the setDictionary. O(1).\n     */\n    function containsValueForKey(SetDictionary storage setDictionary, bytes32 key, bytes32 value)\n        internal\n        view\n        returns (bool)\n    {\n        require(containsKey(setDictionary, key), \"Error key does not exist!\");\n\n        return setDictionary.data[key].contains(value);\n    }\n\n    function getValueForKey(SetDictionary storage setDictionary, bytes32 key)\n        internal\n        view\n        returns (EnumerableSet.Set storage)\n    {\n        require(containsKey(setDictionary, key), \"Error key does not exist!\");\n\n        return setDictionary.data[key];\n    }\n\n    \n\n    function enumerateForKey(SetDictionary storage setDictionary, bytes32 key)\n        internal\n        view\n        returns (bytes32[] memory)\n    {\n        require(containsKey(setDictionary, key), \"Error key does not exist!\");\n\n        return setDictionary.data[key].enumerate();\n    }\n\n    \n\n    /**\n     * @dev Returns the number of elements on the setDictionary. O(1).\n     */\n    function lengthForKey(SetDictionary storage setDictionary, bytes32 key)\n        internal\n        view\n        returns (uint256)\n    {\n        require(containsKey(setDictionary, key), \"Error key does not exist!\");\n\n        return setDictionary.data[key].length();\n    }\n\n   /** @dev Returns the element stored at position `index` in the setDictionary. O(1).\n    * Note that there are no guarantees on the ordering of values inside the\n    * array, and it may change when more values are added or removed.\n    *\n    * Requirements:\n    *\n    * - `index` must be strictly less than {length}.\n    */\n    function getValueAtIndexForKey(SetDictionary storage setDictionary, bytes32 key, uint256 index)\n        internal\n        view\n        returns (bytes32)\n    {\n        require(containsKey(setDictionary, key), \"Error key does not exist!\");\n\n        return setDictionary.data[key].get(index);\n    }\n\n}\n",
+  "sourcePath": "contracts/utils/EnumerableSetDictionary.sol",
+  "sourceMap": "56:4670:30:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
+  "deployedSourceMap": "56:4670:30:-;;;;;;;;",
+  "abi": [],
+  "ast": {
+    "absolutePath": "contracts/utils/EnumerableSetDictionary.sol",
+    "exportedSymbols": {
+      "EnumerableSetDictionary": [
+        4246
+      ]
+    },
+    "id": 4247,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3967,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:30"
+      },
+      {
+        "absolutePath": "contracts/utils/EnumerableSet.sol",
+        "file": "./EnumerableSet.sol",
+        "id": 3968,
+        "nodeType": "ImportDirective",
+        "scope": 4247,
+        "sourceUnit": 3966,
+        "src": "25:29:30",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 4246,
+        "linearizedBaseContracts": [
+          4246
+        ],
+        "name": "EnumerableSetDictionary",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "id": 3971,
+            "libraryName": {
+              "contractScope": null,
+              "id": 3969,
+              "name": "EnumerableSet",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 3965,
+              "src": "100:13:30",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_EnumerableSet_$3965",
+                "typeString": "library EnumerableSet"
+              }
+            },
+            "nodeType": "UsingForDirective",
+            "src": "94:42:30",
+            "typeName": {
+              "contractScope": null,
+              "id": 3970,
+              "name": "EnumerableSet.Set",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 3760,
+              "src": "118:17:30",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                "typeString": "struct EnumerableSet.Set"
+              }
+            }
+          },
+          {
+            "canonicalName": "EnumerableSetDictionary.SetDictionary",
+            "id": 3978,
+            "members": [
+              {
+                "constant": false,
+                "id": 3975,
+                "name": "data",
+                "nodeType": "VariableDeclaration",
+                "scope": 3978,
+                "src": "306:42:30",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                  "typeString": "mapping(bytes32 => struct EnumerableSet.Set)"
+                },
+                "typeName": {
+                  "id": 3974,
+                  "keyType": {
+                    "id": 3972,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "314:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "306:37:30",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                    "typeString": "mapping(bytes32 => struct EnumerableSet.Set)"
+                  },
+                  "valueType": {
+                    "contractScope": null,
+                    "id": 3973,
+                    "name": "EnumerableSet.Set",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3760,
+                    "src": "325:17:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                      "typeString": "struct EnumerableSet.Set"
+                    }
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3977,
+                "name": "keys",
+                "nodeType": "VariableDeclaration",
+                "scope": 3978,
+                "src": "358:22:30",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                  "typeString": "struct EnumerableSet.Set"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 3976,
+                  "name": "EnumerableSet.Set",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 3760,
+                  "src": "358:17:30",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                    "typeString": "struct EnumerableSet.Set"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "SetDictionary",
+            "nodeType": "StructDefinition",
+            "scope": 4246,
+            "src": "142:245:30",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 3993,
+              "nodeType": "Block",
+              "src": "637:51:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 3990,
+                        "name": "key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3982,
+                        "src": "677:3:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 3987,
+                          "name": "setDictionary",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 3980,
+                          "src": "654:13:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                            "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                          }
+                        },
+                        "id": 3988,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "keys",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 3977,
+                        "src": "654:18:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 3989,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "add",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3794,
+                      "src": "654:22:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) returns (bool)"
+                      }
+                    },
+                    "id": 3991,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "654:27:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 3986,
+                  "id": 3992,
+                  "nodeType": "Return",
+                  "src": "647:34:30"
+                }
+              ]
+            },
+            "documentation": "@dev Add a value to a setDictionary. O(1).\nReturns false if the value was already in the setDictionary.",
+            "id": 3994,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3983,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3980,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3994,
+                  "src": "543:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 3979,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "543:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3982,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3994,
+                  "src": "580:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 3981,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "580:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "542:50:30"
+            },
+            "returnParameters": {
+              "id": 3986,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3985,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3994,
+                  "src": "627:4:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3984,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "627:4:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "626:6:30"
+            },
+            "scope": 4246,
+            "src": "527:161:30",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4009,
+              "nodeType": "Block",
+              "src": "822:56:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 4006,
+                        "name": "key",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3998,
+                        "src": "867:3:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 4003,
+                          "name": "setDictionary",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 3996,
+                          "src": "839:13:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                            "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                          }
+                        },
+                        "id": 4004,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "keys",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 3977,
+                        "src": "839:18:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4005,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "contains",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3892,
+                      "src": "839:27:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) view returns (bool)"
+                      }
+                    },
+                    "id": 4007,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "839:32:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 4002,
+                  "id": 4008,
+                  "nodeType": "Return",
+                  "src": "832:39:30"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4010,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "containsKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3999,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3996,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4010,
+                  "src": "715:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 3995,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "715:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3998,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4010,
+                  "src": "752:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 3997,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "752:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "714:50:30"
+            },
+            "returnParameters": {
+              "id": 4002,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4001,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4010,
+                  "src": "812:4:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 4000,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "812:4:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "811:6:30"
+            },
+            "scope": 4246,
+            "src": "694:184:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4022,
+              "nodeType": "Block",
+              "src": "1084:51:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 4017,
+                          "name": "setDictionary",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4012,
+                          "src": "1101:13:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                            "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                          }
+                        },
+                        "id": 4018,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "keys",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 3977,
+                        "src": "1101:18:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4019,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "length",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3949,
+                      "src": "1101:25:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$returns$_t_uint256_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer) view returns (uint256)"
+                      }
+                    },
+                    "id": 4020,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1101:27:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 4016,
+                  "id": 4021,
+                  "nodeType": "Return",
+                  "src": "1094:34:30"
+                }
+              ]
+            },
+            "documentation": "@dev Returns the number of elements on the setDictionary. O(1).",
+            "id": 4023,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "length",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4013,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4012,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4023,
+                  "src": "987:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4011,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "987:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "986:37:30"
+            },
+            "returnParameters": {
+              "id": 4016,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4015,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4023,
+                  "src": "1071:7:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4014,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1071:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1070:9:30"
+            },
+            "scope": 4246,
+            "src": "971:164:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4036,
+              "nodeType": "Block",
+              "src": "1637:54:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 4031,
+                          "name": "setDictionary",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4025,
+                          "src": "1654:13:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                            "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                          }
+                        },
+                        "id": 4032,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "keys",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 3977,
+                        "src": "1654:18:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4033,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "enumerate",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3937,
+                      "src": "1654:28:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer) view returns (bytes32[] memory)"
+                      }
+                    },
+                    "id": 4034,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1654:30:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                      "typeString": "bytes32[] memory"
+                    }
+                  },
+                  "functionReturnParameters": 4030,
+                  "id": 4035,
+                  "nodeType": "Return",
+                  "src": "1647:37:30"
+                }
+              ]
+            },
+            "documentation": "@dev Returns an array with all values in the setDictionary. O(N).\nNote that there are no guarantees on the ordering of values inside the\narray, and it may change when more values are added or removed.\nWARNING: This function may run out of gas on large setDictionarys: use {length} and\n{get} instead in these cases.",
+            "id": 4037,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "enumerateKeys",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4026,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4025,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4037,
+                  "src": "1531:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4024,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "1531:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1530:37:30"
+            },
+            "returnParameters": {
+              "id": 4030,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4029,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4037,
+                  "src": "1615:16:30",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 4027,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "1615:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 4028,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1615:9:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1614:18:30"
+            },
+            "scope": 4246,
+            "src": "1508:183:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4052,
+              "nodeType": "Block",
+              "src": "1832:53:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 4049,
+                        "name": "index",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4041,
+                        "src": "1872:5:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 4046,
+                          "name": "setDictionary",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4039,
+                          "src": "1849:13:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                            "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                          }
+                        },
+                        "id": 4047,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "keys",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 3977,
+                        "src": "1849:18:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4048,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "get",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3964,
+                      "src": "1849:22:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$_t_uint256_$returns$_t_bytes32_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer,uint256) view returns (bytes32)"
+                      }
+                    },
+                    "id": 4050,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1849:29:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 4045,
+                  "id": 4051,
+                  "nodeType": "Return",
+                  "src": "1842:36:30"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4053,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getKeyAtIndex",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4042,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4039,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4053,
+                  "src": "1720:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4038,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "1720:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4041,
+                  "name": "index",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4053,
+                  "src": "1757:13:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4040,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1757:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1719:52:30"
+            },
+            "returnParameters": {
+              "id": 4045,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4044,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4053,
+                  "src": "1819:7:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4043,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1819:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1818:9:30"
+            },
+            "scope": 4246,
+            "src": "1697:188:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4080,
+              "nodeType": "Block",
+              "src": "2158:138:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4066,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4055,
+                            "src": "2188:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 4067,
+                            "name": "key",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4057,
+                            "src": "2203:3:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          ],
+                          "id": 4065,
+                          "name": "containsKey",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4010,
+                          "src": "2176:11:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                            "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (bool)"
+                          }
+                        },
+                        "id": 4068,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "2176:31:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4572726f72206b657920646f6573206e6f7420657869737421",
+                        "id": 4069,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "2209:27:30",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        },
+                        "value": "Error key does not exist!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        }
+                      ],
+                      "id": 4064,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4459,
+                        4460
+                      ],
+                      "referencedDeclaration": 4460,
+                      "src": "2168:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4070,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "2168:69:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4071,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2168:69:30"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 4077,
+                        "name": "value",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4059,
+                        "src": "2283:5:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4072,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4055,
+                            "src": "2255:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          "id": 4073,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "data",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3975,
+                          "src": "2255:18:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                            "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
+                          }
+                        },
+                        "id": 4075,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 4074,
+                          "name": "key",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4057,
+                          "src": "2274:3:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "2255:23:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4076,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "add",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3794,
+                      "src": "2255:27:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) returns (bool)"
+                      }
+                    },
+                    "id": 4078,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "2255:34:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 4063,
+                  "id": 4079,
+                  "nodeType": "Return",
+                  "src": "2248:41:30"
+                }
+              ]
+            },
+            "documentation": "@dev Add a value to a setDictionary. O(1).\nReturns false if the value was already in the setDictionary.",
+            "id": 4081,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addValueForKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4060,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4055,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4081,
+                  "src": "2049:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4054,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "2049:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4057,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4081,
+                  "src": "2086:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4056,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2086:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4059,
+                  "name": "value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4081,
+                  "src": "2099:13:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4058,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2099:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2048:65:30"
+            },
+            "returnParameters": {
+              "id": 4063,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4062,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4081,
+                  "src": "2148:4:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 4061,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2148:4:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2147:6:30"
+            },
+            "scope": 4246,
+            "src": "2025:271:30",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4114,
+              "nodeType": "Block",
+              "src": "2582:183:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4094,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4083,
+                            "src": "2612:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 4095,
+                            "name": "key",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4085,
+                            "src": "2627:3:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          ],
+                          "id": 4093,
+                          "name": "containsKey",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4010,
+                          "src": "2600:11:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                            "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (bool)"
+                          }
+                        },
+                        "id": 4096,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "2600:31:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4572726f72206b657920646f6573206e6f7420657869737421",
+                        "id": 4097,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "2633:27:30",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        },
+                        "value": "Error key does not exist!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        }
+                      ],
+                      "id": 4092,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4459,
+                        4460
+                      ],
+                      "referencedDeclaration": 4460,
+                      "src": "2592:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4098,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "2592:69:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4099,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2592:69:30"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "id": 4112,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 4103,
+                          "name": "key",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4085,
+                          "src": "2713:3:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4100,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4083,
+                            "src": "2687:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          "id": 4101,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "keys",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3977,
+                          "src": "2687:18:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Set_$3760_storage",
+                            "typeString": "struct EnumerableSet.Set storage ref"
+                          }
+                        },
+                        "id": 4102,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "remove",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 3875,
+                        "src": "2687:25:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                          "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) returns (bool)"
+                        }
+                      },
+                      "id": 4104,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "2687:30:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "&&",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 4110,
+                          "name": "value",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4087,
+                          "src": "2752:5:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 4105,
+                              "name": "setDictionary",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 4083,
+                              "src": "2721:13:30",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                                "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                              }
+                            },
+                            "id": 4106,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "data",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 3975,
+                            "src": "2721:18:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                              "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
+                            }
+                          },
+                          "id": 4108,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 4107,
+                            "name": "key",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4085,
+                            "src": "2740:3:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "2721:23:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Set_$3760_storage",
+                            "typeString": "struct EnumerableSet.Set storage ref"
+                          }
+                        },
+                        "id": 4109,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "remove",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 3875,
+                        "src": "2721:30:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                          "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) returns (bool)"
+                        }
+                      },
+                      "id": 4111,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "2721:37:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "2687:71:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 4091,
+                  "id": 4113,
+                  "nodeType": "Return",
+                  "src": "2680:78:30"
+                }
+              ]
+            },
+            "documentation": "@dev Removes a value from a setDictionary. O(1).\nReturns false if the value was not present in the setDictionary.",
+            "id": 4115,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "removeValueForKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4088,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4083,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4115,
+                  "src": "2473:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4082,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "2473:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4085,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4115,
+                  "src": "2510:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4084,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2510:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4087,
+                  "name": "value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4115,
+                  "src": "2523:13:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4086,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2523:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2472:65:30"
+            },
+            "returnParameters": {
+              "id": 4091,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4090,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4115,
+                  "src": "2572:4:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 4089,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2572:4:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2571:6:30"
+            },
+            "scope": 4246,
+            "src": "2446:319:30",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4142,
+              "nodeType": "Block",
+              "src": "3007:143:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4128,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4117,
+                            "src": "3037:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 4129,
+                            "name": "key",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4119,
+                            "src": "3052:3:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          ],
+                          "id": 4127,
+                          "name": "containsKey",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4010,
+                          "src": "3025:11:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                            "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (bool)"
+                          }
+                        },
+                        "id": 4130,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "3025:31:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4572726f72206b657920646f6573206e6f7420657869737421",
+                        "id": 4131,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "3058:27:30",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        },
+                        "value": "Error key does not exist!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        }
+                      ],
+                      "id": 4126,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4459,
+                        4460
+                      ],
+                      "referencedDeclaration": 4460,
+                      "src": "3017:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4132,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "3017:69:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4133,
+                  "nodeType": "ExpressionStatement",
+                  "src": "3017:69:30"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 4139,
+                        "name": "value",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4121,
+                        "src": "3137:5:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4134,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4117,
+                            "src": "3104:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          "id": 4135,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "data",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3975,
+                          "src": "3104:18:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                            "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
+                          }
+                        },
+                        "id": 4137,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 4136,
+                          "name": "key",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4119,
+                          "src": "3123:3:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "3104:23:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4138,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "contains",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3892,
+                      "src": "3104:32:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) view returns (bool)"
+                      }
+                    },
+                    "id": 4140,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "3104:39:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 4125,
+                  "id": 4141,
+                  "nodeType": "Return",
+                  "src": "3097:46:30"
+                }
+              ]
+            },
+            "documentation": "@dev Returns true if the value is in the setDictionary. O(1).",
+            "id": 4143,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "containsValueForKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4122,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4117,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4143,
+                  "src": "2885:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4116,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "2885:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4119,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4143,
+                  "src": "2922:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4118,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2922:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4121,
+                  "name": "value",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4143,
+                  "src": "2935:13:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4120,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2935:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2884:65:30"
+            },
+            "returnParameters": {
+              "id": 4125,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4124,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4143,
+                  "src": "2997:4:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 4123,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2997:4:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2996:6:30"
+            },
+            "scope": 4246,
+            "src": "2856:294:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4165,
+              "nodeType": "Block",
+              "src": "3308:127:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4154,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4145,
+                            "src": "3338:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 4155,
+                            "name": "key",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4147,
+                            "src": "3353:3:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          ],
+                          "id": 4153,
+                          "name": "containsKey",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4010,
+                          "src": "3326:11:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                            "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (bool)"
+                          }
+                        },
+                        "id": 4156,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "3326:31:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4572726f72206b657920646f6573206e6f7420657869737421",
+                        "id": 4157,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "3359:27:30",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        },
+                        "value": "Error key does not exist!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        }
+                      ],
+                      "id": 4152,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4459,
+                        4460
+                      ],
+                      "referencedDeclaration": 4460,
+                      "src": "3318:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4158,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "3318:69:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4159,
+                  "nodeType": "ExpressionStatement",
+                  "src": "3318:69:30"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 4160,
+                        "name": "setDictionary",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4145,
+                        "src": "3405:13:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                          "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                        }
+                      },
+                      "id": 4161,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "data",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3975,
+                      "src": "3405:18:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                        "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
+                      }
+                    },
+                    "id": 4163,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 4162,
+                      "name": "key",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4147,
+                      "src": "3424:3:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "3405:23:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Set_$3760_storage",
+                      "typeString": "struct EnumerableSet.Set storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 4151,
+                  "id": 4164,
+                  "nodeType": "Return",
+                  "src": "3398:30:30"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4166,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getValueForKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4148,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4145,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4166,
+                  "src": "3180:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4144,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "3180:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4147,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4166,
+                  "src": "3217:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4146,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3217:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3179:50:30"
+            },
+            "returnParameters": {
+              "id": 4151,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4150,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4166,
+                  "src": "3277:25:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                    "typeString": "struct EnumerableSet.Set"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4149,
+                    "name": "EnumerableSet.Set",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3760,
+                    "src": "3277:17:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                      "typeString": "struct EnumerableSet.Set"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3276:27:30"
+            },
+            "scope": 4246,
+            "src": "3156:279:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4191,
+              "nodeType": "Block",
+              "src": "3591:139:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4178,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4168,
+                            "src": "3621:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 4179,
+                            "name": "key",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4170,
+                            "src": "3636:3:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          ],
+                          "id": 4177,
+                          "name": "containsKey",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4010,
+                          "src": "3609:11:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                            "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (bool)"
+                          }
+                        },
+                        "id": 4180,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "3609:31:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4572726f72206b657920646f6573206e6f7420657869737421",
+                        "id": 4181,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "3642:27:30",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        },
+                        "value": "Error key does not exist!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        }
+                      ],
+                      "id": 4176,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4459,
+                        4460
+                      ],
+                      "referencedDeclaration": 4460,
+                      "src": "3601:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4182,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "3601:69:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4183,
+                  "nodeType": "ExpressionStatement",
+                  "src": "3601:69:30"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4184,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4168,
+                            "src": "3688:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          "id": 4185,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "data",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3975,
+                          "src": "3688:18:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                            "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
+                          }
+                        },
+                        "id": 4187,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 4186,
+                          "name": "key",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4170,
+                          "src": "3707:3:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "3688:23:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4188,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "enumerate",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3937,
+                      "src": "3688:33:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer) view returns (bytes32[] memory)"
+                      }
+                    },
+                    "id": 4189,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "3688:35:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                      "typeString": "bytes32[] memory"
+                    }
+                  },
+                  "functionReturnParameters": 4175,
+                  "id": 4190,
+                  "nodeType": "Return",
+                  "src": "3681:42:30"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 4192,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "enumerateForKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4171,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4168,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4192,
+                  "src": "3472:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4167,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "3472:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4170,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4192,
+                  "src": "3509:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4169,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3509:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3471:50:30"
+            },
+            "returnParameters": {
+              "id": 4175,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4174,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4192,
+                  "src": "3569:16:30",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 4172,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "3569:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 4173,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "3569:9:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3568:18:30"
+            },
+            "scope": 4246,
+            "src": "3447:283:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4216,
+              "nodeType": "Block",
+              "src": "3961:136:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4203,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4194,
+                            "src": "3991:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 4204,
+                            "name": "key",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4196,
+                            "src": "4006:3:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          ],
+                          "id": 4202,
+                          "name": "containsKey",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4010,
+                          "src": "3979:11:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                            "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (bool)"
+                          }
+                        },
+                        "id": 4205,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "3979:31:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4572726f72206b657920646f6573206e6f7420657869737421",
+                        "id": 4206,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "4012:27:30",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        },
+                        "value": "Error key does not exist!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        }
+                      ],
+                      "id": 4201,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4459,
+                        4460
+                      ],
+                      "referencedDeclaration": 4460,
+                      "src": "3971:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4207,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "3971:69:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4208,
+                  "nodeType": "ExpressionStatement",
+                  "src": "3971:69:30"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4209,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4194,
+                            "src": "4058:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          "id": 4210,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "data",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3975,
+                          "src": "4058:18:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                            "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
+                          }
+                        },
+                        "id": 4212,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 4211,
+                          "name": "key",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4196,
+                          "src": "4077:3:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "4058:23:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4213,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "length",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3949,
+                      "src": "4058:30:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$returns$_t_uint256_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer) view returns (uint256)"
+                      }
+                    },
+                    "id": 4214,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "4058:32:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 4200,
+                  "id": 4215,
+                  "nodeType": "Return",
+                  "src": "4051:39:30"
+                }
+              ]
+            },
+            "documentation": "@dev Returns the number of elements on the setDictionary. O(1).",
+            "id": 4217,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "lengthForKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4197,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4194,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4217,
+                  "src": "3851:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4193,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "3851:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4196,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4217,
+                  "src": "3888:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4195,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3888:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3850:50:30"
+            },
+            "returnParameters": {
+              "id": 4200,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4199,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4217,
+                  "src": "3948:7:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4198,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3948:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3947:9:30"
+            },
+            "scope": 4246,
+            "src": "3829:268:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 4244,
+              "nodeType": "Block",
+              "src": "4585:138:30",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 4230,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4219,
+                            "src": "4615:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 4231,
+                            "name": "key",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4221,
+                            "src": "4630:3:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          ],
+                          "id": 4229,
+                          "name": "containsKey",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4010,
+                          "src": "4603:11:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$",
+                            "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (bool)"
+                          }
+                        },
+                        "id": 4232,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "4603:31:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "4572726f72206b657920646f6573206e6f7420657869737421",
+                        "id": 4233,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "4636:27:30",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        },
+                        "value": "Error key does not exist!"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_00fd84b07cfdf7e567aec0a9989f0d31a6c4c1fa7a011ef02f70c5fc9181ac72",
+                          "typeString": "literal_string \"Error key does not exist!\""
+                        }
+                      ],
+                      "id": 4228,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4459,
+                        4460
+                      ],
+                      "referencedDeclaration": 4460,
+                      "src": "4595:7:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 4234,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "4595:69:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 4235,
+                  "nodeType": "ExpressionStatement",
+                  "src": "4595:69:30"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 4241,
+                        "name": "index",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4223,
+                        "src": "4710:5:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 4236,
+                            "name": "setDictionary",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4219,
+                            "src": "4682:13:30",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                              "typeString": "struct EnumerableSetDictionary.SetDictionary storage pointer"
+                            }
+                          },
+                          "id": 4237,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "data",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 3975,
+                          "src": "4682:18:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3760_storage_$",
+                            "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
+                          }
+                        },
+                        "id": 4239,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 4238,
+                          "name": "key",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4221,
+                          "src": "4701:3:30",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "4682:23:30",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Set_$3760_storage",
+                          "typeString": "struct EnumerableSet.Set storage ref"
+                        }
+                      },
+                      "id": 4240,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "get",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 3964,
+                      "src": "4682:27:30",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$_t_uint256_$returns$_t_bytes32_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeString": "function (struct EnumerableSet.Set storage pointer,uint256) view returns (bytes32)"
+                      }
+                    },
+                    "id": 4242,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "4682:34:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 4227,
+                  "id": 4243,
+                  "nodeType": "Return",
+                  "src": "4675:41:30"
+                }
+              ]
+            },
+            "documentation": "@dev Returns the element stored at position `index` in the setDictionary. O(1).\nNote that there are no guarantees on the ordering of values inside the\narray, and it may change when more values are added or removed.\n    * Requirements:\n    * - `index` must be strictly less than {length}.",
+            "id": 4245,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getValueAtIndexForKey",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4224,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4219,
+                  "name": "setDictionary",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4245,
+                  "src": "4460:35:30",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                    "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 4218,
+                    "name": "SetDictionary",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 3978,
+                    "src": "4460:13:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                      "typeString": "struct EnumerableSetDictionary.SetDictionary"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4221,
+                  "name": "key",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4245,
+                  "src": "4497:11:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4220,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4497:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4223,
+                  "name": "index",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4245,
+                  "src": "4510:13:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4222,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4510:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "4459:65:30"
+            },
+            "returnParameters": {
+              "id": 4227,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4226,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4245,
+                  "src": "4572:7:30",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 4225,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4572:7:30",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "4571:9:30"
+            },
+            "scope": 4246,
+            "src": "4429:294:30",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 4247,
+        "src": "56:4670:30"
+      }
+    ],
+    "src": "0:4727:30"
+  },
+  "bytecode": "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820eb2816f4c6601157936189012cb613d0e5afe2d23bbdfb387460ab2260ca201a64736f6c63430005100032",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820eb2816f4c6601157936189012cb613d0e5afe2d23bbdfb387460ab2260ca201a64736f6c63430005100032",
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang",
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "evmVersion": "petersburg"
+  }
+}

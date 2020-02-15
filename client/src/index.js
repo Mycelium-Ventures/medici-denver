@@ -15,7 +15,7 @@ import { DrizzleContext } from '@drizzle/react-plugin'
 
 ReactDOM.render(
   <Provider store={store}>
-    <DrizzleContext.Provider drizzle={drizzle}>
+    <DrizzleContext.Provider store={store} drizzle={drizzle}>
       <ConnectedRouter history={history}>
         <App/>
       </ConnectedRouter>
