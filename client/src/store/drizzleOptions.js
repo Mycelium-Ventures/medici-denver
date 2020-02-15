@@ -1,12 +1,13 @@
 // import ERC20Token from "./contracts/ERC20Token.json"
 // import CrowdsaleSimple from "./contracts/CrowdsaleSimple.json"
 
-const options = {
+const options = (provider) => ({
   web3: {
     block: false,
+    customProvider: provider,
     fallback: {
       type: "ws",
-      url: "ws://127.0.0.1:7545"
+      url: "ws://infura."
     }
   },
   contracts: [], // [ERC20Token, CrowdsaleSimple],
@@ -16,6 +17,6 @@ const options = {
   polls: {
     accounts: 1500
   }
-}
+})
 
 export default options

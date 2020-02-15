@@ -4,7 +4,7 @@
  * Redux - Profile
  */
 export const ProfileActionTypes = {
-  SET_FMID: 'SET_FMID',
+  SET_ETH_ADDRESS: 'SET_ETH_ADDRESS',
   SET_DID: 'SET_DID',
   SET_INFO: 'SET_INFO',
   LOGGING_IN: 'LOGGING_IN',
@@ -21,17 +21,41 @@ export const ProfileActionTypes = {
 const initialState = {
   ready: false,
   loading: true,
+  ethAddress: null,
   twitchLinked: false,
   ytLinked: false,
   did: null,
   name: 'Clarence Liu'
 }
 
+// this only runs once on startup
 export const ActionCheckAccts = () => {
   return async function(dispatch, getState, {web3}){
 
-    // let acctAddress = await web3.currentProvider.enable()
+    const state = getState()
 
+    /*
+    // check if there is an account, just once
+    if (state.drizzleStatus.initialized && !state.accounts[0]){
+      const ethAddress = await web3.currentProvider.enable()
+
+      dispatch({
+        type: ProfileActionTypes.SET_ETH_ADDRESS,
+        ethAddress: ethAddress
+      })
+    }
+    */
+
+    if (state.reducers.profile.ethAddress === null){
+      const ethAddress = await web3.currentProvider.enable()
+
+      dispatch({
+        type: ProfileActionTypes.SET_ETH_ADDRESS,
+        ethAddress: ethAddress[0]
+      })
+    }
+
+    // TODO: check redux for connected Twitch
     await new Promise((resolve) => {
       setTimeout(() => resolve(), 3000)
     })
@@ -74,10 +98,10 @@ export default {
           loading: true
         }
 
-      case ProfileActionTypes.SET_FMID:
+      case ProfileActionTypes.SET_ETH_ADDRESS:
         return {
           ...state,
-          loading: false
+          ethAddress: action.ethAddress
         }
 
       case ProfileActionTypes.SET_DID:
