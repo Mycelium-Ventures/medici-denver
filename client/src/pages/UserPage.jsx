@@ -10,10 +10,10 @@ class UserPage extends Component {
           <main className="container">
           <div className="row acc-title p-4 ml-2">
             <div className="col-lg-9 text-left pl-1 mt-3">
-              <h6>My Points: 20,000</h6>
+              <h1>My Points: 20,000</h1>
             </div>
             <div className="col-lg-3 text-right pl-1 mt-3 claim-btn">
-              <button>Redeem Points</button>
+              <button><h5>Redeem Points</h5></button>
             </div>
           </div>
           </main>

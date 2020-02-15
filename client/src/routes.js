@@ -12,7 +12,7 @@ export default [
     page: CreatorPage
   },
   {
-    path: '/user',
+    path: '/viewer',
     page: UserPage
   },
 ]

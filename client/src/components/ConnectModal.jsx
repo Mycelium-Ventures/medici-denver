@@ -23,6 +23,7 @@ class ConnectModal extends Component {
 
   render() {
     const { connectTwitch, connectFB, connectIN, connectTW, connectYT } = this.state;
+    console.log(this.props, "props");
     return (
       <Modal
         show={this.props.connectModal}
@@ -36,7 +37,7 @@ class ConnectModal extends Component {
               <div className="col-12 col-md-1 text-right">
                 <Button
                   className="text-right cl-btn"
-                  onClick={() => this.props.closeModal()}
+                  onClick={() => this.props.onConnect(false)}
                   variant="none"
                 >
                   <CloseIcon/>
@@ -168,7 +169,7 @@ class ConnectModal extends Component {
                 </div>
               </div>
               <div className="col-12 p-1 m-1 login-btn">
-                <button onClick={() => this.props.closeModal()}>Done</button>
+                <button onClick={() => this.props.onConnect(false)}>Done</button>
               </div>
             </div>
           </div>

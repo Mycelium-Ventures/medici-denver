@@ -12,6 +12,10 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import routes from './routes'
 
 import { ActionCheckAccts } from './store/redux/profile'
+import { welcomeShown } from './store/redux/profile';
+
+
+import ConnectModal from "./components/ConnectModal";
 
 // import { DrizzleContext } from "@drizzle/react-plugin"
 // import { newContextComponents } from "@drizzle/react-components"
@@ -47,6 +51,22 @@ const App = (props) => {
     props.dispatch(ActionCheckAccts())
   }, []) // [props.drizzleInitialized])
 
+
+
+  //Initialising welcome modals to users without twitch id
+  const [connect, setConnect] = useState(false);
+
+
+
+  useEffect(() => {
+    console.log(props.profile)
+    if(!(props.profile.twitchLinked) && !(props.profile.welcomeShown)) {
+      setConnect(true);
+      props.dispatch(welcomeShown())
+    }
+  })
+
+
   if (!props.profile.ready){
     return <Loading/>
   }
@@ -55,6 +75,10 @@ const App = (props) => {
     <div className="App body">
       <React.Suspense fallback={Loading}>
         <Header/>
+        <ConnectModal
+          connectModal={connect}
+          onConnect={setConnect}
+        />
         {/* <SignUpModal
           onSignUp={this.handleSignUpModal}
           signupModal={this.state.signupModal}

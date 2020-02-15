@@ -11,7 +11,8 @@ export const ProfileActionTypes = {
   LOGGING_IN: 'LOGGING_IN',
   READY: 'READY',
   LOGOUT: 'LOGOUT',
-  CHECK_CONNECTED_ACCTS: 'CHECK_CONNECTED_ACCTS'
+  CHECK_CONNECTED_ACCTS: 'CHECK_CONNECTED_ACCTS',
+  WELCOME_SHOWN: "WELCOME_SHOWN"
 };
 
 /*
@@ -26,7 +27,8 @@ const initialState = {
   twitchLinked: false,
   ytLinked: false,
   did: null,
-  name: 'Clarence Liu'
+  name: 'Clarence Liu',
+  welcomeShown: false
 }
 
 // this only runs once on startup
@@ -72,6 +74,17 @@ export const ActionCheckAccts = () => {
   }
 }
 
+//Simple function to set welcome shown to true
+export const welcomeShown = () => {
+  return async function(dispatch, getState, {fmWeb3}){
+    const state = getState()
+    dispatch({
+      type: ProfileActionTypes.WELCOME_SHOWN
+    })
+    return Promise.resolve()
+  }
+}
+
 /*
 *************************************************************************************
 * Reducer
@@ -86,6 +99,11 @@ export default {
         return {
           ...state,
           ready: true
+        }
+      case ProfileActionTypes.WELCOME_SHOWN:
+        return {
+          ...state,
+          welcomeShown: true
         }
 
       case ProfileActionTypes.LOGOUT:
