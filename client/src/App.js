@@ -64,8 +64,7 @@ const App = (props) => {
           onSignUp={this.handleSignUpModal}
           signupModal={this.state.signupModal}
         />
-
-
+        */}
         <ContractData
           drizzle={drizzle}
           drizzleState={drizzleState}
@@ -74,7 +73,7 @@ const App = (props) => {
           methodArgs={["0xc630fcA4c856a4920976F73375578189A687c031"]}
           render={data => data}
         />
-        */}
+
         <Switch>
           {/* Mapping path to page/component in ./routes */}
           {_.map(routes, (item, i) => {

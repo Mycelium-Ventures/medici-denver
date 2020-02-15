@@ -6,7 +6,7 @@ const options = (provider) => ({
     block: false,
     fallback: {
       type: "ws",
-      url: "wss://ropsten.infura.io/v3/66117717d0b044a2a8c7fe221a0c0000"
+      url: "wss://ropsten.infura.io/ws/v3/66117717d0b044a2a8c7fe221a0c0000"
     }
   },
   contracts: [ERC20Test],

@@ -46,54 +46,6 @@ const config = {
   disableReduxDevTools: false // enable ReduxDevTools!
 }
 export const store = generateStore(config)
-if (persistedState) {
-  if (persistedState.contractMetadata) {
-    store.dispatch({
-      type: "SET_CONTRACT_METADATA",
-      contractMetadata: persistedState.contractMetadata
-    })
-  }
-}
 const drizzle = new Drizzle(drizzleOptions, store)
-
-store.subscribe(() => {
-  saveLocalStorage(
-    {
-      todos: store.getState().todos,
-      contractMetadata: store.getState().contractMetadata
-    },
-    "state"
-  )
-})
-
-// Save Web3 contracts
-const handler = {
-  set(target, property, value, receiver) {
-    target[property] = value
-    console.log(target)
-    // you have to return true to accept the changes
-    const saveTarget = Object.entries(target).map(([key, value]) => {
-      const { address, contractName, abi } = value
-      const networks = {
-        "5777": {
-          events: {},
-          links: {},
-          address
-        }
-      }
-      return { address, contractName, abi, networks }
-    })
-    saveLocalStorage(
-      {
-        contracts: saveTarget
-      },
-      "contracts"
-    )
-
-    return true
-  }
-}
-const contractsProxy = new Proxy(drizzle.contracts, handler)
-drizzle.contracts = contractsProxy
 
 export default drizzle
