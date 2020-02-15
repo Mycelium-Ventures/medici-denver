@@ -28,17 +28,16 @@ const initialState = {
 }
 
 export const ActionCheckAccts = () => {
-  return async function(dispatch){
+  return async function(dispatch, getState, {web3}){
 
     // let acctAddress = await web3.currentProvider.enable()
 
     await new Promise((resolve) => {
-
-      dispatch({
-        type: ProfileActionTypes.READY
-      })
-
       setTimeout(() => resolve(), 3000)
+    })
+
+    dispatch({
+      type: ProfileActionTypes.READY
     })
 
     return Promise.resolve()

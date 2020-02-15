@@ -6,10 +6,17 @@ import { connectRouter } from 'connected-react-router'
 import { loadLocalStorage, saveLocalStorage } from "./localstorage"
 import { contractEventNotifier, contractAddNotifier } from "../middleware"
 import { createBrowserHistory } from 'history'
-// import onChange from "./onchange"
+
+import Fortmatic from 'fortmatic'
+import Web3 from "web3"
 
 import reducers from './reducers'
 // import contractMetadataReducer from "./reducers/contractMetadataReducer"
+
+
+export const fm = new Fortmatic('pk_test_4FCC9EB428DA91E3', 'ropsten')
+export const web3 = new Web3(fm.getProvider())
+
 
 // Load saved Web3 contracts
 const persistedState = loadLocalStorage("state")
@@ -27,7 +34,7 @@ const appReducers = {
   // this must be on the root level
   router: connectRouter(history)
 }
-const appMiddlewares = [thunk, contractEventNotifier, contractAddNotifier]
+const appMiddlewares = [thunk.withExtraArgument({web3, fm}), contractEventNotifier, contractAddNotifier]
 
 const config = {
   drizzleOptions,

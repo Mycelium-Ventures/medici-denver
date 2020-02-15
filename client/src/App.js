@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header";
 
 import { connect } from 'react-redux'
+import Loading from './pages/Loading'
 
 import { Route, Switch, Redirect } from "react-router-dom";
 
@@ -43,7 +44,7 @@ const App = (props) => {
   }, [])
 
   if (!props.profile.ready){
-    return loading()
+    return <Loading/>
   }
 
   return (
