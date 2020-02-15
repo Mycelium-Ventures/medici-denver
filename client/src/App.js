@@ -11,7 +11,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import routes from './routes'
 
-import { ActionCheckAccts } from './store/redux/profile'
+import { ActionCheckAccts, ActionCheckTwitchLinked } from './store/redux/profile'
 import { welcomeShown } from './store/redux/profile';
 
 
@@ -67,6 +67,11 @@ const App = (props) => {
   })
 
 
+
+  useEffect(() => {
+    props.dispatch(ActionCheckTwitchLinked())
+  }, [props.drizzleInitialized, props.profile.twitchId, props.profile.ethAddress])
+
   if (!props.profile.ready){
     return <Loading/>
   }
@@ -120,7 +125,7 @@ const App = (props) => {
 const mapStateToProps = (state) => {
   return {
     profile: state.reducers.profile,
-    // drizzleInitialized: state.drizzleStatus.initialized
+    drizzleInitialized: state.drizzleStatus.initialized
   }
 }
 

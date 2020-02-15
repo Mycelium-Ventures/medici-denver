@@ -1,8 +1,22 @@
-import { fmWeb3 } from '../index'
+import namehash from 'eth-ens-namehash'
 
+import drizzle from '../index'
 
 /**
- * Redux - Profile
+ * Redux - Profile for a Viewer
+ *
+ * viewer.<walletAddress>.twitchId
+ * streamer.<walletAddress>.twitchId
+ *
+ * streamer.<walletAddress>.followers.<twitchId>
+ *
+ * streamer.<walletAddress>.videos.<videoId>
+ *
+ * video.<videoId>.viewer.<twitchId>.startTime
+ * video.<videoId>.viewer.<twitchId>.endTime
+ *
+ * // payouts
+ * streamer.<walletAddress>.payouts.<walletAddress>
  */
 export const ProfileActionTypes = {
   SET_ETH_ADDRESS: 'SET_ETH_ADDRESS',
@@ -70,6 +84,125 @@ export const ActionCheckAccts = () => {
     dispatch({
       type: ProfileActionTypes.READY
     })
+
+    return Promise.resolve()
+  }
+}
+
+export const ActionCheckTwitchLinked = () => {
+  return async function(dispatch, getState, {fmWeb3}){
+
+    let state = getState()
+
+    if (!state.drizzleStatus.initialized){
+      return
+    }
+
+    const profile = state.reducers.profile
+    const {twitchId, ethAddress} = profile
+    const ORMContract = drizzle.contracts.ORMExternal;
+
+    // if we have twitchId and ethAddress but twitchLinked is still false, we connect them
+    if (profile.twitchId && profile.ethAddress && !profile.twitchLinked){
+
+      const viewerTableHash = namehash.hash('viewer')
+
+      console.log('viewer', viewerTableHash)
+
+      const addTableStackId = ORMContract.methods.addTable.cacheSend(viewerTableHash)
+
+      const addTableTxHash = await new Promise((resolve) => {
+
+        const interval = setInterval(() => {
+
+          state = getState()
+
+          const txHash = state.transactionStack[addTableStackId]
+
+          if (state.transactions[txHash] && state.transactions[txHash].status === 'success'){
+            clearInterval(interval)
+            resolve(txHash)
+          }
+
+          // console.log(state.transactions[txHash].status)
+
+        }, 1500)
+
+      })
+
+      // const viewerTwitchId = namehash.hash(`viewer.${ethAddress}.clarenceTest`)
+
+      const addStackId = ORMContract.methods.add.cacheSend(viewerTableHash, ethAddress)
+
+      const addTxHash = await new Promise((resolve) => {
+
+        const interval = setInterval(() => {
+
+          state = getState()
+
+          const txHash = state.transactionStack[addStackId]
+
+          if (state.transactions[txHash] && state.transactions[txHash].status === 'success'){
+            clearInterval(interval)
+            resolve(txHash)
+          }
+
+          // console.log(state.transactions[txHash].status)
+
+        }, 1500)
+
+      })
+
+
+      const enumerateDataKey = ORMContract.methods.enumerate.cacheCall(viewerTableHash)
+
+      await new Promise((resolve) => {
+
+        const interval = setInterval(() => {
+
+          state = getState()
+
+          console.log(state.contracts)
+
+        }, 1500)
+
+      })
+      /*
+      const readTxHash = await new Promise((resolve) => {
+
+        const interval = setInterval(() => {
+
+          state = getState()
+
+          const txHash = state.transactionStack[readStackId]
+
+          if (state.transactions[txHash] && state.transactions[txHash].status === 'success'){
+
+            console.log(state.transactions[txHash])
+
+            debugger
+
+            clearInterval(interval)
+            resolve(txHash)
+          }
+
+
+
+        }, 1500)
+
+      })
+       */
+
+
+
+
+
+
+
+
+
+    }
+    // END if
 
     return Promise.resolve()
   }
