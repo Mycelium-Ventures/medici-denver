@@ -7,7 +7,7 @@ import ConnectModal from './ConnectModal'
 const Header = (props) => {
 
   // default this to true if we're not linked
-  const [showConnect, setShowConnect] = useState(!props.profile.twitchLinked && !props.profile.ytLinked)
+  const [showConnect, setShowConnect] = useState(false) // !props.profile.twitchLinked && !props.profile.ytLinked)
 
   // console.log(props.router)
 
