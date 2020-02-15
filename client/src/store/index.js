@@ -24,7 +24,7 @@ const config = {
   drizzleOptions,
   appReducers,
   appMiddlewares,
-  disableReduxDevTools: true // enable ReduxDevTools!
+  disableReduxDevTools: false // enable ReduxDevTools!
 }
 const store = generateStore(config)
 if (persistedState) {
