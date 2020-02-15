@@ -10,8 +10,16 @@ import Header from "./components/Header";
 import SignUpModal from "./components/SignUpModal";
 import ConnectModal from "./components/ConnectModal";
 
+import { DrizzleContext } from "@drizzle/react-plugin"
+
+import drizzle from "./store"
+
 import { HashRouter, Route, Switch } from "react-router-dom";
 import routes from './routes'
+
+const loading = () => (
+  <div className="animated fadeIn pt-3 text-center">Loading...</div>
+)
 
 class App extends Component {
   state = {
@@ -42,36 +50,40 @@ class App extends Component {
   render() {
     return (
       <div className="App body">
-        <HashRouter>
-          <Header
-            onLogin={this.handleSignUpModal}
-            onConnect={this.handleConnectModal}
-          />
-          <SignUpModal
-            onSignUp={this.handleSignUpModal}
-            signupModal={this.state.signupModal}
-          />
-          <ConnectModal
-            onConnect={this.handleConnectModal}
-            connectModal={this.state.connectModal}
-          />
-          <Switch>
-            {/* Mapping path to page/component in ./routes */}
-            {_.map(routes, (item, i) => {
-              const props = _.omit(item, ['page', 'path', 'type']);
-              const R = item.type || Route;
-              return (
-                <R
-                  path={item.path}
-                  key={i}
-                  exact={true}
-                  component={item.page}
-                  {...props}
-                />
-              )
-            })}
-          </Switch>
-        </HashRouter>
+        <DrizzleContext.Provider drizzle={drizzle}>
+          <HashRouter>
+            <React.Suspense fallback={loading()}>
+              <Header
+                onLogin={this.handleSignUpModal}
+                onConnect={this.handleConnectModal}
+              />
+              <SignUpModal
+                onSignUp={this.handleSignUpModal}
+                signupModal={this.state.signupModal}
+              />
+              <ConnectModal
+                onConnect={this.handleConnectModal}
+                connectModal={this.state.connectModal}
+              />
+              <Switch>
+                {/* Mapping path to page/component in ./routes */}
+                {_.map(routes, (item, i) => {
+                  const props = _.omit(item, ['page', 'path', 'type']);
+                  const R = item.type || Route;
+                  return (
+                    <R
+                      path={item.path}
+                      key={i}
+                      exact={true}
+                      component={item.page}
+                      {...props}
+                    />
+                  )
+                })}
+              </Switch>
+            </React.Suspense>
+          </HashRouter>
+        </DrizzleContext.Provider>
       </div>
     );
   }

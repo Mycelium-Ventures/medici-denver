@@ -1,57 +1,80 @@
-import { createStore, applyMiddleware } from 'redux'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
-import { createBrowserHistory } from 'history'
-import { routerMiddleware } from 'connected-react-router'
-
-import createRootReducer from './reducers'
 import { Drizzle, generateStore } from "@drizzle/store"
-import drizzleOptions from "../drizzleOptions"
+import drizzleOptions from "./drizzleOptions"
+import { loadLocalStorage, saveLocalStorage } from "./localstorage"
+import { contractEventNotifier, contractAddNotifier } from "../middleware"
+// import onChange from "./onchange"
 
-// import { web3, fm } from '../common'
+import { reducers } from "./reducers.js"
+import contractMetadataReducer from "./reducers/contractMetadataReducer"
 
-export const history = createBrowserHistory();
+// Load saved Web3 contracts
+const persistedState = loadLocalStorage("state")
+const persistedContracts = loadLocalStorage("contracts")
+if (persistedContracts) {
+  drizzleOptions.contracts = persistedContracts.contracts
+}
+console.log(drizzleOptions.contracts)
 
-/*
- * Auto-scroll to top on page change
- */
-history.listen((e, type) => {
-  if (type === 'PUSH' && window.scrollTo){
-    window.scrollTo({ left: 0, top: 0 })
-  }
-});
+const appReducers = {
 
-const persistConfig = {
-  key: 'root',
-  storage: storage
-};
+}
+const appMiddlewares = [contractEventNotifier, contractAddNotifier]
 
-const pReducer = persistReducer(persistConfig, createRootReducer(history));
-
-
-export const store = generateStore(
+const config = {
   drizzleOptions,
-  pReducer,
-  composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument({})),
-    applyMiddleware(routerMiddleware(history))
-  )
-);
-
-export const drizzle = new Drizzle(drizzleOptions, store);
-
-export const persistor = persistStore(store);
-
-/*
-// We used to have a helper to fetch the actions
-store.getRedux = (name) => {
-  try {
-    const redux = require(`./redux/${name}`)
-    return redux.default
-  } catch (e) {
-    throw e
+  appReducers,
+  appMiddlewares,
+  disableReduxDevTools: true // enable ReduxDevTools!
+}
+const store = generateStore(config)
+if (persistedState) {
+  if (persistedState.contractMetadata) {
+    store.dispatch({
+      type: "SET_CONTRACT_METADATA",
+      contractMetadata: persistedState.contractMetadata
+    })
   }
 }
-*/
+const drizzle = new Drizzle(drizzleOptions, store)
+
+store.subscribe(() => {
+  saveLocalStorage(
+    {
+      todos: store.getState().todos,
+      contractMetadata: store.getState().contractMetadata
+    },
+    "state"
+  )
+})
+
+// Save Web3 contracts
+const handler = {
+  set(target, property, value, receiver) {
+    target[property] = value
+    console.log(target)
+    // you have to return true to accept the changes
+    const saveTarget = Object.entries(target).map(([key, value]) => {
+      const { address, contractName, abi } = value
+      const networks = {
+        "5777": {
+          events: {},
+          links: {},
+          address
+        }
+      }
+      return { address, contractName, abi, networks }
+    })
+    saveLocalStorage(
+      {
+        contracts: saveTarget
+      },
+      "contracts"
+    )
+
+    return true
+  }
+}
+const contractsProxy = new Proxy(drizzle.contracts, handler)
+drizzle.contracts = contractsProxy
+
+export default drizzle
