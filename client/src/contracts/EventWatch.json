@@ -449,27 +449,5 @@
       "runs": 200
     },
     "evmVersion": "petersburg"
-  },
-  "networks": {
-    "3": {
-      "address": "0x1b373314f3dcdb892b77fb7491aaca08f61e424a",
-      "events": {
-        "0xc9ecad6eae30b69c2e49bd1e68726ae8e5fa2b62ca116cb070225cccba5b3719": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "name": "user",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "name": "userID",
-              "type": "bytes32"
-            }
-          ]
-        }
-      }
-    }
   }
 }

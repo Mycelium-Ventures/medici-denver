@@ -1,10 +1,10 @@
 {
   "fileName": "ORM.sol",
   "contractName": "ORM",
-  "source": "pragma solidity ^0.5.0;\nimport \"./utils/EnumerableSet.sol\";\nimport \"./utils/EnumerableSetDictionary.sol\";\n\n//Read access free\n//Write access internal\ncontract ORM {\n    using EnumerableSet for EnumerableSet.Set;\n    using EnumerableSetDictionary for EnumerableSetDictionary.SetDictionary;\n\n    EnumerableSetDictionary.SetDictionary internal SetClasses;\n\n    function _addSetClass(bytes32 _class) internal returns (bool) {\n        return SetClasses.addKey(_class);\n    }\n\n    function _getSetClass(bytes32 _class) internal view returns (EnumerableSet.Set storage) {\n        return SetClasses.getValueForKey(_class);\n    }\n\n    function _containsKey(bytes32 _class) internal view returns (bool) {\n        return SetClasses.containsKey(_class);\n    }\n\n    function _getSetClassKeys() internal view returns (bytes32[] memory) {\n        return SetClasses.enumerateKeys();\n    }\n\n    function _add(bytes32 _class, bytes32 _data) internal returns (bool) {\n        return _getSetClass(_class).add(_data);\n    }\n\n    function _remove(bytes32 _class, bytes32 _data) internal returns (bool) {\n        return _getSetClass(_class).remove(_data);\n    }\n\n    function _contains(bytes32 _class, bytes32 _data) internal view returns (bool) {\n        return _getSetClass(_class).contains(_data);\n    }\n\n    function _enumerate(bytes32 _class) internal view returns (bytes32[] memory) {\n        return _getSetClass(_class).enumerate();\n    }\n\n    function _length(bytes32 _class) internal view returns (uint256) {\n        return _getSetClass(_class).length();\n    }\n\n    function _get(bytes32 _class, uint256 index) internal view returns (bytes32) {\n        return _getSetClass(_class).get(index);\n    }\n}",
+  "source": "pragma solidity ^0.5.0;\nimport \"./utils/EnumerableSet.sol\";\nimport \"./utils/EnumerableSetDictionary.sol\";\n\n//Read access free\n//Write access internal\ncontract ORM {\n    using EnumerableSet for EnumerableSet.Set;\n    using EnumerableSetDictionary for EnumerableSetDictionary.SetDictionary;\n\n    EnumerableSetDictionary.SetDictionary private Tables;\n\n    function _addTable(bytes32 _table) internal returns (bool) {\n        return Tables.addKey(_table);\n    }\n\n    function _getTable(bytes32 _table) internal view returns (EnumerableSet.Set storage) {\n        return Tables.getValueForKey(_table);\n    }\n\n    function _containsKey(bytes32 _table) internal view returns (bool) {\n        return Tables.containsKey(_table);\n    }\n\n    function _getTables() internal view returns (bytes32[] memory) {\n        return Tables.enumerateKeys();\n    }\n\n    function _add(bytes32 _table, bytes32 _row) internal returns (bool) {\n        return _getTable(_table).add(_row);\n    }\n\n    function _remove(bytes32 _table, bytes32 _row) internal returns (bool) {\n        return _getTable(_table).remove(_row);\n    }\n\n    function _contains(bytes32 _table, bytes32 _row) internal view returns (bool) {\n        return _getTable(_table).contains(_row);\n    }\n\n    function _enumerate(bytes32 _table) internal view returns (bytes32[] memory) {\n        return _getTable(_table).enumerate();\n    }\n\n    function _length(bytes32 _table) internal view returns (uint256) {\n        return _getTable(_table).length();\n    }\n\n    function _get(bytes32 _table, uint256 index) internal view returns (bytes32) {\n        return _getTable(_table).get(index);\n    }\n}",
   "sourcePath": "contracts/ORM.sol",
-  "sourceMap": "150:1536:22:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;150:1536:22;;;;;;;",
-  "deployedSourceMap": "150:1536:22:-;;;;;",
+  "sourceMap": "150:1479:22:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;150:1479:22;;;;;;;",
+  "deployedSourceMap": "150:1479:22:-;;;;;",
   "abi": [],
   "ast": {
     "absolutePath": "contracts/ORM.sol",
@@ -33,7 +33,7 @@
         "id": 2699,
         "nodeType": "ImportDirective",
         "scope": 2857,
-        "sourceUnit": 3966,
+        "sourceUnit": 3995,
         "src": "24:35:22",
         "symbolAliases": [],
         "unitAlias": ""
@@ -44,7 +44,7 @@
         "id": 2700,
         "nodeType": "ImportDirective",
         "scope": 2857,
-        "sourceUnit": 4247,
+        "sourceUnit": 4276,
         "src": "60:45:22",
         "symbolAliases": [],
         "unitAlias": ""
@@ -69,10 +69,10 @@
               "id": 2701,
               "name": "EnumerableSet",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3965,
+              "referencedDeclaration": 3994,
               "src": "175:13:22",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_EnumerableSet_$3965",
+                "typeIdentifier": "t_contract$_EnumerableSet_$3994",
                 "typeString": "library EnumerableSet"
               }
             },
@@ -83,10 +83,10 @@
               "id": 2702,
               "name": "EnumerableSet.Set",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3760,
+              "referencedDeclaration": 3789,
               "src": "193:17:22",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                 "typeString": "struct EnumerableSet.Set"
               }
             }
@@ -98,10 +98,10 @@
               "id": 2704,
               "name": "EnumerableSetDictionary",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 4246,
+              "referencedDeclaration": 4275,
               "src": "222:23:22",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_EnumerableSetDictionary_$4246",
+                "typeIdentifier": "t_contract$_EnumerableSetDictionary_$4275",
                 "typeString": "library EnumerableSetDictionary"
               }
             },
@@ -112,10 +112,10 @@
               "id": 2705,
               "name": "EnumerableSetDictionary.SetDictionary",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3978,
+              "referencedDeclaration": 4007,
               "src": "250:37:22",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                "typeIdentifier": "t_struct$_SetDictionary_$4007_storage_ptr",
                 "typeString": "struct EnumerableSetDictionary.SetDictionary"
               }
             }
@@ -123,14 +123,14 @@
           {
             "constant": false,
             "id": 2708,
-            "name": "SetClasses",
+            "name": "Tables",
             "nodeType": "VariableDeclaration",
             "scope": 2856,
-            "src": "294:57:22",
+            "src": "294:52:22",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_SetDictionary_$3978_storage",
+              "typeIdentifier": "t_struct$_SetDictionary_$4007_storage",
               "typeString": "struct EnumerableSetDictionary.SetDictionary"
             },
             "typeName": {
@@ -138,21 +138,21 @@
               "id": 2707,
               "name": "EnumerableSetDictionary.SetDictionary",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3978,
+              "referencedDeclaration": 4007,
               "src": "294:37:22",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_SetDictionary_$3978_storage_ptr",
+                "typeIdentifier": "t_struct$_SetDictionary_$4007_storage_ptr",
                 "typeString": "struct EnumerableSetDictionary.SetDictionary"
               }
             },
             "value": null,
-            "visibility": "internal"
+            "visibility": "private"
           },
           {
             "body": {
               "id": 2720,
               "nodeType": "Block",
-              "src": "420:49:22",
+              "src": "412:45:22",
               "statements": [
                 {
                   "expression": {
@@ -161,11 +161,11 @@
                       {
                         "argumentTypes": null,
                         "id": 2717,
-                        "name": "_class",
+                        "name": "_table",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2710,
-                        "src": "455:6:22",
+                        "src": "443:6:22",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -182,13 +182,13 @@
                       "expression": {
                         "argumentTypes": null,
                         "id": 2715,
-                        "name": "SetClasses",
+                        "name": "Tables",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2708,
-                        "src": "437:10:22",
+                        "src": "429:6:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_SetDictionary_$3978_storage",
+                          "typeIdentifier": "t_struct$_SetDictionary_$4007_storage",
                           "typeString": "struct EnumerableSetDictionary.SetDictionary storage ref"
                         }
                       },
@@ -199,10 +199,10 @@
                       "lValueRequested": false,
                       "memberName": "addKey",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3994,
-                      "src": "437:17:22",
+                      "referencedDeclaration": 4023,
+                      "src": "429:13:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_SetDictionary_$3978_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_SetDictionary_$4007_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_SetDictionary_$4007_storage_ptr_$",
                         "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) returns (bool)"
                       }
                     },
@@ -214,7 +214,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "437:25:22",
+                    "src": "429:21:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -223,7 +223,7 @@
                   "functionReturnParameters": 2714,
                   "id": 2719,
                   "nodeType": "Return",
-                  "src": "430:32:22"
+                  "src": "422:28:22"
                 }
               ]
             },
@@ -232,7 +232,7 @@
             "implemented": true,
             "kind": "function",
             "modifiers": [],
-            "name": "_addSetClass",
+            "name": "_addTable",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 2711,
@@ -241,10 +241,10 @@
                 {
                   "constant": false,
                   "id": 2710,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2721,
-                  "src": "380:14:22",
+                  "src": "372:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -255,7 +255,7 @@
                     "id": 2709,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "380:7:22",
+                    "src": "372:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -265,7 +265,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "379:16:22"
+              "src": "371:16:22"
             },
             "returnParameters": {
               "id": 2714,
@@ -277,7 +277,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2721,
-                  "src": "414:4:22",
+                  "src": "406:4:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -288,7 +288,7 @@
                     "id": 2712,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "414:4:22",
+                    "src": "406:4:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -298,10 +298,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "413:6:22"
+              "src": "405:6:22"
             },
             "scope": 2856,
-            "src": "358:111:22",
+            "src": "353:104:22",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
@@ -310,7 +310,7 @@
             "body": {
               "id": 2733,
               "nodeType": "Block",
-              "src": "563:57:22",
+              "src": "548:53:22",
               "statements": [
                 {
                   "expression": {
@@ -319,11 +319,11 @@
                       {
                         "argumentTypes": null,
                         "id": 2730,
-                        "name": "_class",
+                        "name": "_table",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2723,
-                        "src": "606:6:22",
+                        "src": "587:6:22",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -340,13 +340,13 @@
                       "expression": {
                         "argumentTypes": null,
                         "id": 2728,
-                        "name": "SetClasses",
+                        "name": "Tables",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2708,
-                        "src": "580:10:22",
+                        "src": "565:6:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_SetDictionary_$3978_storage",
+                          "typeIdentifier": "t_struct$_SetDictionary_$4007_storage",
                           "typeString": "struct EnumerableSetDictionary.SetDictionary storage ref"
                         }
                       },
@@ -357,10 +357,10 @@
                       "lValueRequested": false,
                       "memberName": "getValueForKey",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4166,
-                      "src": "580:25:22",
+                      "referencedDeclaration": 4195,
+                      "src": "565:21:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_struct$_Set_$3760_storage_ptr_$bound_to$_t_struct$_SetDictionary_$3978_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$4007_storage_ptr_$_t_bytes32_$returns$_t_struct$_Set_$3789_storage_ptr_$bound_to$_t_struct$_SetDictionary_$4007_storage_ptr_$",
                         "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (struct EnumerableSet.Set storage pointer)"
                       }
                     },
@@ -372,16 +372,16 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "580:33:22",
+                    "src": "565:29:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                      "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                       "typeString": "struct EnumerableSet.Set storage pointer"
                     }
                   },
                   "functionReturnParameters": 2727,
                   "id": 2732,
                   "nodeType": "Return",
-                  "src": "573:40:22"
+                  "src": "558:36:22"
                 }
               ]
             },
@@ -390,7 +390,7 @@
             "implemented": true,
             "kind": "function",
             "modifiers": [],
-            "name": "_getSetClass",
+            "name": "_getTable",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 2724,
@@ -399,10 +399,10 @@
                 {
                   "constant": false,
                   "id": 2723,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2734,
-                  "src": "497:14:22",
+                  "src": "482:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -413,7 +413,7 @@
                     "id": 2722,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "497:7:22",
+                    "src": "482:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -423,7 +423,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "496:16:22"
+              "src": "481:16:22"
             },
             "returnParameters": {
               "id": 2727,
@@ -435,11 +435,11 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2734,
-                  "src": "536:25:22",
+                  "src": "521:25:22",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                    "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                     "typeString": "struct EnumerableSet.Set"
                   },
                   "typeName": {
@@ -447,10 +447,10 @@
                     "id": 2725,
                     "name": "EnumerableSet.Set",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 3760,
-                    "src": "536:17:22",
+                    "referencedDeclaration": 3789,
+                    "src": "521:17:22",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                      "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                       "typeString": "struct EnumerableSet.Set"
                     }
                   },
@@ -458,10 +458,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "535:27:22"
+              "src": "520:27:22"
             },
             "scope": 2856,
-            "src": "475:145:22",
+            "src": "463:138:22",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
@@ -470,7 +470,7 @@
             "body": {
               "id": 2746,
               "nodeType": "Block",
-              "src": "693:54:22",
+              "src": "674:50:22",
               "statements": [
                 {
                   "expression": {
@@ -479,11 +479,11 @@
                       {
                         "argumentTypes": null,
                         "id": 2743,
-                        "name": "_class",
+                        "name": "_table",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2736,
-                        "src": "733:6:22",
+                        "src": "710:6:22",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -500,13 +500,13 @@
                       "expression": {
                         "argumentTypes": null,
                         "id": 2741,
-                        "name": "SetClasses",
+                        "name": "Tables",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2708,
-                        "src": "710:10:22",
+                        "src": "691:6:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_SetDictionary_$3978_storage",
+                          "typeIdentifier": "t_struct$_SetDictionary_$4007_storage",
                           "typeString": "struct EnumerableSetDictionary.SetDictionary storage ref"
                         }
                       },
@@ -517,10 +517,10 @@
                       "lValueRequested": false,
                       "memberName": "containsKey",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4010,
-                      "src": "710:22:22",
+                      "referencedDeclaration": 4039,
+                      "src": "691:18:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_SetDictionary_$3978_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$4007_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_SetDictionary_$4007_storage_ptr_$",
                         "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer,bytes32) view returns (bool)"
                       }
                     },
@@ -532,7 +532,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "710:30:22",
+                    "src": "691:26:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -541,7 +541,7 @@
                   "functionReturnParameters": 2740,
                   "id": 2745,
                   "nodeType": "Return",
-                  "src": "703:37:22"
+                  "src": "684:33:22"
                 }
               ]
             },
@@ -559,10 +559,10 @@
                 {
                   "constant": false,
                   "id": 2736,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2747,
-                  "src": "648:14:22",
+                  "src": "629:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -573,7 +573,7 @@
                     "id": 2735,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "648:7:22",
+                    "src": "629:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -583,7 +583,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "647:16:22"
+              "src": "628:16:22"
             },
             "returnParameters": {
               "id": 2740,
@@ -595,7 +595,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2747,
-                  "src": "687:4:22",
+                  "src": "668:4:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -606,7 +606,7 @@
                     "id": 2738,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "687:4:22",
+                    "src": "668:4:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -616,10 +616,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "686:6:22"
+              "src": "667:6:22"
             },
             "scope": 2856,
-            "src": "626:121:22",
+            "src": "607:117:22",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
@@ -628,7 +628,7 @@
             "body": {
               "id": 2757,
               "nodeType": "Block",
-              "src": "822:50:22",
+              "src": "793:46:22",
               "statements": [
                 {
                   "expression": {
@@ -639,13 +639,13 @@
                       "expression": {
                         "argumentTypes": null,
                         "id": 2753,
-                        "name": "SetClasses",
+                        "name": "Tables",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2708,
-                        "src": "839:10:22",
+                        "src": "810:6:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_SetDictionary_$3978_storage",
+                          "typeIdentifier": "t_struct$_SetDictionary_$4007_storage",
                           "typeString": "struct EnumerableSetDictionary.SetDictionary storage ref"
                         }
                       },
@@ -656,10 +656,10 @@
                       "lValueRequested": false,
                       "memberName": "enumerateKeys",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4037,
-                      "src": "839:24:22",
+                      "referencedDeclaration": 4066,
+                      "src": "810:20:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$3978_storage_ptr_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$bound_to$_t_struct$_SetDictionary_$3978_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_SetDictionary_$4007_storage_ptr_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$bound_to$_t_struct$_SetDictionary_$4007_storage_ptr_$",
                         "typeString": "function (struct EnumerableSetDictionary.SetDictionary storage pointer) view returns (bytes32[] memory)"
                       }
                     },
@@ -671,7 +671,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "839:26:22",
+                    "src": "810:22:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
                       "typeString": "bytes32[] memory"
@@ -680,7 +680,7 @@
                   "functionReturnParameters": 2752,
                   "id": 2756,
                   "nodeType": "Return",
-                  "src": "832:33:22"
+                  "src": "803:29:22"
                 }
               ]
             },
@@ -689,13 +689,13 @@
             "implemented": true,
             "kind": "function",
             "modifiers": [],
-            "name": "_getSetClassKeys",
+            "name": "_getTables",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 2748,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "778:2:22"
+              "src": "749:2:22"
             },
             "returnParameters": {
               "id": 2752,
@@ -707,7 +707,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2758,
-                  "src": "804:16:22",
+                  "src": "775:16:22",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -719,7 +719,7 @@
                       "id": 2749,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "804:7:22",
+                      "src": "775:7:22",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -728,7 +728,7 @@
                     "id": 2750,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "804:9:22",
+                    "src": "775:9:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -738,10 +738,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "803:18:22"
+              "src": "774:18:22"
             },
             "scope": 2856,
-            "src": "753:119:22",
+            "src": "730:109:22",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
@@ -750,7 +750,7 @@
             "body": {
               "id": 2774,
               "nodeType": "Block",
-              "src": "947:55:22",
+              "src": "913:51:22",
               "statements": [
                 {
                   "expression": {
@@ -759,11 +759,11 @@
                       {
                         "argumentTypes": null,
                         "id": 2771,
-                        "name": "_data",
+                        "name": "_row",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2762,
-                        "src": "989:5:22",
+                        "src": "952:4:22",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -783,11 +783,11 @@
                           {
                             "argumentTypes": null,
                             "id": 2768,
-                            "name": "_class",
+                            "name": "_table",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 2760,
-                            "src": "977:6:22",
+                            "src": "940:6:22",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
                               "typeString": "bytes32"
@@ -802,13 +802,13 @@
                             }
                           ],
                           "id": 2767,
-                          "name": "_getSetClass",
+                          "name": "_getTable",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 2734,
-                          "src": "964:12:22",
+                          "src": "930:9:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3760_storage_ptr_$",
+                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3789_storage_ptr_$",
                             "typeString": "function (bytes32) view returns (struct EnumerableSet.Set storage pointer)"
                           }
                         },
@@ -820,9 +820,9 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "964:20:22",
+                        "src": "930:17:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                          "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                           "typeString": "struct EnumerableSet.Set storage pointer"
                         }
                       },
@@ -833,10 +833,10 @@
                       "lValueRequested": false,
                       "memberName": "add",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3794,
-                      "src": "964:24:22",
+                      "referencedDeclaration": 3823,
+                      "src": "930:21:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3789_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3789_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) returns (bool)"
                       }
                     },
@@ -848,7 +848,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "964:31:22",
+                    "src": "930:27:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -857,7 +857,7 @@
                   "functionReturnParameters": 2766,
                   "id": 2773,
                   "nodeType": "Return",
-                  "src": "957:38:22"
+                  "src": "923:34:22"
                 }
               ]
             },
@@ -875,10 +875,10 @@
                 {
                   "constant": false,
                   "id": 2760,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2775,
-                  "src": "892:14:22",
+                  "src": "859:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -889,7 +889,7 @@
                     "id": 2759,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "892:7:22",
+                    "src": "859:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -901,10 +901,10 @@
                 {
                   "constant": false,
                   "id": 2762,
-                  "name": "_data",
+                  "name": "_row",
                   "nodeType": "VariableDeclaration",
                   "scope": 2775,
-                  "src": "908:13:22",
+                  "src": "875:12:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -915,7 +915,7 @@
                     "id": 2761,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "908:7:22",
+                    "src": "875:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -925,7 +925,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "891:31:22"
+              "src": "858:30:22"
             },
             "returnParameters": {
               "id": 2766,
@@ -937,7 +937,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2775,
-                  "src": "941:4:22",
+                  "src": "907:4:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -948,7 +948,7 @@
                     "id": 2764,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "941:4:22",
+                    "src": "907:4:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -958,10 +958,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "940:6:22"
+              "src": "906:6:22"
             },
             "scope": 2856,
-            "src": "878:124:22",
+            "src": "845:119:22",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
@@ -970,7 +970,7 @@
             "body": {
               "id": 2791,
               "nodeType": "Block",
-              "src": "1080:58:22",
+              "src": "1041:54:22",
               "statements": [
                 {
                   "expression": {
@@ -979,11 +979,11 @@
                       {
                         "argumentTypes": null,
                         "id": 2788,
-                        "name": "_data",
+                        "name": "_row",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2779,
-                        "src": "1125:5:22",
+                        "src": "1083:4:22",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -1003,11 +1003,11 @@
                           {
                             "argumentTypes": null,
                             "id": 2785,
-                            "name": "_class",
+                            "name": "_table",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 2777,
-                            "src": "1110:6:22",
+                            "src": "1068:6:22",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
                               "typeString": "bytes32"
@@ -1022,13 +1022,13 @@
                             }
                           ],
                           "id": 2784,
-                          "name": "_getSetClass",
+                          "name": "_getTable",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 2734,
-                          "src": "1097:12:22",
+                          "src": "1058:9:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3760_storage_ptr_$",
+                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3789_storage_ptr_$",
                             "typeString": "function (bytes32) view returns (struct EnumerableSet.Set storage pointer)"
                           }
                         },
@@ -1040,9 +1040,9 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1097:20:22",
+                        "src": "1058:17:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                          "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                           "typeString": "struct EnumerableSet.Set storage pointer"
                         }
                       },
@@ -1053,10 +1053,10 @@
                       "lValueRequested": false,
                       "memberName": "remove",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3875,
-                      "src": "1097:27:22",
+                      "referencedDeclaration": 3904,
+                      "src": "1058:24:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3789_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3789_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) returns (bool)"
                       }
                     },
@@ -1068,7 +1068,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1097:34:22",
+                    "src": "1058:30:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1077,7 +1077,7 @@
                   "functionReturnParameters": 2783,
                   "id": 2790,
                   "nodeType": "Return",
-                  "src": "1090:41:22"
+                  "src": "1051:37:22"
                 }
               ]
             },
@@ -1095,10 +1095,10 @@
                 {
                   "constant": false,
                   "id": 2777,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2792,
-                  "src": "1025:14:22",
+                  "src": "987:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1109,7 +1109,7 @@
                     "id": 2776,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1025:7:22",
+                    "src": "987:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1121,10 +1121,10 @@
                 {
                   "constant": false,
                   "id": 2779,
-                  "name": "_data",
+                  "name": "_row",
                   "nodeType": "VariableDeclaration",
                   "scope": 2792,
-                  "src": "1041:13:22",
+                  "src": "1003:12:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1135,7 +1135,7 @@
                     "id": 2778,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1041:7:22",
+                    "src": "1003:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1145,7 +1145,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1024:31:22"
+              "src": "986:30:22"
             },
             "returnParameters": {
               "id": 2783,
@@ -1157,7 +1157,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2792,
-                  "src": "1074:4:22",
+                  "src": "1035:4:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1168,7 +1168,7 @@
                     "id": 2781,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1074:4:22",
+                    "src": "1035:4:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1178,10 +1178,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1073:6:22"
+              "src": "1034:6:22"
             },
             "scope": 2856,
-            "src": "1008:130:22",
+            "src": "970:125:22",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
@@ -1190,7 +1190,7 @@
             "body": {
               "id": 2808,
               "nodeType": "Block",
-              "src": "1223:60:22",
+              "src": "1179:56:22",
               "statements": [
                 {
                   "expression": {
@@ -1199,11 +1199,11 @@
                       {
                         "argumentTypes": null,
                         "id": 2805,
-                        "name": "_data",
+                        "name": "_row",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2796,
-                        "src": "1270:5:22",
+                        "src": "1223:4:22",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -1223,11 +1223,11 @@
                           {
                             "argumentTypes": null,
                             "id": 2802,
-                            "name": "_class",
+                            "name": "_table",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 2794,
-                            "src": "1253:6:22",
+                            "src": "1206:6:22",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
                               "typeString": "bytes32"
@@ -1242,13 +1242,13 @@
                             }
                           ],
                           "id": 2801,
-                          "name": "_getSetClass",
+                          "name": "_getTable",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 2734,
-                          "src": "1240:12:22",
+                          "src": "1196:9:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3760_storage_ptr_$",
+                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3789_storage_ptr_$",
                             "typeString": "function (bytes32) view returns (struct EnumerableSet.Set storage pointer)"
                           }
                         },
@@ -1260,9 +1260,9 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1240:20:22",
+                        "src": "1196:17:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                          "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                           "typeString": "struct EnumerableSet.Set storage pointer"
                         }
                       },
@@ -1273,10 +1273,10 @@
                       "lValueRequested": false,
                       "memberName": "contains",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3892,
-                      "src": "1240:29:22",
+                      "referencedDeclaration": 3921,
+                      "src": "1196:26:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3789_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3789_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) view returns (bool)"
                       }
                     },
@@ -1288,7 +1288,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1240:36:22",
+                    "src": "1196:32:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1297,7 +1297,7 @@
                   "functionReturnParameters": 2800,
                   "id": 2807,
                   "nodeType": "Return",
-                  "src": "1233:43:22"
+                  "src": "1189:39:22"
                 }
               ]
             },
@@ -1315,10 +1315,10 @@
                 {
                   "constant": false,
                   "id": 2794,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2809,
-                  "src": "1163:14:22",
+                  "src": "1120:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1329,7 +1329,7 @@
                     "id": 2793,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1163:7:22",
+                    "src": "1120:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1341,10 +1341,10 @@
                 {
                   "constant": false,
                   "id": 2796,
-                  "name": "_data",
+                  "name": "_row",
                   "nodeType": "VariableDeclaration",
                   "scope": 2809,
-                  "src": "1179:13:22",
+                  "src": "1136:12:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1355,7 +1355,7 @@
                     "id": 2795,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1179:7:22",
+                    "src": "1136:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1365,7 +1365,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1162:31:22"
+              "src": "1119:30:22"
             },
             "returnParameters": {
               "id": 2800,
@@ -1377,7 +1377,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2809,
-                  "src": "1217:4:22",
+                  "src": "1173:4:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1388,7 +1388,7 @@
                     "id": 2798,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1217:4:22",
+                    "src": "1173:4:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1398,10 +1398,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1216:6:22"
+              "src": "1172:6:22"
             },
             "scope": 2856,
-            "src": "1144:139:22",
+            "src": "1101:134:22",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
@@ -1410,7 +1410,7 @@
             "body": {
               "id": 2823,
               "nodeType": "Block",
-              "src": "1366:56:22",
+              "src": "1318:53:22",
               "statements": [
                 {
                   "expression": {
@@ -1424,11 +1424,11 @@
                           {
                             "argumentTypes": null,
                             "id": 2818,
-                            "name": "_class",
+                            "name": "_table",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 2811,
-                            "src": "1396:6:22",
+                            "src": "1345:6:22",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
                               "typeString": "bytes32"
@@ -1443,13 +1443,13 @@
                             }
                           ],
                           "id": 2817,
-                          "name": "_getSetClass",
+                          "name": "_getTable",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 2734,
-                          "src": "1383:12:22",
+                          "src": "1335:9:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3760_storage_ptr_$",
+                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3789_storage_ptr_$",
                             "typeString": "function (bytes32) view returns (struct EnumerableSet.Set storage pointer)"
                           }
                         },
@@ -1461,9 +1461,9 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1383:20:22",
+                        "src": "1335:17:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                          "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                           "typeString": "struct EnumerableSet.Set storage pointer"
                         }
                       },
@@ -1474,10 +1474,10 @@
                       "lValueRequested": false,
                       "memberName": "enumerate",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3937,
-                      "src": "1383:30:22",
+                      "referencedDeclaration": 3966,
+                      "src": "1335:27:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3789_storage_ptr_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$bound_to$_t_struct$_Set_$3789_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer) view returns (bytes32[] memory)"
                       }
                     },
@@ -1489,7 +1489,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1383:32:22",
+                    "src": "1335:29:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
                       "typeString": "bytes32[] memory"
@@ -1498,7 +1498,7 @@
                   "functionReturnParameters": 2816,
                   "id": 2822,
                   "nodeType": "Return",
-                  "src": "1376:39:22"
+                  "src": "1328:36:22"
                 }
               ]
             },
@@ -1516,10 +1516,10 @@
                 {
                   "constant": false,
                   "id": 2811,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2824,
-                  "src": "1309:14:22",
+                  "src": "1261:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1530,7 +1530,7 @@
                     "id": 2810,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1309:7:22",
+                    "src": "1261:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1540,7 +1540,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1308:16:22"
+              "src": "1260:16:22"
             },
             "returnParameters": {
               "id": 2816,
@@ -1552,7 +1552,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2824,
-                  "src": "1348:16:22",
+                  "src": "1300:16:22",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -1564,7 +1564,7 @@
                       "id": 2813,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "1348:7:22",
+                      "src": "1300:7:22",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -1573,7 +1573,7 @@
                     "id": 2814,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "1348:9:22",
+                    "src": "1300:9:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -1583,10 +1583,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1347:18:22"
+              "src": "1299:18:22"
             },
             "scope": 2856,
-            "src": "1289:133:22",
+            "src": "1241:130:22",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
@@ -1595,7 +1595,7 @@
             "body": {
               "id": 2837,
               "nodeType": "Block",
-              "src": "1493:53:22",
+              "src": "1442:50:22",
               "statements": [
                 {
                   "expression": {
@@ -1609,11 +1609,11 @@
                           {
                             "argumentTypes": null,
                             "id": 2832,
-                            "name": "_class",
+                            "name": "_table",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 2826,
-                            "src": "1523:6:22",
+                            "src": "1469:6:22",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
                               "typeString": "bytes32"
@@ -1628,13 +1628,13 @@
                             }
                           ],
                           "id": 2831,
-                          "name": "_getSetClass",
+                          "name": "_getTable",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 2734,
-                          "src": "1510:12:22",
+                          "src": "1459:9:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3760_storage_ptr_$",
+                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3789_storage_ptr_$",
                             "typeString": "function (bytes32) view returns (struct EnumerableSet.Set storage pointer)"
                           }
                         },
@@ -1646,9 +1646,9 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1510:20:22",
+                        "src": "1459:17:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                          "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                           "typeString": "struct EnumerableSet.Set storage pointer"
                         }
                       },
@@ -1659,10 +1659,10 @@
                       "lValueRequested": false,
                       "memberName": "length",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3949,
-                      "src": "1510:27:22",
+                      "referencedDeclaration": 3978,
+                      "src": "1459:24:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$returns$_t_uint256_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3789_storage_ptr_$returns$_t_uint256_$bound_to$_t_struct$_Set_$3789_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer) view returns (uint256)"
                       }
                     },
@@ -1674,7 +1674,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1510:29:22",
+                    "src": "1459:26:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1683,7 +1683,7 @@
                   "functionReturnParameters": 2830,
                   "id": 2836,
                   "nodeType": "Return",
-                  "src": "1503:36:22"
+                  "src": "1452:33:22"
                 }
               ]
             },
@@ -1701,10 +1701,10 @@
                 {
                   "constant": false,
                   "id": 2826,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2838,
-                  "src": "1445:14:22",
+                  "src": "1394:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1715,7 +1715,7 @@
                     "id": 2825,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1445:7:22",
+                    "src": "1394:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1725,7 +1725,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1444:16:22"
+              "src": "1393:16:22"
             },
             "returnParameters": {
               "id": 2830,
@@ -1737,7 +1737,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2838,
-                  "src": "1484:7:22",
+                  "src": "1433:7:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1748,7 +1748,7 @@
                     "id": 2828,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1484:7:22",
+                    "src": "1433:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1758,10 +1758,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1483:9:22"
+              "src": "1432:9:22"
             },
             "scope": 2856,
-            "src": "1428:118:22",
+            "src": "1377:115:22",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
@@ -1770,7 +1770,7 @@
             "body": {
               "id": 2854,
               "nodeType": "Block",
-              "src": "1629:55:22",
+              "src": "1575:52:22",
               "statements": [
                 {
                   "expression": {
@@ -1783,7 +1783,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 2842,
-                        "src": "1671:5:22",
+                        "src": "1614:5:22",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1803,11 +1803,11 @@
                           {
                             "argumentTypes": null,
                             "id": 2848,
-                            "name": "_class",
+                            "name": "_table",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 2840,
-                            "src": "1659:6:22",
+                            "src": "1602:6:22",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
                               "typeString": "bytes32"
@@ -1822,13 +1822,13 @@
                             }
                           ],
                           "id": 2847,
-                          "name": "_getSetClass",
+                          "name": "_getTable",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 2734,
-                          "src": "1646:12:22",
+                          "src": "1592:9:22",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3760_storage_ptr_$",
+                            "typeIdentifier": "t_function_internal_view$_t_bytes32_$returns$_t_struct$_Set_$3789_storage_ptr_$",
                             "typeString": "function (bytes32) view returns (struct EnumerableSet.Set storage pointer)"
                           }
                         },
@@ -1840,9 +1840,9 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1646:20:22",
+                        "src": "1592:17:22",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3760_storage_ptr",
+                          "typeIdentifier": "t_struct$_Set_$3789_storage_ptr",
                           "typeString": "struct EnumerableSet.Set storage pointer"
                         }
                       },
@@ -1853,10 +1853,10 @@
                       "lValueRequested": false,
                       "memberName": "get",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3964,
-                      "src": "1646:24:22",
+                      "referencedDeclaration": 3993,
+                      "src": "1592:21:22",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3760_storage_ptr_$_t_uint256_$returns$_t_bytes32_$bound_to$_t_struct$_Set_$3760_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3789_storage_ptr_$_t_uint256_$returns$_t_bytes32_$bound_to$_t_struct$_Set_$3789_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer,uint256) view returns (bytes32)"
                       }
                     },
@@ -1868,7 +1868,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1646:31:22",
+                    "src": "1592:28:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1877,7 +1877,7 @@
                   "functionReturnParameters": 2846,
                   "id": 2853,
                   "nodeType": "Return",
-                  "src": "1639:38:22"
+                  "src": "1585:35:22"
                 }
               ]
             },
@@ -1895,10 +1895,10 @@
                 {
                   "constant": false,
                   "id": 2840,
-                  "name": "_class",
+                  "name": "_table",
                   "nodeType": "VariableDeclaration",
                   "scope": 2855,
-                  "src": "1566:14:22",
+                  "src": "1512:14:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1909,7 +1909,7 @@
                     "id": 2839,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1566:7:22",
+                    "src": "1512:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1924,7 +1924,7 @@
                   "name": "index",
                   "nodeType": "VariableDeclaration",
                   "scope": 2855,
-                  "src": "1582:13:22",
+                  "src": "1528:13:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1935,7 +1935,7 @@
                     "id": 2841,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1582:7:22",
+                    "src": "1528:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1945,7 +1945,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1565:31:22"
+              "src": "1511:31:22"
             },
             "returnParameters": {
               "id": 2846,
@@ -1957,7 +1957,7 @@
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 2855,
-                  "src": "1620:7:22",
+                  "src": "1566:7:22",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1968,7 +1968,7 @@
                     "id": 2844,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1620:7:22",
+                    "src": "1566:7:22",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1978,23 +1978,23 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1619:9:22"
+              "src": "1565:9:22"
             },
             "scope": 2856,
-            "src": "1552:132:22",
+            "src": "1498:129:22",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
         "scope": 2857,
-        "src": "150:1536:22"
+        "src": "150:1479:22"
       }
     ],
-    "src": "0:1686:22"
+    "src": "0:1629:22"
   },
-  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a7231582001d412d103fb23fbcf08ce35bc9b480b03bc32b54032b64730d2db64e3ed275564736f6c63430005100032",
-  "deployedBytecode": "0x6080604052600080fdfea265627a7a7231582001d412d103fb23fbcf08ce35bc9b480b03bc32b54032b64730d2db64e3ed275564736f6c63430005100032",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a723158200b23384a21a2ce1006b99d61724a237fb0b2c5e810c592f9e95b2a1e52c380f364736f6c63430005100032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a723158200b23384a21a2ce1006b99d61724a237fb0b2c5e810c592f9e95b2a1e52c380f364736f6c63430005100032",
   "compiler": {
     "name": "solc",
     "version": "0.5.16+commit.9c3226ce.Emscripten.clang",
@@ -2003,13 +2003,5 @@
       "runs": 200
     },
     "evmVersion": "petersburg"
-  },
-  "networks": {
-    "3": {
-      "links": {},
-      "events": {},
-      "address": "0x1B373314F3dCDB892b77FB7491aAca08f61e424a",
-      "updated_at": 1581766606746
-    }
   }
 }
