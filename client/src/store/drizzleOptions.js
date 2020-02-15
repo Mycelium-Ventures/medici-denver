@@ -1,4 +1,4 @@
-import ERC20Test from "../contracts/ERC20Test.json"
+import ERC20Test from "../contractsPatches/ERC20Test.json"
 import EventWatch from "../contractsPatches/EventWatch.json"
 
 const options = (provider) => ({
