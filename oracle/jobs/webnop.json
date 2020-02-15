@@ -1,0 +1,18 @@
+{
+    "initiators": [
+        {
+            "type": "web",
+            "params": {
+            }
+        }
+    ],
+    "tasks": [
+        {
+            "type": "NoOp",
+            "confirmations": null,
+            "params": {}
+        }
+    ],
+    "startAt": null,
+    "endAt": null
+}
