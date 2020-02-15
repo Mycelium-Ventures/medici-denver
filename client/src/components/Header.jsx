@@ -16,14 +16,14 @@ const Header = (props) => {
       <img src={require("../assets/logo.png")} width={120} height={50} />
       <ul className="navbar-nav ml-auto">
         <li className="nav-item active">
-          {history.location.pathname === '/' ?
-            <Link className="nav-link" to="/creator">
-              Streamer Dashboard
-            </Link> :
-            <Link className="nav-link" to="/user">
-              Viewer Dashboard
-            </Link>
-          }
+          <Link className="nav-link" to="/creator">
+              Creator Dashboard
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/viewer">
+            Viewer Dashboard
+          </Link>
         </li>
         <li className="nav-item login-btn">
           <button onClick={() => setShowConnect(true)}>Connected Accounts</button>
