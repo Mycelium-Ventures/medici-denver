@@ -1,19 +1,15 @@
-// import ERC20Token from "./contracts/ERC20Token.json"
+import ERC20Test from "../contracts/ERC20Test.json"
 // import CrowdsaleSimple from "./contracts/CrowdsaleSimple.json"
 
 const options = (provider) => ({
   web3: {
     block: false,
-    customProvider: provider,
     fallback: {
       type: "ws",
-      url: "ws://infura."
+      url: "wss://ropsten.infura.io/v3/66117717d0b044a2a8c7fe221a0c0000"
     }
   },
-  contracts: [], // [ERC20Token, CrowdsaleSimple],
-  events: {
-    // ERC20Token: ["Transfer", "Approval"]
-  },
+  contracts: [ERC20Test],
   polls: {
     accounts: 1500
   }

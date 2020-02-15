@@ -1,3 +1,4 @@
+import { fmWeb3 } from '../index'
 
 
 /**
@@ -30,7 +31,7 @@ const initialState = {
 
 // this only runs once on startup
 export const ActionCheckAccts = () => {
-  return async function(dispatch, getState, {web3}){
+  return async function(dispatch, getState, {fmWeb3}){
 
     const state = getState()
 
@@ -47,7 +48,7 @@ export const ActionCheckAccts = () => {
     */
 
     if (state.reducers.profile.ethAddress === null){
-      const ethAddress = await web3.currentProvider.enable()
+      const ethAddress = await fmWeb3.currentProvider.enable()
 
       dispatch({
         type: ProfileActionTypes.SET_ETH_ADDRESS,

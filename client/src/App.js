@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import _ from 'lodash';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -13,11 +13,20 @@ import routes from './routes'
 
 import { ActionCheckAccts } from './store/redux/profile'
 
+import { DrizzleContext } from "@drizzle/react-plugin"
+import { newContextComponents } from "@drizzle/react-components"
+
+const { ContractData } = newContextComponents
+
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Loading...</div>
 )
 
 const App = (props) => {
+
+  const drizzleContext = useContext(DrizzleContext.Context)
+
+  const { drizzle, drizzleState } = drizzleContext
 
   // handleRoute = () => {
   // <Router>
@@ -54,6 +63,16 @@ const App = (props) => {
         {/* <SignUpModal
           onSignUp={this.handleSignUpModal}
           signupModal={this.state.signupModal}
+        />
+
+
+        <ContractData
+          drizzle={drizzle}
+          drizzleState={drizzleState}
+          contract="ERC20Test"
+          method="balanceOf"
+          methodArgs={["0xc630fcA4c856a4920976F73375578189A687c031"]}
+          render={data => data}
         />
         */}
         <Switch>

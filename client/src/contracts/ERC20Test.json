@@ -366,6 +366,11 @@
       "type": "function"
     }
   ],
+  "networks": {
+    "3": {
+      "address": "0x5cd0065D3fb758b8516C53308dE448023a2512f7"
+    }
+  },
   "ast": {
     "absolutePath": "contracts/token/ERC20Test.sol",
     "exportedSymbols": {
