@@ -1,20 +1,24 @@
 pragma solidity ^0.5.0;
 
-import "@openzeppelin/contracts/utils/EnumerableSet.sol";
 import "./utils/EnumerableBytes32Set.sol";
+import "./utils/EnumerableAddressSet.sol";
+
 import "./OracleExternal.sol";
 
 contract ORM is OracleExternal {
-    using EnumerableSet for EnumerableSet.AddressSet;
+    using EnumerableAddressSet for EnumerableAddressSet.AddressSet;
     using EnumerableBytes32Set for EnumerableBytes32Set.Bytes32Set;
 
-    //Events
+    //Creation Events
+    event NewUser(address user, bytes32 userID);
+    event NewChannel(address channel, bytes32 channelID);
+    //Interaction Events
     event SubscribeChannel(address indexed user, address indexed channel);
     event LikeVideo(address indexed user, address indexed channel, bytes32 indexed video);
 
     //Sets
-    EnumerableSet.AddressSet private users;
-    EnumerableSet.AddressSet private channels;
+    EnumerableAddressSet.AddressSet private users;
+    EnumerableAddressSet.AddressSet private channels;
     EnumerableBytes32Set.Bytes32Set private videos;
 
     //Base Metadata
@@ -22,10 +26,10 @@ contract ORM is OracleExternal {
     mapping(address => bytes32) public ChannelIDs;
 
     //Relationship Mapping
-    mapping(address => EnumerableSet.AddressSet) private UserSubscriptions;
-    mapping(address => EnumerableSet.AddressSet) private ChannelSubscribers;
+    mapping(address => EnumerableAddressSet.AddressSet) private UserSubscriptions;
+    mapping(address => EnumerableAddressSet.AddressSet) private ChannelSubscribers;
     mapping(address => EnumerableBytes32Set.Bytes32Set) private ChannelVideos;
-    mapping(bytes32 => EnumerableSet.AddressSet) private VideoLikes;
+    mapping(bytes32 => EnumerableAddressSet.AddressSet) private VideoLikes;
     mapping(bytes32 => address) private VideoChannel;
 
     //Users
@@ -37,9 +41,15 @@ contract ORM is OracleExternal {
         }
     }
 
+    function addUser(address _user, bytes32 _userID) external onlyAuthorizedNode {
+        _addUser(_user, _userID);
+    }
+
     function _addUser(address _user, bytes32 _userID) internal {
         users.add(_user);
         UserIDs[_user] = _userID;
+
+        emit NewUser(_user, _userID);
     }
 
     //Channels
@@ -51,9 +61,14 @@ contract ORM is OracleExternal {
         }
     }
 
+    function addChannel(address _channel, bytes32 _channelID) external onlyAuthorizedNode {
+        _addChannel(_channel, _channelID);
+    }
     function _addChannel(address _channel, bytes32 _channelID) internal {
         channels.add(_channel);
         ChannelIDs[_channel] = _channelID;
+
+        emit NewChannel(_channel, _channelID);
     }
 
     //Videos
