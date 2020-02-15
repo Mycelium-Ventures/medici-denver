@@ -8,8 +8,9 @@ export const ProfileActionTypes = {
   SET_DID: 'SET_DID',
   SET_INFO: 'SET_INFO',
   LOGGING_IN: 'LOGGING_IN',
-  LOGIN: 'LOGIN',
-  LOGOUT: 'LOGOUT'
+  READY: 'READY',
+  LOGOUT: 'LOGOUT',
+  CHECK_CONNECTED_ACCTS: 'CHECK_CONNECTED_ACCTS'
 };
 
 /*
@@ -20,9 +21,28 @@ export const ProfileActionTypes = {
 const initialState = {
   ready: false,
   loading: true,
-  fmId: null,
+  twitchLinked: false,
+  ytLinked: false,
   did: null,
-  name: ''
+  name: 'Clarence Liu'
+}
+
+export const ActionCheckAccts = () => {
+  return async function(dispatch){
+
+    // let acctAddress = await web3.currentProvider.enable()
+
+    await new Promise((resolve) => {
+
+      dispatch({
+        type: ProfileActionTypes.READY
+      })
+
+      setTimeout(() => resolve(), 3000)
+    })
+
+    return Promise.resolve()
+  }
 }
 
 /*
@@ -35,18 +55,16 @@ export default {
   profile: (state = initialState, action) => {
 
     switch (action.type) {
-      case ProfileActionTypes.LOGIN:
+      case ProfileActionTypes.READY:
         return {
           ...state,
-          fmId: action.fmId,
-          loading: false
+          ready: true
         }
 
       case ProfileActionTypes.LOGOUT:
         return {
           ...state,
           did: null,
-          fmId: null,
           loading: true
         }
 
@@ -60,7 +78,6 @@ export default {
       case ProfileActionTypes.SET_FMID:
         return {
           ...state,
-          fmId: action.fmId,
           loading: false
         }
 

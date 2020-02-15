@@ -1,10 +1,14 @@
+import { applyMiddleware } from 'redux'
 import { Drizzle, generateStore } from "@drizzle/store"
 import drizzleOptions from "./drizzleOptions"
+import thunk from 'redux-thunk'
+import { connectRouter } from 'connected-react-router'
 import { loadLocalStorage, saveLocalStorage } from "./localstorage"
 import { contractEventNotifier, contractAddNotifier } from "../middleware"
+import { createBrowserHistory } from 'history'
 // import onChange from "./onchange"
 
-import { reducers } from "./reducers.js"
+import reducers from './reducers'
 // import contractMetadataReducer from "./reducers/contractMetadataReducer"
 
 // Load saved Web3 contracts
@@ -15,10 +19,15 @@ if (persistedContracts) {
 }
 console.log(drizzleOptions.contracts)
 
-const appReducers = {
+export const history = createBrowserHistory()
 
+const appReducers = {
+  reducers,
+
+  // this must be on the root level
+  router: connectRouter(history)
 }
-const appMiddlewares = [contractEventNotifier, contractAddNotifier]
+const appMiddlewares = [thunk, contractEventNotifier, contractAddNotifier]
 
 const config = {
   drizzleOptions,
@@ -26,7 +35,7 @@ const config = {
   appMiddlewares,
   disableReduxDevTools: false // enable ReduxDevTools!
 }
-const store = generateStore(config)
+export const store = generateStore(config)
 if (persistedState) {
   if (persistedState.contractMetadata) {
     store.dispatch({

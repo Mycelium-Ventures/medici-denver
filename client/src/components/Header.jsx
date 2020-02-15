@@ -1,49 +1,48 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Link } from "react-router-dom";
+import { history } from '../store'
+import { connect } from 'react-redux'
+import ConnectModal from './ConnectModal'
 
-class Header extends Component {
-  // state = {  }
+const Header = (props) => {
 
-  login = (ev) => {
-    // const script = document.createElement("script");
-    // script.src = "https://apis.google.com/js/client.js";
+  // default this to true if we're not linked
+  const [showConnect, setShowConnect] = useState(!props.profile.twitchLinked && !props.profile.ytLinked)
 
-    // script.onload = () => {
-    //   gapi.load('client', () => {
-    //     gapi.client.setApiKey("AIzaSyCsaYweg-GbZgotY248kb4FniRCOhsQq8Y");
-    //     gapi.client.load('youtube', 'v3', () => {
-    //       this.setState({ gapiReady: true });
-    //     });
-    //   });
-    // };
+  // console.log(props.router)
 
-    // document.body.appendChild(script);
-  }
-
-  render() {
-    return (
-      <nav className="navbar navbar-expand-lg navbar-light nav-header">
-        <Link className="navbar-brand" to="/">
-          <img src={require("../assets/logo.png")} width={120} height={50} />
-        </Link>
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item active">
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light nav-header">
+      <img src={require("../assets/logo.png")} width={120} height={50} />
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item active">
+          {history.location.pathname === '/' ?
             <Link className="nav-link" to="/creator">
-              Content Creator
+              Streamer Dashboard
+            </Link> :
+            <Link className="nav-link" to="/">
+              Viewer Dashboard
             </Link>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link">
-              Account
-            </a>
-          </li>
-          <li className="nav-item login-btn">
-            <button onClick={() => this.login()}>Login</button>
-          </li>
-        </ul>
-      </nav>
-    );
+          }
+        </li>
+        <li className="nav-item login-btn">
+          <button onClick={() => setShowConnect(true)}>Connected Accounts</button>
+        </li>
+      </ul>
+      <ConnectModal
+        closeModal={() => setShowConnect(false)}
+        connectModal={showConnect}
+      />
+    </nav>
+  );
+}
+
+// you still need to connect so that history updates
+const mapStateToProps = (state) => {
+  return {
+    router: state.router,
+    profile: state.reducers.profile
   }
 }
 
-export default Header;
+export default connect(mapStateToProps)(Header)

@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
+import CloseIcon from '@material-ui/icons/Close';
 
+/**
+ * We query web3 first to check if the user is connected,
+ */
 class ConnectModal extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,8 +17,12 @@ class ConnectModal extends Component {
     };
   }
 
+  connectTwitch(){
+
+  }
+
   render() {
-    const { connectFB, connectIN, connectTW, connectYT } = this.state;
+    const { connectTwitch, connectFB, connectIN, connectTW, connectYT } = this.state;
     return (
       <Modal
         show={this.props.connectModal}
@@ -27,10 +36,10 @@ class ConnectModal extends Component {
               <div className="col-md-1 pr-1">
                 <Button
                   className="text-right cl-btn"
-                  onClick={() => this.props.onConnect()}
+                  onClick={() => this.props.closeModal()}
                   variant="none"
                 >
-                  x
+                  <CloseIcon/>
                 </Button>
               </div>
             </div>
@@ -38,8 +47,35 @@ class ConnectModal extends Component {
             <div className="row text-center">
               <div className="col-12 mb-4">
                 <h6>Connected Accounts</h6>
+                <p>
+
+                </p>
               </div>
               <div className="card-body c-modal m-4">
+
+                <div className="row inner-row text-left">
+                  <div className="col-lg-2 pt-2">
+                    <img
+                      src={require("../assets/twitch.png")}
+                      width={30}
+                      height={30}
+                    />
+                  </div>
+                  <div className="col-lg-7 pt-2 text-center"></div>
+                  <div className="col-lg-2">
+                    <div className="col-12 p-1 m-1">
+                      <button
+                        className={`cd-btn ${
+                          !connectTwitch ? "connect-btn" : "disconnect-btn"
+                        }`}
+                        onClick={() => this.setState({ connectTwitch: !connectTwitch })}
+                      >
+                        {`${!connectTwitch ? "Connect" : "Disconnect"}`}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="row inner-row text-left">
                   <div className="col-lg-2 pt-2">
                     <img
@@ -48,7 +84,7 @@ class ConnectModal extends Component {
                       height={30}
                     />
                   </div>
-                  <div className="col-lg-7 pt-2 text-center">username</div>
+                  <div className="col-lg-7 pt-2 text-center"></div>
                   <div className="col-lg-2">
                     <div className="col-12 p-1 m-1">
                       <button
@@ -71,7 +107,7 @@ class ConnectModal extends Component {
                       height={30}
                     />
                   </div>
-                  <div className="col-lg-7 pt-2 text-center">username</div>
+                  <div className="col-lg-7 pt-2 text-center"></div>
                   <div className="col-lg-2">
                     <div className="col-12 p-1 m-1">
                       <button
@@ -94,7 +130,7 @@ class ConnectModal extends Component {
                       height={30}
                     />
                   </div>
-                  <div className="col-lg-7 pt-2 text-center">username</div>
+                  <div className="col-lg-7 pt-2 text-center"></div>
                   <div className="col-lg-2">
                     <div className="col-12 p-1 m-1">
                       <button
@@ -117,7 +153,7 @@ class ConnectModal extends Component {
                       height={30}
                     />
                   </div>
-                  <div className="col-lg-7 pt-2 text-center">username</div>
+                  <div className="col-lg-7 pt-2 text-center"></div>
                   <div className="col-lg-2">
                     <div className="col-12 p-1 m-1">
                       <button
@@ -133,7 +169,7 @@ class ConnectModal extends Component {
                 </div>
               </div>
               <div className="col-12 p-1 m-1 login-btn">
-                <button onClick={() => this.props.connect()}>Login</button>
+                <button onClick={() => this.props.closeModal()}>Done</button>
               </div>
             </div>
           </div>
