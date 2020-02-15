@@ -46,8 +46,15 @@ class Accounts extends Component {
                 <div className="col-lg-2 pt-2 text-left">
                   <span>Username</span>
                 </div>
-                <div className="col-lg-6 pt-2 text-center" style={{backgroundColor: "grey"}}>
-                  <span>Content</span>
+                <div className="col-lg-6 pt-2 text-center">
+                <iframe
+                  src="https://clips.twitch.tv/embed?clip=IncredulousAbstemiousFennelImGlitch"
+                  height="300"
+                  width="400"
+                  frameborder="0"
+                  scrolling="no"
+                  allowfullscreen="true">
+                </iframe>
                 </div>
                 <div className="col-lg-1">
                   <span className="sp-label">Likes</span>
@@ -74,7 +81,14 @@ class Accounts extends Component {
                   <span>Username</span>
                 </div>
                 <div className="col-lg-6 pt-2 text-center" style={{backgroundColor: "grey"}}>
-                  <span>Content</span>
+                <iframe
+                  src="https://player.twitch.tv/?channel=dallas&muted=true"
+                  height="300"
+                  width="400"
+                  frameborder="0"
+                  scrolling="no"
+                  allowfullscreen="true">
+              </iframe>
                 </div>
                 <div className="col-lg-1">
                   <span className="sp-label">Likes</span>
@@ -102,7 +116,7 @@ class Accounts extends Component {
                   <span>Username</span>
                 </div>
                 <div className="col-lg-6 pt-2 text-center" style={{backgroundColor: "grey"}}>
-                  <span>Content</span>
+                  <span>content</span>
                 </div>
                 <div className="col-lg-1">
                   <span className="sp-label">Likes</span>

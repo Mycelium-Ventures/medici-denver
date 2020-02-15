@@ -5,9 +5,7 @@ class Overview extends Component {
   render() {
     return (
       <main className="container">
-        <div className="col-12 p-1 m-1 claim-btn text-right">
-          <button>Claim 20,000 Free Tokens</button>
-        </div>
+
         <div className="row acc-title p-4 ml-2">
           <div className="col-lg-9 text-left pl-1 mt-3">
             <h6>John Starmer</h6>
@@ -20,13 +18,28 @@ class Overview extends Component {
           <div className="overview-card text-left">
             <h6>Claim Tokens</h6>
             <p>
-              Hi welcome, This page is the general overview section of the admin
-              panel which
-              <br /> you could edit and modify the view of the page to your
-              preffered taste.
+            Hi Creator, the purpose of our site is not for you to loose money. But for you<br/> to gain an audience
+              Request a grant and our team will be more than willing<br/> to give you free Medici if your account fits.
             </p>
             <div className="nav-item login-btn">
-              <button>Learn More</button>
+              <button>Request Grant</button>
+            </div>
+          </div>
+        </div>
+        <div className="row sec-1 mt-5">
+          <div className="col-lg-2 text-left pl-5">
+            <h6>Your Points</h6>
+          </div>
+        </div>
+        <div className="row mt-5">
+            <div className="col-lg-12">
+              <h1 style={{color: "white"}}>20,000 Medici</h1>
+            </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="nav-item login-btn">
+              <button>Buy More</button>
             </div>
           </div>
         </div>
