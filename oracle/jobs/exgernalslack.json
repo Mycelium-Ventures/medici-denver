@@ -1,0 +1,19 @@
+{
+    "initiators": [
+        {
+            "type": "external",
+            "params": {
+                "name": "external1"
+            }
+        }
+    ],
+    "tasks": [
+        {
+            "type": "slack",
+            "confirmations": null,
+            "params": {}
+        }
+    ],
+    "startAt": null,
+    "endAt": null
+}

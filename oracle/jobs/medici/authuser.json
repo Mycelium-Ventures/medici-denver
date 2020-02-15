@@ -1,0 +1,55 @@
+{
+    "initiators": [
+        {
+            "type": "external",
+            "params": {
+                "name": "external1"
+            }
+        }
+    ],
+    "tasks": [
+        {
+            "type": "ecrdecrypt",
+            "confirmations": null,
+            "params": {}
+        },
+        {
+            "type": "ecrrecover",
+            "confirmations": null,
+            "params": {}
+        },
+        {
+            "type": "oauth",
+            "confirmations": null,
+            "params": {}
+        },
+        {
+            "type": "medici-authorizeUser",
+            "confirmations": null,
+            "params": {}
+        },
+        {
+            "params": {
+                "jsonInterface": {
+                    "name": "authorizeUsers",
+                    "type": "function",
+                    "inputs": [
+                        {
+                            "type": "address[]",
+                            "name": "_users"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "ethtx2",
+            "confirmations": null,
+            "params": {
+                "address": "0x0feee2dAd2f63fB7BAEcB8bF0A04488Be86A4256"
+            }
+        }
+    ],
+    "startAt": null,
+    "endAt": null
+}

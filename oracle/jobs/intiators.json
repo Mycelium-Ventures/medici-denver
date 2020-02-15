@@ -1,0 +1,11 @@
+{
+    "external": [
+        {
+            "NAME": "external1",
+            "ACCESSKEY": "29fc945b88f5485daf5160d0132c0e2a",
+            "SECRET": "HG0JaTfwm35pCQNUgcWvuksXJDazML0PDmfqByWghTWxWtLx7y7Fh4qJH5HD6grT",
+            "OUTGOINGTOKEN": "Lhs/mt+0XcvCCK41hghNo7COrmNo1iZQU8VRilrrILJ0u/tnMc9BWSwYEGC4Opuz",
+            "OUTGOINGSECRET": "NcOrHRt0BUJ7limgp0XzPV6nb1zFycxg2wpiJGsPDc3Ddx9wM9AZ95I9q52SEeTy"
+        }
+    ]
+}
