@@ -6,6 +6,7 @@
   background-color: #1e0338;
   overflow: hidden;
   height: 100vh;
+  overflow: scroll;
 }
 
 .App-logo {
@@ -24,6 +25,12 @@
   color: white !important;
   text-align: right;
   cursor: pointer;
+}
+
+h5 {
+  color: white;
+  font-size: 26px;
+  font-weight: bolder !important;
 }
 
 .sec-1 h6,
@@ -377,3 +384,36 @@ Home page
 .green-text {
   color: green;
 }
+
+/*
+  User page
+*/
+
+.activity {
+  color: white;
+}
+
+.activity h3{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.activity h4{
+  font-size: 14px !important;
+  font-weight: bold;
+}
+
+.see-more h2 {
+  width: 100%; 
+  text-align: center; 
+  border-bottom: 1px solid #000; 
+  line-height: 0.1em;
+  margin: 10px 0 20px; 
+} 
+
+.see-more h2 span { 
+   background:#fff; 
+   padding:0 10px; 
+}
+
+
