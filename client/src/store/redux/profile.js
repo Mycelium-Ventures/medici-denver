@@ -122,8 +122,7 @@ export const ActionCheckTwitchLinked = () => {
     const ORMContract = drizzle.contracts.ORMExternal;
 
     // if we have twitchId and ethAddress but twitchLinked is still false, we connect them
-    //TODO: change true
-    if (true && profile.ethAddress && !profile.twitchLinked){
+    if (profile.twitchId && profile.ethAddress && !profile.twitchLinked){
 
       // const viewerTableHash = await createTable("viewer");
       // console.log(viewerTableHash)
@@ -259,9 +258,41 @@ export const ActionCreateORMData = () => {
 
     const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
 
-    // const tableHash = namehash.hash('viewer')
+
 
     const ethAddress = getState().reducers.profile.ethAddress
+
+    let tableHash;
+
+    /*
+    let tableHash = namehash.hash(`dev.twitchId`)
+
+    await contractInstance.methods.addTable(tableHash).send({from: ethAddress})
+
+    await contractInstance.methods.add(tableHash, fmWeb3.eth.abi.encodeParameter('uint256', 137492398)).send({from: ethAddress})
+
+    tableHash = namehash.hash(`dev.twitchId.137492398.channel`)
+
+    await contractInstance.methods.addTable(tableHash).send({from: ethAddress})
+
+    await contractInstance.methods.add(tableHash, fmWeb3.eth.abi.encodeParameter('uint256', 25199180)).send({from: ethAddress})
+    */
+    tableHash = namehash.hash(`dev.twitchId.137492398.channel.25199180.views`)
+
+    await contractInstance.methods.addTable(tableHash).send({from: ethAddress})
+
+    await contractInstance.methods.add(tableHash, fmWeb3.eth.abi.encodeParameter('uint256', 165000)).send({from: ethAddress})
+
+
+    /*
+    const tableHash = namehash.hash(`dev.twitchId.${137492398}.channel.${25199180}.views`)
+
+    await contractInstance.methods.addTable(tableHash).send({from: ethAddress})
+
+    const timeEncoded = fmWeb3.eth.abi.encodeParameter('uint256', 165000);
+
+    const res = await contractInstance.methods.add(tableHash, timeEncoded).send({from: ethAddress})
+    */
 
     // const ethAddress32Bytes = bufferToBytes32(Buffer.from(fmWeb3.utils.hexToBytes(ethAddress)));
 
@@ -271,6 +302,7 @@ export const ActionCreateORMData = () => {
 
 
     // START reward fake data
+    /*
     const videoId = '492575058' // Medici
     // const videoId = '492564773' // Jake
     // const videoId = '137492398' // Taregant
@@ -278,9 +310,11 @@ export const ActionCreateORMData = () => {
     const twitchId = videoId
     const videoTwitchIdHash = namehash.hash(`twitchId.${videoId}.video.${twitchId}.views`);
 
-    const res = await contractInstance.methods.addTable(videoTwitchIdHash).send({from: ethAddress})
+    // const res = await contractInstance.methods.addTable(videoTwitchIdHash).send({from: ethAddress})
 
-    console.log(res || null)
+
+     */
+    // console.log(res || null)
 
     return Promise.resolve()
   }
@@ -329,36 +363,58 @@ export const ActionGetVideoMetrics = () => {
     const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
 
     // get all videos
-    const videoHashed = namehash.hash('video')
+    const twitchHashed = namehash.hash('dev.twitchId')
 
-    const videos = await contractInstance.methods.enumerate(videoHashed).call()
+    const twitchIds = await contractInstance.methods.enumerate(twitchHashed).call()
 
-    console.log('videos', videos)
+    console.log('twitchIds', twitchIds)
 
-    if (videos.length <= 0){
+    if (twitchIds.length <= 0){
       return Promise.resolve()
     }
 
     const data = {}
 
     // loop through each video and get twitchIds
-    for (let i = 0, videoLen = videos.length; i < videoLen; i++){
-      let videoId = videos[i]
+    for (let i = 0, twitchIdsLen = twitchIds.length; i < twitchIdsLen; i++){
+      let twitchId = parseInt(twitchIds[i], 16)
 
-      data[videoId] = {}
+      console.log(twitchId)
 
-      let videoTwitchHash = namehash.hash(`video.${videoId}.twitchId`)
-      let twitchIds = await contractInstance.methods.enumerate(videoTwitchHash).call()
+      data[twitchId] = {}
+
+      let videoTwitchHash = namehash.hash(`dev.twitchId.${twitchId}.channel`)
+      let channelIds = await contractInstance.methods.enumerate(videoTwitchHash).call()
+
+      console.log('channelIds', channelIds)
 
       // loop through each video/twitchId and get the time
-      for (let j = 0; j < twitchIds.length; j++){
+      for (let j = 0; j < channelIds.length; j++){
 
-        let twitchId = twitchIds[j]
+        let channelId = parseInt(channelIds[j], 16)
 
-        let videoTwitchIdTimeHash = namehash.hash(`video.${videoId}.twitchId.${twitchId}.time`)
-        let viewTimes = await contractInstance.methods.enumerate(videoTwitchIdTimeHash).call() // can be multiple
+        let connectUrl = `https://api.twitch.tv/helix/users?login=${channelId}`
 
-        data[videoId][twitchId] = viewTimes.length ? _.sum(viewTimes) : 0
+        // fetch the channel meta data
+        const resp = await fetch(connectUrl, {
+          method: 'GET',
+          headers: {
+            'Client-ID': 'e2oo0q2wfiu9x3r0fzkh7cornp3652'
+          }
+        })
+
+        let twitchChannelTimeHash = namehash.hash(`dev.twitchId.${twitchId}.channel.${channelId}.views`)
+        let viewTimes = await contractInstance.methods.enumerate(twitchChannelTimeHash).call() // can be multiple
+
+        let totalTime = 0
+        viewTimes.forEach((time) => {
+          totalTime += parseInt(time, 16)
+        })
+
+        data[twitchId][channelIds] = {
+          viewTime: totalTime,
+          metadata: resp.body
+        }
       }
     }
 
