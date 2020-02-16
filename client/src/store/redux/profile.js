@@ -234,7 +234,7 @@ export const ActionUpdateTwitch = (tokenData) => {
 
       const connectUrl = 'http://a114762ce4ea811eabb0f0ae02d88c5b-1117862074.us-east-1.elb.amazonaws.com/v2/specs/a155630985594b6c91f947d74d693434/runs'
 
-
+      /*
       const resp = await axios.post(connectUrl, {
         twitchId: twitchId.toString(),
         ethAddress: state.reducers.profile.ethAddress
@@ -250,6 +250,7 @@ export const ActionUpdateTwitch = (tokenData) => {
 
 
       debugger
+      */
 
       await dispatch({
         type: ProfileActionTypes.SET_TWITCH_LINKED
@@ -291,9 +292,20 @@ export const ActionGetTwitchLinkedProof = () => {
 
     const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
 
-    const result = await contractInstance.methods.enumerate('0x9da0db04b800c7f764a09bb5dcb4deae4e99b3fa9ea93675df2e9a7c34eb0234').call()
+    // this has the binding data
+    const viewerTableHash = namehash.hash('viewer')
 
-    console.log(result)
+    // const mediciActivityHash = namehash.hash(`twitchId.492575058.video.492575058.views`)
+
+    let result = null
+
+    try {
+      result = await contractInstance.methods.containsKey(viewerTableHash).call()
+    } catch (err){
+      console.error(err)
+    }
+
+    console.log('result', result)
 
     return Promise.resolve()
   }

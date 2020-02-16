@@ -1,7 +1,7 @@
 import React from "react";
 
 const ActivityLog = (props) => {
-    console.log(props.data);
+    // console.log(props.data);
     //TODO: Check props
     if(props.data === undefined) {
         return (
@@ -17,9 +17,9 @@ const ActivityLog = (props) => {
         <div className="card-body transaction-card transaction-text mx-5 px-4">
         {
             props.data.map((activity, i) => {
-                    console.log(activity.username);
-                    console.log(activity.action);
-                    console.log(activity.medici);
+                    // console.log(activity.username);
+                    // console.log(activity.action);
+                    // console.log(activity.medici);
                 return(
                 <div key={i} className="row text-center">
                     <div className="col-lg-3">
