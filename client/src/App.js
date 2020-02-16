@@ -68,7 +68,6 @@ const App = (props) => {
 
   /*
   useEffect(() => {
-    console.log("FIRING METAMASK")
     props.dispatch(ActionCheckTwitchLinked())
   }, [props.drizzleInitialized, props.profile.twitchId, props.profile.ethAddress])
   */

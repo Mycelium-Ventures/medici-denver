@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import CloseIcon from '@material-ui/icons/Close';
 import {authTwitch} from "../services/twitch";
+import { connect } from 'react-redux'
 
 /**
  * We query web3 first to check if the user is connected,
@@ -193,4 +194,10 @@ class ConnectModal extends Component {
   }
 }
 
-export default ConnectModal;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.reducers.profile
+  }
+}
+
+export default connect(mapStateToProps)(ConnectModal)
