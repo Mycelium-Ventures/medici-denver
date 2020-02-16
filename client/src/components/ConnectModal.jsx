@@ -3,6 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import CloseIcon from '@material-ui/icons/Close';
 import {authTwitch} from "../services/twitch";
 import { connect } from 'react-redux'
+import { fm, fmWeb3 } from '../store'
 
 /**
  * We query web3 first to check if the user is connected,
@@ -41,6 +42,7 @@ class ConnectModal extends Component {
     // console.log(this.props, "props");
 
     const connectTWI = this.props.profile.twitchLinked
+    const connectFM = !!this.props.profile.ethAddress
 
     return (
       <Modal
@@ -69,6 +71,41 @@ class ConnectModal extends Component {
                 {this.renderWelcomeMessage()}
               </div>
               <div className="card-body c-modal m-4">
+
+                <div className="row inner-row text-left">
+                  <div className="col-lg-2 pt-2">
+                    <img
+                      src={require("../assets/fortmatic.png")}
+                      width={30}
+                      height={30}
+                    />
+                  </div>
+                  <div className="col-lg-7 pt-2 text-center">
+                    <span style={{fontSize: '90%'}}>{this.props.profile.ethAddress}</span>
+                  </div>
+                  <div className="col-lg-2">
+                    <div className="col-12 p-1 m-1">
+                      <button className={`cd-btn ${
+                                !connectFM ? "connect-btn" : "disconnect-btn"
+                              }`}
+                              onClick={() => {
+                                if (connectFM){
+
+                                  // we don't un-set twitchLinked during the demo,
+                                  // we don't support changing the bindings
+                                  fm.user.logout()
+
+                                } else {
+                                  fmWeb3.currentProvider.enable()
+                                }
+                              }}
+                      >
+                        {`${!connectFM ? "Connect" : "Disconnect"}`}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="row inner-row text-left">
                   <div className="col-2 col-lg-2 pt-2">
                     <img
@@ -77,39 +114,25 @@ class ConnectModal extends Component {
                       height={30}
                     />
                   </div>
-                  <div className="col-lg-7 pt-2 text-center"></div>
+                  <div className="col-lg-7 pt-2 text-center">
+                    <span style={{fontSize: '90%'}}>{this.props.profile.twitchUsername}</span>
+                  </div>
                   <div className="col-lg-2">
                     <div className="col-12 p-1 m-1">
                       <button
+                        disabled={!!connectTWI}
                         className={`cd-btn ${
                           !connectTWI ? "connect-btn" : "disconnect-btn"
                         }`}
-                        onClick={() => this.connectTwitch()}
+                        onClick={() => {
+                          if (connectTWI){
+                            // no way to disconnect now
+                          } else {
+                            this.connectTwitch()
+                          }
+                        }}
                       >
                         {`${!connectTWI ? "Connect" : "Disconnect"}`}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row inner-row text-left">
-                  <div className="col-lg-2 pt-2">
-                    <img
-                      src={require("../assets/fb.png")}
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                  <div className="col-lg-7 pt-2 text-center"></div>
-                  <div className="col-lg-2">
-                    <div className="col-12 p-1 m-1">
-                      <button disabled
-                        className={`cd-btn ${
-                          !connectFB ? "connect-btn" : "disconnect-btn"
-                        }`}
-                        onClick={() => this.setState({ connectFB: !connectFB })}
-                      >
-                        {`${!connectFB ? "Connect" : "Disconnect"}`}
                       </button>
                     </div>
                   </div>

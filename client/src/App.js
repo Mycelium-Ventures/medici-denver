@@ -14,7 +14,6 @@ import routes from './routes'
 import { ActionCheckAccts, ActionCheckTwitchLinked } from './store/redux/profile'
 import { welcomeShown } from './store/redux/profile';
 
-
 import ConnectModal from "./components/ConnectModal";
 
 // import { DrizzleContext } from "@drizzle/react-plugin"

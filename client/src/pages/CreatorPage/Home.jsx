@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fmWeb3 } from '../../store'
 import numeral from 'numeral'
+import { connect } from 'react-redux'
 import ERC20Test from "../../contracts/ERC20Test.json"
 import Graph from "../../components/Graph";
 import {HashLoader} from "react-spinners";
@@ -24,8 +25,10 @@ const activityDummy = [{
 
 const Overview = (props) => {
 
+  /*
   const fromAddress = '0x09D2c8b17A9498dbDc4a909096DF484C46149e3c'
   const toAddress = '0xfEB943725Ed070e8D5645736484Ba6494dcBA31a'
+  */
   const contractAddress = '0x5cd0065D3fb758b8516C53308dE448023a2512f7'
 
   const contractInstance = new fmWeb3.eth.Contract(ERC20Test.abi, contractAddress)
@@ -42,7 +45,11 @@ const Overview = (props) => {
 
   useEffect(() => {
 
-    contractInstance.methods.balanceOf(fromAddress).call((err, res) => {
+    if (!props.profile.ethAddress){
+      return
+    }
+
+    contractInstance.methods.balanceOf(props.profile.ethAddress).call((err, res) => {
       if (err){
         console.error(err)
         return
@@ -94,5 +101,9 @@ const Overview = (props) => {
     </main>
   )
 }
-
-export default Overview;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.reducers.profile
+  }
+}
+export default connect(mapStateToProps)(Overview);
