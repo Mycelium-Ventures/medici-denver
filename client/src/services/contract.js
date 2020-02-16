@@ -66,3 +66,19 @@ export const addAddressToTable = (tableHash, ethAddress) => {
         return Promise.resolve()
     }
 }
+
+/**
+ * A function for donating
+ * @param {*} web3 web3 instance
+ * @param {*} sender sender address
+ * @param {*} amount SNX amount to be donated
+ */
+export const buy = async (address, amount) => {
+    var weiAmount = fmWeb3.utils.toWei(amount)
+    var contract = new fmWeb3.eth.Contract(ERC20Test.abi, contract_config.Token_active);
+    try {
+        await contract.methods.transfer(contract_config.ORM_address, weiAmount).send({ from: address });
+    } catch (error) {
+        console.log(error);
+    }
+}

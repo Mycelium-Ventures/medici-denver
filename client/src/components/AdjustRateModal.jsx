@@ -1,19 +1,15 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
-import GoogleLogin from 'react-google-login';
 
-const GOOGLE_CLIENT_ID = '714719547382-nil9jc7gepifi3e4u08v40f6f0s24j71.apps.googleusercontent.com'
-const YT_API_KEY = 'AIzaSyCsaYweg-GbZgotY248kb4FniRCOhsQq8Y'
+async function adjustRates() {
+  alert("adjust rates");
+}
 
 const AdjustRateModal = props => {
 
-  const responseGoogle = (a, b) => {
-    console.log('responseGoogle', a, b)
-  }
-
-  const adjustRates = (ev) => {
-      alert("adjusting rates")
-  }
+  const [subRate, setSubRate] = useState("");
+  const [viewRate, setViewRate] = useState("");
+  const [cheersRate, setCheersRate] = useState("");
 
   return (
     <Modal show={props.adjustModal} animation={false} className="signup-modal">
@@ -24,7 +20,7 @@ const AdjustRateModal = props => {
             <div className="col-md-1 pr-1">
               <Button
                 className="text-right cl-btn"
-                onClick={() => props.onAdjust()}
+                onClick={() => props.closeModal()}
                 variant="none"
               >
                 x
@@ -61,6 +57,9 @@ const AdjustRateModal = props => {
                 type="text"
                 placeholder="Enter Medici"
                 id="subs"
+                value={subRate}
+                style={{color: "white"}}
+                onChange={text => setSubRate(text.target.value)}
                 className="form-control"
               />
             </div>
@@ -70,20 +69,20 @@ const AdjustRateModal = props => {
                 type="text"
                 placeholder="Enter Medici"
                 className="form-control"
-                // onChange={text =>
-                // //   this.setState({ password: text.target.value })
-                // }
+                style={{color: "white"}}
+                value={viewRate}
+                onChange={text => setViewRate(text.target.value)}
               />
             </div>
             <div className="col-8 offset-2 text-left">
-              <label>Follow rate</label>
+              <label>Cheers rate</label>
               <input
                 type="text"
                 placeholder="Enter Medici"
                 className="form-control"
-                // onChange={text =>
-                // //   this.setState({ password: text.target.value })
-                // }
+                style={{color: "white"}}
+                value={cheersRate}
+                onChange={text => setCheersRate(text.target.value)}
               />
             </div>
             <div className="col-3">

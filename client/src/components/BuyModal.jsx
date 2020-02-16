@@ -1,15 +1,14 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
+import {buy} from "../services/contract";
+
+async function buyMore (amount) {
+  var result = await buy()
+  console.log(result);
+}
 
 const BuyModal = props => {
-
-  const responseGoogle = (a, b) => {
-    console.log('responseGoogle', a, b)
-  }
-
-  const adjustRates = (ev) => {
-      alert("adjusting rates")
-  }
+  const [amount, setAmount] = useState("");
 
   return (
     <Modal show={props.buyModal} animation={false} className="signup-modal">
@@ -30,46 +29,7 @@ const BuyModal = props => {
 
           <div className="row text-center">
             <div className="col-12 mb-4">
-              <h6>Adjust the rates for this content</h6>
-            </div>
-            <div className="card-body acc-card c-modal">
-                <div className="col-lg-12 text-center">
-                    <p style={{fontSize: "1em", fontWeight: "bold", margin: 0, color: "white !important", paddingBottom: "2px"}}>Current Rates</p>
-                    <div className="row sec-2">
-                    <div className="col-lg-4">
-                        <span className="sp-label" style={{color: "rgb(180, 8, 196)"}}>Views</span>
-                        <br /> <span >1200</span>
-                    </div>
-                    <div className="col-lg-4">
-                        <span className="sp-label" style={{color: "rgb(180, 8, 196)"}}>Cheers</span>
-                        <br /> <span>1200</span>
-                    </div>
-                    <div className="col-lg-4">
-                        <span className="sp-label" style={{color: "rgb(180, 8, 196)"}}>Subs</span>
-                        <br /> <span>1200</span>
-                    </div>
-                </div>
-            </div>
-            </div>
-            <div className="col-8 offset-2 text-left">
-              <label for="subs">Subscriber rate</label>
-              <input
-                type="text"
-                placeholder="Enter Medici"
-                id="subs"
-                className="form-control"
-              />
-            </div>
-            <div className="col-8 offset-2 text-left">
-              <label>Per second viewing rate</label>
-              <input
-                type="text"
-                placeholder="Enter Medici"
-                className="form-control"
-                // onChange={text =>
-                // //   this.setState({ password: text.target.value })
-                // }
-              />
+              <h6>Buy Medici</h6>
             </div>
             <div className="col-8 offset-2 text-left">
               <label>Follow rate</label>
@@ -77,16 +37,13 @@ const BuyModal = props => {
                 type="text"
                 placeholder="Enter Medici"
                 className="form-control"
-                // onChange={text =>
-                // //   this.setState({ password: text.target.value })
-                // }
+                value={amount}
+                style={{color: "white"}}
+                onChange={text => setAmount(text.target.value)}
               />
             </div>
-            <div className="col-3">
-            
-            </div>
             <div className="col-12 p-1 m-1 login-btn">
-              <button onClick={() => buy()}>Buy</button>
+              <button onClick={(ev) => buyMore(amount)}>Buy</button>
             </div>
           </div>
         </div>
