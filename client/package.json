@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "author": "Jacob Parker",
   "private": true,
+  "homepage": "https://mycelium-ventures.github.io/medici-denver",
   "dependencies": {
     "@drizzle/react-components": "^1.5.0",
     "@drizzle/react-plugin": "^1.5.0",
@@ -38,13 +39,20 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "web3": "^1.2.6"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "flow": "flow",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
