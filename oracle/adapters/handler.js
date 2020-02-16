@@ -1,5 +1,7 @@
 'use strict';
 
+const request = require('request-promise-native');
+
 const hello = require("./adapters/hello").default;
 const cryptocompare = require("./adapters/cryptocompare").default;
 const coinmarketcap = require("./adapters/coinmarketcap").default;
@@ -19,6 +21,7 @@ const encodeFunctionCall = require("./adapters/encodeFunctionCall").default;
 
 const randomAddressID = require("./adapters/medici").randomAddressID;
 const randomAddressAddress = require("./adapters/medici").randomAddressAddress;
+const twitch = require("./adapters/twitch");
 
 
 const parseHTTPEventResponse = ({statusCode,  body}) => { 
@@ -64,3 +67,20 @@ module.exports.encodeFunctionCall = wrappedHandler(encodeFunctionCall)
 
 module.exports.randomAddressID = wrappedHandler(randomAddressID)
 module.exports.randomAddressAddress = wrappedHandler(randomAddressAddress)
+
+module.exports.twitchOAuth = wrappedHandler(twitch.oauth)
+module.exports.twitchViewReward = wrappedHandler(twitch.viewReward)
+
+
+/*
+modules.export.proxy = wrappedHandler(async (body) => {
+    const response = await request({
+        url: process.env.CHAINLINK_URL, 
+        json: true})
+
+    return { 
+        statusCode: 200, 
+        body: body
+    };
+})
+*/
