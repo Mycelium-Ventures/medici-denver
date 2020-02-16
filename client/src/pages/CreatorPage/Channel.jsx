@@ -1,16 +1,22 @@
 import React, { Component } from "react";
+import AdjustModal from "../../components/AdjustRateModal";
 
 class Accounts extends Component {
   state = {
-    connectFB: true,
-    connectIN: true,
-    connectTW: false,
-    connectYT: false
+    adujustModal: false
   };
+
+  adjustRates = (ev) => {
+    this.setState({adujustModal: !this.state.adujustModal})
+  }
+
   render() {
-    const { connectFB, connectIN, connectTW, connectYT } = this.state;
     return (
       <main className="container">
+        <AdjustModal
+          onAdjust={this.adjustRates}
+          adjustModal={this.state.adujustModal}
+        />
         <div className="row acc-title p-4 ml-2">
           <div className="col-lg-9 text-left pl-1 mt-3">
             <h6>Platform Subs: 1500</h6>
@@ -52,7 +58,7 @@ class Accounts extends Component {
                 </div>
                 <div className="row pt-2">
                   <div className="login-btn mx-auto">
-                    <button>Adjust Rates</button>
+                    <button onClick={() => this.adjustRates()}>Adjust Rates</button>
                   </div>
                 </div>
                 <hr style={{border: "0.5px solid white"}}/>

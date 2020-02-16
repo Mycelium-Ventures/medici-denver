@@ -123,7 +123,7 @@ h5 {
 
 .sec-2 .card-body .sp-label {
   font-size: 14px;
-  color: rgb(180, 8, 196);
+  color: rgb(180, 8, 196) !important;
 }
 
 .login-btn button,
