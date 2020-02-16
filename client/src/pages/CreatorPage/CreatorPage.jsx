@@ -71,7 +71,7 @@ class CreatorSidebar extends Component {
               onClick={() => this.activeSidebar(1)}
             >
               <img
-                src={require("../../assets/side-icons.png")}
+                src={require("../../assets/home.png")}
                 width={30}
                 height={30}
               />
@@ -82,7 +82,7 @@ class CreatorSidebar extends Component {
               onClick={() => this.activeSidebar(2)}
             >
               <img
-                src={require("../../assets/side-icons.png")}
+                src={require("../../assets/channel.png")}
                 width={30}
                 height={30}
               />
@@ -93,7 +93,7 @@ class CreatorSidebar extends Component {
               onClick={() => this.activeSidebar(3)}
             >
               <img
-                src={require("../../assets/side-icons.png")}
+                src={require("../../assets/wallet.png")}
                 width={30}
                 height={30}
               />
@@ -104,7 +104,7 @@ class CreatorSidebar extends Component {
               onClick={() => this.activeSidebar(4)}
             >
               <img
-                src={require("../../assets/side-icons.png")}
+                src={require("../../assets/rewards.png")}
                 width={30}
                 height={30}
               />
