@@ -127,6 +127,13 @@ functions:
       - http:
           path: twitch/viewReward
           method: post
+  proxy:
+    handler: handler.proxy
+    events:
+      - http:
+          path: proxy
+          method: post
+
 
 plugins:
   - serverless-offline
