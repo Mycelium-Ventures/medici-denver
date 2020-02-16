@@ -3,21 +3,21 @@
   "contractName": "EnumerableSetMapping",
   "source": "pragma solidity ^0.5.0;\n\nimport \"./EnumerableSet.sol\";\n\nlibrary EnumerableSetMapping {\n    using EnumerableSet for EnumerableSet.Set;\n\n    struct SetMapping {\n        // Position of the value in the `values` array, plus 1 because index 0\n        // means a value is not in the setMapping.\n        mapping(bytes32 => EnumerableSet.Set) data;\n    }\n\n    /**\n     * @dev Add a value to a setMapping. O(1).\n     * Returns false if the value was already in the setMapping.\n     */\n    function addValueForKey(SetMapping storage setMapping, bytes32 key, bytes32 value)\n        internal\n        returns (bool)\n    {\n        return setMapping.data[key].add(value);\n    }\n\n    /**\n     * @dev Removes a value from a setMapping. O(1).\n     * Returns false if the value was not present in the setMapping.\n     */\n    function removeValueForKey(SetMapping storage setMapping, bytes32 key, bytes32 value)\n        internal\n        returns (bool)\n    {\n        return setMapping.data[key].remove(value);\n    }\n\n    /**\n     * @dev Returns true if the value is in the setMapping. O(1).\n     */\n    function containsValueForKey(SetMapping storage setMapping, bytes32 key, bytes32 value)\n        internal\n        view\n        returns (bool)\n    {\n        return setMapping.data[key].contains(value);\n    }\n\n    function getValueForKey(SetMapping storage setMapping, bytes32 key)\n        internal\n        view\n        returns (EnumerableSet.Set storage)\n    {\n        return setMapping.data[key];\n    }\n\n    /**\n     * @dev Returns an array with all values in the setMapping. O(N).\n     * Note that there are no guarantees on the ordering of values inside the\n     * array, and it may change when more values are added or removed.\n\n     * WARNING: This function may run out of gas on large setMappings: use {length} and\n     * {get} instead in these cases.\n     */\n    function enumerateForKey(SetMapping storage setMapping, bytes32 key)\n        internal\n        view\n        returns (bytes32[] memory)\n    {\n        return setMapping.data[key].enumerate();\n    }\n\n    /**\n     * @dev Returns the number of elements on the setMapping. O(1).\n     */\n    function lengthForKey(SetMapping storage setMapping, bytes32 key)\n        internal\n        view\n        returns (uint256)\n    {\n        return setMapping.data[key].length();\n    }\n\n   /** @dev Returns the element stored at position `index` in the setMapping. O(1).\n    * Note that there are no guarantees on the ordering of values inside the\n    * array, and it may change when more values are added or removed.\n    *\n    * Requirements:\n    *\n    * - `index` must be strictly less than {length}.\n    */\n    function getValueAtIndexForKey(SetMapping storage setMapping, bytes32 key, uint256 index)\n        internal\n        view\n        returns (bytes32)\n    {\n        return setMapping.data[key].get(index);\n    }\n}\n",
   "sourcePath": "contracts/utils/EnumerableSetMapping.sol",
-  "sourceMap": "56:2793:31:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
-  "deployedSourceMap": "56:2793:31:-;;;;;;;;",
+  "sourceMap": "56:2793:10:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
+  "deployedSourceMap": "56:2793:10:-;;;;;;;;",
   "abi": [],
   "ast": {
     "absolutePath": "contracts/utils/EnumerableSetMapping.sol",
     "exportedSymbols": {
       "EnumerableSetMapping": [
-        4518
+        1601
       ]
     },
-    "id": 4519,
+    "id": 1602,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4378,
+        "id": 1461,
         "literals": [
           "solidity",
           "^",
@@ -25,16 +25,16 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:31"
+        "src": "0:23:10"
       },
       {
         "absolutePath": "contracts/utils/EnumerableSet.sol",
         "file": "./EnumerableSet.sol",
-        "id": 4379,
+        "id": 1462,
         "nodeType": "ImportDirective",
-        "scope": 4519,
-        "sourceUnit": 4096,
-        "src": "25:29:31",
+        "scope": 1602,
+        "sourceUnit": 1170,
+        "src": "25:29:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -44,86 +44,86 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 4518,
+        "id": 1601,
         "linearizedBaseContracts": [
-          4518
+          1601
         ],
         "name": "EnumerableSetMapping",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 4382,
+            "id": 1465,
             "libraryName": {
               "contractScope": null,
-              "id": 4380,
+              "id": 1463,
               "name": "EnumerableSet",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 4095,
-              "src": "97:13:31",
+              "referencedDeclaration": 1169,
+              "src": "97:13:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_EnumerableSet_$4095",
+                "typeIdentifier": "t_contract$_EnumerableSet_$1169",
                 "typeString": "library EnumerableSet"
               }
             },
             "nodeType": "UsingForDirective",
-            "src": "91:42:31",
+            "src": "91:42:10",
             "typeName": {
               "contractScope": null,
-              "id": 4381,
+              "id": 1464,
               "name": "EnumerableSet.Set",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3890,
-              "src": "115:17:31",
+              "referencedDeclaration": 964,
+              "src": "115:17:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_Set_$3890_storage_ptr",
+                "typeIdentifier": "t_struct$_Set_$964_storage_ptr",
                 "typeString": "struct EnumerableSet.Set"
               }
             }
           },
           {
             "canonicalName": "EnumerableSetMapping.SetMapping",
-            "id": 4387,
+            "id": 1470,
             "members": [
               {
                 "constant": false,
-                "id": 4386,
+                "id": 1469,
                 "name": "data",
                 "nodeType": "VariableDeclaration",
-                "scope": 4387,
-                "src": "297:42:31",
+                "scope": 1470,
+                "src": "297:42:10",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                  "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                   "typeString": "mapping(bytes32 => struct EnumerableSet.Set)"
                 },
                 "typeName": {
-                  "id": 4385,
+                  "id": 1468,
                   "keyType": {
-                    "id": 4383,
+                    "id": 1466,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "305:7:31",
+                    "src": "305:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
                   "nodeType": "Mapping",
-                  "src": "297:37:31",
+                  "src": "297:37:10",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                    "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                     "typeString": "mapping(bytes32 => struct EnumerableSet.Set)"
                   },
                   "valueType": {
                     "contractScope": null,
-                    "id": 4384,
+                    "id": 1467,
                     "name": "EnumerableSet.Set",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 3890,
-                    "src": "316:17:31",
+                    "referencedDeclaration": 964,
+                    "src": "316:17:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Set_$3890_storage_ptr",
+                      "typeIdentifier": "t_struct$_Set_$964_storage_ptr",
                       "typeString": "struct EnumerableSet.Set"
                     }
                   }
@@ -134,15 +134,15 @@
             ],
             "name": "SetMapping",
             "nodeType": "StructDefinition",
-            "scope": 4518,
-            "src": "139:207:31",
+            "scope": 1601,
+            "src": "139:207:10",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 4406,
+              "id": 1489,
               "nodeType": "Block",
-              "src": "607:55:31",
+              "src": "607:55:10",
               "statements": [
                 {
                   "expression": {
@@ -150,12 +150,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 4403,
+                        "id": 1486,
                         "name": "value",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4393,
-                        "src": "649:5:31",
+                        "referencedDeclaration": 1476,
+                        "src": "649:5:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -175,40 +175,40 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 4398,
+                            "id": 1481,
                             "name": "setMapping",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4389,
-                            "src": "624:10:31",
+                            "referencedDeclaration": 1472,
+                            "src": "624:10:10",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                              "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                               "typeString": "struct EnumerableSetMapping.SetMapping storage pointer"
                             }
                           },
-                          "id": 4399,
+                          "id": 1482,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "data",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4386,
-                          "src": "624:15:31",
+                          "referencedDeclaration": 1469,
+                          "src": "624:15:10",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                             "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
                           }
                         },
-                        "id": 4401,
+                        "id": 1484,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 4400,
+                          "id": 1483,
                           "name": "key",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4391,
-                          "src": "640:3:31",
+                          "referencedDeclaration": 1474,
+                          "src": "640:3:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -219,27 +219,27 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "624:20:31",
+                        "src": "624:20:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3890_storage",
+                          "typeIdentifier": "t_struct$_Set_$964_storage",
                           "typeString": "struct EnumerableSet.Set storage ref"
                         }
                       },
-                      "id": 4402,
+                      "id": 1485,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "add",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3924,
-                      "src": "624:24:31",
+                      "referencedDeclaration": 998,
+                      "src": "624:24:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3890_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3890_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$964_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$964_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) returns (bool)"
                       }
                     },
-                    "id": 4404,
+                    "id": 1487,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -247,52 +247,52 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "624:31:31",
+                    "src": "624:31:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 4397,
-                  "id": 4405,
+                  "functionReturnParameters": 1480,
+                  "id": 1488,
                   "nodeType": "Return",
-                  "src": "617:38:31"
+                  "src": "617:38:10"
                 }
               ]
             },
             "documentation": "@dev Add a value to a setMapping. O(1).\nReturns false if the value was already in the setMapping.",
-            "id": 4407,
+            "id": 1490,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "addValueForKey",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4394,
+              "id": 1477,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4389,
+                  "id": 1472,
                   "name": "setMapping",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4407,
-                  "src": "504:29:31",
+                  "scope": 1490,
+                  "src": "504:29:10",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                    "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                     "typeString": "struct EnumerableSetMapping.SetMapping"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 4388,
+                    "id": 1471,
                     "name": "SetMapping",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 4387,
-                    "src": "504:10:31",
+                    "referencedDeclaration": 1470,
+                    "src": "504:10:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                      "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                       "typeString": "struct EnumerableSetMapping.SetMapping"
                     }
                   },
@@ -301,11 +301,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4391,
+                  "id": 1474,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4407,
-                  "src": "535:11:31",
+                  "scope": 1490,
+                  "src": "535:11:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -313,10 +313,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4390,
+                    "id": 1473,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "535:7:31",
+                    "src": "535:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -327,11 +327,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4393,
+                  "id": 1476,
                   "name": "value",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4407,
-                  "src": "548:13:31",
+                  "scope": 1490,
+                  "src": "548:13:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -339,10 +339,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4392,
+                    "id": 1475,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "548:7:31",
+                    "src": "548:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -352,19 +352,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "503:59:31"
+              "src": "503:59:10"
             },
             "returnParameters": {
-              "id": 4397,
+              "id": 1480,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4396,
+                  "id": 1479,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4407,
-                  "src": "597:4:31",
+                  "scope": 1490,
+                  "src": "597:4:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -372,10 +372,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 4395,
+                    "id": 1478,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "597:4:31",
+                    "src": "597:4:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -385,19 +385,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "596:6:31"
+              "src": "596:6:10"
             },
-            "scope": 4518,
-            "src": "480:182:31",
+            "scope": 1601,
+            "src": "480:182:10",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 4426,
+              "id": 1509,
               "nodeType": "Block",
-              "src": "936:58:31",
+              "src": "936:58:10",
               "statements": [
                 {
                   "expression": {
@@ -405,12 +405,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 4423,
+                        "id": 1506,
                         "name": "value",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4413,
-                        "src": "981:5:31",
+                        "referencedDeclaration": 1496,
+                        "src": "981:5:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -430,40 +430,40 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 4418,
+                            "id": 1501,
                             "name": "setMapping",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4409,
-                            "src": "953:10:31",
+                            "referencedDeclaration": 1492,
+                            "src": "953:10:10",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                              "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                               "typeString": "struct EnumerableSetMapping.SetMapping storage pointer"
                             }
                           },
-                          "id": 4419,
+                          "id": 1502,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "data",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4386,
-                          "src": "953:15:31",
+                          "referencedDeclaration": 1469,
+                          "src": "953:15:10",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                             "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
                           }
                         },
-                        "id": 4421,
+                        "id": 1504,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 4420,
+                          "id": 1503,
                           "name": "key",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4411,
-                          "src": "969:3:31",
+                          "referencedDeclaration": 1494,
+                          "src": "969:3:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -474,27 +474,27 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "953:20:31",
+                        "src": "953:20:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3890_storage",
+                          "typeIdentifier": "t_struct$_Set_$964_storage",
                           "typeString": "struct EnumerableSet.Set storage ref"
                         }
                       },
-                      "id": 4422,
+                      "id": 1505,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "remove",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4005,
-                      "src": "953:27:31",
+                      "referencedDeclaration": 1079,
+                      "src": "953:27:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$3890_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3890_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Set_$964_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$964_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) returns (bool)"
                       }
                     },
-                    "id": 4424,
+                    "id": 1507,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -502,52 +502,52 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "953:34:31",
+                    "src": "953:34:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 4417,
-                  "id": 4425,
+                  "functionReturnParameters": 1500,
+                  "id": 1508,
                   "nodeType": "Return",
-                  "src": "946:41:31"
+                  "src": "946:41:10"
                 }
               ]
             },
             "documentation": "@dev Removes a value from a setMapping. O(1).\nReturns false if the value was not present in the setMapping.",
-            "id": 4427,
+            "id": 1510,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "removeValueForKey",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4414,
+              "id": 1497,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4409,
+                  "id": 1492,
                   "name": "setMapping",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4427,
-                  "src": "833:29:31",
+                  "scope": 1510,
+                  "src": "833:29:10",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                    "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                     "typeString": "struct EnumerableSetMapping.SetMapping"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 4408,
+                    "id": 1491,
                     "name": "SetMapping",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 4387,
-                    "src": "833:10:31",
+                    "referencedDeclaration": 1470,
+                    "src": "833:10:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                      "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                       "typeString": "struct EnumerableSetMapping.SetMapping"
                     }
                   },
@@ -556,11 +556,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4411,
+                  "id": 1494,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4427,
-                  "src": "864:11:31",
+                  "scope": 1510,
+                  "src": "864:11:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -568,10 +568,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4410,
+                    "id": 1493,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "864:7:31",
+                    "src": "864:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -582,11 +582,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4413,
+                  "id": 1496,
                   "name": "value",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4427,
-                  "src": "877:13:31",
+                  "scope": 1510,
+                  "src": "877:13:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -594,10 +594,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4412,
+                    "id": 1495,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "877:7:31",
+                    "src": "877:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -607,19 +607,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "832:59:31"
+              "src": "832:59:10"
             },
             "returnParameters": {
-              "id": 4417,
+              "id": 1500,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4416,
+                  "id": 1499,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4427,
-                  "src": "926:4:31",
+                  "scope": 1510,
+                  "src": "926:4:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -627,10 +627,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 4415,
+                    "id": 1498,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "926:4:31",
+                    "src": "926:4:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -640,19 +640,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "925:6:31"
+              "src": "925:6:10"
             },
-            "scope": 4518,
-            "src": "806:188:31",
+            "scope": 1601,
+            "src": "806:188:10",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 4446,
+              "id": 1529,
               "nodeType": "Block",
-              "src": "1227:60:31",
+              "src": "1227:60:10",
               "statements": [
                 {
                   "expression": {
@@ -660,12 +660,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 4443,
+                        "id": 1526,
                         "name": "value",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4433,
-                        "src": "1274:5:31",
+                        "referencedDeclaration": 1516,
+                        "src": "1274:5:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
                           "typeString": "bytes32"
@@ -685,40 +685,40 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 4438,
+                            "id": 1521,
                             "name": "setMapping",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4429,
-                            "src": "1244:10:31",
+                            "referencedDeclaration": 1512,
+                            "src": "1244:10:10",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                              "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                               "typeString": "struct EnumerableSetMapping.SetMapping storage pointer"
                             }
                           },
-                          "id": 4439,
+                          "id": 1522,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "data",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4386,
-                          "src": "1244:15:31",
+                          "referencedDeclaration": 1469,
+                          "src": "1244:15:10",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                             "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
                           }
                         },
-                        "id": 4441,
+                        "id": 1524,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 4440,
+                          "id": 1523,
                           "name": "key",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4431,
-                          "src": "1260:3:31",
+                          "referencedDeclaration": 1514,
+                          "src": "1260:3:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -729,27 +729,27 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "1244:20:31",
+                        "src": "1244:20:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3890_storage",
+                          "typeIdentifier": "t_struct$_Set_$964_storage",
                           "typeString": "struct EnumerableSet.Set storage ref"
                         }
                       },
-                      "id": 4442,
+                      "id": 1525,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "contains",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4022,
-                      "src": "1244:29:31",
+                      "referencedDeclaration": 1096,
+                      "src": "1244:29:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3890_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$3890_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$964_storage_ptr_$_t_bytes32_$returns$_t_bool_$bound_to$_t_struct$_Set_$964_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer,bytes32) view returns (bool)"
                       }
                     },
-                    "id": 4444,
+                    "id": 1527,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -757,52 +757,52 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1244:36:31",
+                    "src": "1244:36:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 4437,
-                  "id": 4445,
+                  "functionReturnParameters": 1520,
+                  "id": 1528,
                   "nodeType": "Return",
-                  "src": "1237:43:31"
+                  "src": "1237:43:10"
                 }
               ]
             },
             "documentation": "@dev Returns true if the value is in the setMapping. O(1).",
-            "id": 4447,
+            "id": 1530,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "containsValueForKey",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4434,
+              "id": 1517,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4429,
+                  "id": 1512,
                   "name": "setMapping",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4447,
-                  "src": "1111:29:31",
+                  "scope": 1530,
+                  "src": "1111:29:10",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                    "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                     "typeString": "struct EnumerableSetMapping.SetMapping"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 4428,
+                    "id": 1511,
                     "name": "SetMapping",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 4387,
-                    "src": "1111:10:31",
+                    "referencedDeclaration": 1470,
+                    "src": "1111:10:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                      "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                       "typeString": "struct EnumerableSetMapping.SetMapping"
                     }
                   },
@@ -811,11 +811,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4431,
+                  "id": 1514,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4447,
-                  "src": "1142:11:31",
+                  "scope": 1530,
+                  "src": "1142:11:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -823,10 +823,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4430,
+                    "id": 1513,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1142:7:31",
+                    "src": "1142:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -837,11 +837,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4433,
+                  "id": 1516,
                   "name": "value",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4447,
-                  "src": "1155:13:31",
+                  "scope": 1530,
+                  "src": "1155:13:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -849,10 +849,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4432,
+                    "id": 1515,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1155:7:31",
+                    "src": "1155:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -862,19 +862,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1110:59:31"
+              "src": "1110:59:10"
             },
             "returnParameters": {
-              "id": 4437,
+              "id": 1520,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4436,
+                  "id": 1519,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4447,
-                  "src": "1217:4:31",
+                  "scope": 1530,
+                  "src": "1217:4:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -882,10 +882,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 4435,
+                    "id": 1518,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1217:4:31",
+                    "src": "1217:4:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -895,19 +895,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1216:6:31"
+              "src": "1216:6:10"
             },
-            "scope": 4518,
-            "src": "1082:205:31",
+            "scope": 1601,
+            "src": "1082:205:10",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 4461,
+              "id": 1544,
               "nodeType": "Block",
-              "src": "1439:44:31",
+              "src": "1439:44:10",
               "statements": [
                 {
                   "expression": {
@@ -916,40 +916,40 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 4456,
+                        "id": 1539,
                         "name": "setMapping",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4449,
-                        "src": "1456:10:31",
+                        "referencedDeclaration": 1532,
+                        "src": "1456:10:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                          "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                           "typeString": "struct EnumerableSetMapping.SetMapping storage pointer"
                         }
                       },
-                      "id": 4457,
+                      "id": 1540,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "data",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4386,
-                      "src": "1456:15:31",
+                      "referencedDeclaration": 1469,
+                      "src": "1456:15:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                        "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                         "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
                       }
                     },
-                    "id": 4459,
+                    "id": 1542,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 4458,
+                      "id": 1541,
                       "name": "key",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4451,
-                      "src": "1472:3:31",
+                      "referencedDeclaration": 1534,
+                      "src": "1472:3:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -960,52 +960,52 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
-                    "src": "1456:20:31",
+                    "src": "1456:20:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Set_$3890_storage",
+                      "typeIdentifier": "t_struct$_Set_$964_storage",
                       "typeString": "struct EnumerableSet.Set storage ref"
                     }
                   },
-                  "functionReturnParameters": 4455,
-                  "id": 4460,
+                  "functionReturnParameters": 1538,
+                  "id": 1543,
                   "nodeType": "Return",
-                  "src": "1449:27:31"
+                  "src": "1449:27:10"
                 }
               ]
             },
             "documentation": null,
-            "id": 4462,
+            "id": 1545,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getValueForKey",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4452,
+              "id": 1535,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4449,
+                  "id": 1532,
                   "name": "setMapping",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4462,
-                  "src": "1317:29:31",
+                  "scope": 1545,
+                  "src": "1317:29:10",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                    "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                     "typeString": "struct EnumerableSetMapping.SetMapping"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 4448,
+                    "id": 1531,
                     "name": "SetMapping",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 4387,
-                    "src": "1317:10:31",
+                    "referencedDeclaration": 1470,
+                    "src": "1317:10:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                      "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                       "typeString": "struct EnumerableSetMapping.SetMapping"
                     }
                   },
@@ -1014,11 +1014,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4451,
+                  "id": 1534,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4462,
-                  "src": "1348:11:31",
+                  "scope": 1545,
+                  "src": "1348:11:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1026,10 +1026,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4450,
+                    "id": 1533,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1348:7:31",
+                    "src": "1348:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1039,34 +1039,34 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1316:44:31"
+              "src": "1316:44:10"
             },
             "returnParameters": {
-              "id": 4455,
+              "id": 1538,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4454,
+                  "id": 1537,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4462,
-                  "src": "1408:25:31",
+                  "scope": 1545,
+                  "src": "1408:25:10",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Set_$3890_storage_ptr",
+                    "typeIdentifier": "t_struct$_Set_$964_storage_ptr",
                     "typeString": "struct EnumerableSet.Set"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 4453,
+                    "id": 1536,
                     "name": "EnumerableSet.Set",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 3890,
-                    "src": "1408:17:31",
+                    "referencedDeclaration": 964,
+                    "src": "1408:17:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Set_$3890_storage_ptr",
+                      "typeIdentifier": "t_struct$_Set_$964_storage_ptr",
                       "typeString": "struct EnumerableSet.Set"
                     }
                   },
@@ -1074,19 +1074,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1407:27:31"
+              "src": "1407:27:10"
             },
-            "scope": 4518,
-            "src": "1293:190:31",
+            "scope": 1601,
+            "src": "1293:190:10",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 4479,
+              "id": 1562,
               "nodeType": "Block",
-              "src": "1988:56:31",
+              "src": "1988:56:10",
               "statements": [
                 {
                   "expression": {
@@ -1100,40 +1100,40 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 4472,
+                            "id": 1555,
                             "name": "setMapping",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4464,
-                            "src": "2005:10:31",
+                            "referencedDeclaration": 1547,
+                            "src": "2005:10:10",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                              "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                               "typeString": "struct EnumerableSetMapping.SetMapping storage pointer"
                             }
                           },
-                          "id": 4473,
+                          "id": 1556,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "data",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4386,
-                          "src": "2005:15:31",
+                          "referencedDeclaration": 1469,
+                          "src": "2005:15:10",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                             "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
                           }
                         },
-                        "id": 4475,
+                        "id": 1558,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 4474,
+                          "id": 1557,
                           "name": "key",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4466,
-                          "src": "2021:3:31",
+                          "referencedDeclaration": 1549,
+                          "src": "2021:3:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -1144,27 +1144,27 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "2005:20:31",
+                        "src": "2005:20:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3890_storage",
+                          "typeIdentifier": "t_struct$_Set_$964_storage",
                           "typeString": "struct EnumerableSet.Set storage ref"
                         }
                       },
-                      "id": 4476,
+                      "id": 1559,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "enumerate",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4067,
-                      "src": "2005:30:31",
+                      "referencedDeclaration": 1141,
+                      "src": "2005:30:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3890_storage_ptr_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$bound_to$_t_struct$_Set_$3890_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$964_storage_ptr_$returns$_t_array$_t_bytes32_$dyn_memory_ptr_$bound_to$_t_struct$_Set_$964_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer) view returns (bytes32[] memory)"
                       }
                     },
-                    "id": 4477,
+                    "id": 1560,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1172,52 +1172,52 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2005:32:31",
+                    "src": "2005:32:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
                       "typeString": "bytes32[] memory"
                     }
                   },
-                  "functionReturnParameters": 4471,
-                  "id": 4478,
+                  "functionReturnParameters": 1554,
+                  "id": 1561,
                   "nodeType": "Return",
-                  "src": "1998:39:31"
+                  "src": "1998:39:10"
                 }
               ]
             },
             "documentation": "@dev Returns an array with all values in the setMapping. O(N).\nNote that there are no guarantees on the ordering of values inside the\narray, and it may change when more values are added or removed.\nWARNING: This function may run out of gas on large setMappings: use {length} and\n{get} instead in these cases.",
-            "id": 4480,
+            "id": 1563,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "enumerateForKey",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4467,
+              "id": 1550,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4464,
+                  "id": 1547,
                   "name": "setMapping",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4480,
-                  "src": "1875:29:31",
+                  "scope": 1563,
+                  "src": "1875:29:10",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                    "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                     "typeString": "struct EnumerableSetMapping.SetMapping"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 4463,
+                    "id": 1546,
                     "name": "SetMapping",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 4387,
-                    "src": "1875:10:31",
+                    "referencedDeclaration": 1470,
+                    "src": "1875:10:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                      "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                       "typeString": "struct EnumerableSetMapping.SetMapping"
                     }
                   },
@@ -1226,11 +1226,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4466,
+                  "id": 1549,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4480,
-                  "src": "1906:11:31",
+                  "scope": 1563,
+                  "src": "1906:11:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1238,10 +1238,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4465,
+                    "id": 1548,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1906:7:31",
+                    "src": "1906:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1251,19 +1251,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1874:44:31"
+              "src": "1874:44:10"
             },
             "returnParameters": {
-              "id": 4471,
+              "id": 1554,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4470,
+                  "id": 1553,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4480,
-                  "src": "1966:16:31",
+                  "scope": 1563,
+                  "src": "1966:16:10",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -1272,19 +1272,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 4468,
+                      "id": 1551,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
-                      "src": "1966:7:31",
+                      "src": "1966:7:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 4469,
+                    "id": 1552,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "1966:9:31",
+                    "src": "1966:9:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
                       "typeString": "bytes32[]"
@@ -1294,19 +1294,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1965:18:31"
+              "src": "1965:18:10"
             },
-            "scope": 4518,
-            "src": "1850:194:31",
+            "scope": 1601,
+            "src": "1850:194:10",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 4496,
+              "id": 1579,
               "nodeType": "Block",
-              "src": "2260:53:31",
+              "src": "2260:53:10",
               "statements": [
                 {
                   "expression": {
@@ -1320,40 +1320,40 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 4489,
+                            "id": 1572,
                             "name": "setMapping",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4482,
-                            "src": "2277:10:31",
+                            "referencedDeclaration": 1565,
+                            "src": "2277:10:10",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                              "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                               "typeString": "struct EnumerableSetMapping.SetMapping storage pointer"
                             }
                           },
-                          "id": 4490,
+                          "id": 1573,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "data",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4386,
-                          "src": "2277:15:31",
+                          "referencedDeclaration": 1469,
+                          "src": "2277:15:10",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                             "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
                           }
                         },
-                        "id": 4492,
+                        "id": 1575,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 4491,
+                          "id": 1574,
                           "name": "key",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4484,
-                          "src": "2293:3:31",
+                          "referencedDeclaration": 1567,
+                          "src": "2293:3:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -1364,27 +1364,27 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "2277:20:31",
+                        "src": "2277:20:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3890_storage",
+                          "typeIdentifier": "t_struct$_Set_$964_storage",
                           "typeString": "struct EnumerableSet.Set storage ref"
                         }
                       },
-                      "id": 4493,
+                      "id": 1576,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "length",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4079,
-                      "src": "2277:27:31",
+                      "referencedDeclaration": 1153,
+                      "src": "2277:27:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3890_storage_ptr_$returns$_t_uint256_$bound_to$_t_struct$_Set_$3890_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$964_storage_ptr_$returns$_t_uint256_$bound_to$_t_struct$_Set_$964_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer) view returns (uint256)"
                       }
                     },
-                    "id": 4494,
+                    "id": 1577,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1392,52 +1392,52 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2277:29:31",
+                    "src": "2277:29:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 4488,
-                  "id": 4495,
+                  "functionReturnParameters": 1571,
+                  "id": 1578,
                   "nodeType": "Return",
-                  "src": "2270:36:31"
+                  "src": "2270:36:10"
                 }
               ]
             },
             "documentation": "@dev Returns the number of elements on the setMapping. O(1).",
-            "id": 4497,
+            "id": 1580,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "lengthForKey",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4485,
+              "id": 1568,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4482,
+                  "id": 1565,
                   "name": "setMapping",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4497,
-                  "src": "2156:29:31",
+                  "scope": 1580,
+                  "src": "2156:29:10",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                    "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                     "typeString": "struct EnumerableSetMapping.SetMapping"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 4481,
+                    "id": 1564,
                     "name": "SetMapping",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 4387,
-                    "src": "2156:10:31",
+                    "referencedDeclaration": 1470,
+                    "src": "2156:10:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                      "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                       "typeString": "struct EnumerableSetMapping.SetMapping"
                     }
                   },
@@ -1446,11 +1446,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4484,
+                  "id": 1567,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4497,
-                  "src": "2187:11:31",
+                  "scope": 1580,
+                  "src": "2187:11:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1458,10 +1458,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4483,
+                    "id": 1566,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2187:7:31",
+                    "src": "2187:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1471,19 +1471,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2155:44:31"
+              "src": "2155:44:10"
             },
             "returnParameters": {
-              "id": 4488,
+              "id": 1571,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4487,
+                  "id": 1570,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4497,
-                  "src": "2247:7:31",
+                  "scope": 1580,
+                  "src": "2247:7:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1491,10 +1491,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 4486,
+                    "id": 1569,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2247:7:31",
+                    "src": "2247:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1504,19 +1504,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2246:9:31"
+              "src": "2246:9:10"
             },
-            "scope": 4518,
-            "src": "2134:179:31",
+            "scope": 1601,
+            "src": "2134:179:10",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 4516,
+              "id": 1599,
               "nodeType": "Block",
-              "src": "2792:55:31",
+              "src": "2792:55:10",
               "statements": [
                 {
                   "expression": {
@@ -1524,12 +1524,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 4513,
+                        "id": 1596,
                         "name": "index",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4503,
-                        "src": "2834:5:31",
+                        "referencedDeclaration": 1586,
+                        "src": "2834:5:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1549,40 +1549,40 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 4508,
+                            "id": 1591,
                             "name": "setMapping",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4499,
-                            "src": "2809:10:31",
+                            "referencedDeclaration": 1582,
+                            "src": "2809:10:10",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                              "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                               "typeString": "struct EnumerableSetMapping.SetMapping storage pointer"
                             }
                           },
-                          "id": 4509,
+                          "id": 1592,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "data",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 4386,
-                          "src": "2809:15:31",
+                          "referencedDeclaration": 1469,
+                          "src": "2809:15:10",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$3890_storage_$",
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Set_$964_storage_$",
                             "typeString": "mapping(bytes32 => struct EnumerableSet.Set storage ref)"
                           }
                         },
-                        "id": 4511,
+                        "id": 1594,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 4510,
+                          "id": 1593,
                           "name": "key",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 4501,
-                          "src": "2825:3:31",
+                          "referencedDeclaration": 1584,
+                          "src": "2825:3:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
@@ -1593,27 +1593,27 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "2809:20:31",
+                        "src": "2809:20:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Set_$3890_storage",
+                          "typeIdentifier": "t_struct$_Set_$964_storage",
                           "typeString": "struct EnumerableSet.Set storage ref"
                         }
                       },
-                      "id": 4512,
+                      "id": 1595,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "get",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 4094,
-                      "src": "2809:24:31",
+                      "referencedDeclaration": 1168,
+                      "src": "2809:24:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$3890_storage_ptr_$_t_uint256_$returns$_t_bytes32_$bound_to$_t_struct$_Set_$3890_storage_ptr_$",
+                        "typeIdentifier": "t_function_internal_view$_t_struct$_Set_$964_storage_ptr_$_t_uint256_$returns$_t_bytes32_$bound_to$_t_struct$_Set_$964_storage_ptr_$",
                         "typeString": "function (struct EnumerableSet.Set storage pointer,uint256) view returns (bytes32)"
                       }
                     },
-                    "id": 4514,
+                    "id": 1597,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1621,52 +1621,52 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "2809:31:31",
+                    "src": "2809:31:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 4507,
-                  "id": 4515,
+                  "functionReturnParameters": 1590,
+                  "id": 1598,
                   "nodeType": "Return",
-                  "src": "2802:38:31"
+                  "src": "2802:38:10"
                 }
               ]
             },
             "documentation": "@dev Returns the element stored at position `index` in the setMapping. O(1).\nNote that there are no guarantees on the ordering of values inside the\narray, and it may change when more values are added or removed.\n    * Requirements:\n    * - `index` must be strictly less than {length}.",
-            "id": 4517,
+            "id": 1600,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getValueAtIndexForKey",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4504,
+              "id": 1587,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4499,
+                  "id": 1582,
                   "name": "setMapping",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4517,
-                  "src": "2673:29:31",
+                  "scope": 1600,
+                  "src": "2673:29:10",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                    "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                     "typeString": "struct EnumerableSetMapping.SetMapping"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 4498,
+                    "id": 1581,
                     "name": "SetMapping",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 4387,
-                    "src": "2673:10:31",
+                    "referencedDeclaration": 1470,
+                    "src": "2673:10:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_SetMapping_$4387_storage_ptr",
+                      "typeIdentifier": "t_struct$_SetMapping_$1470_storage_ptr",
                       "typeString": "struct EnumerableSetMapping.SetMapping"
                     }
                   },
@@ -1675,11 +1675,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4501,
+                  "id": 1584,
                   "name": "key",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4517,
-                  "src": "2704:11:31",
+                  "scope": 1600,
+                  "src": "2704:11:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1687,10 +1687,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4500,
+                    "id": 1583,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2704:7:31",
+                    "src": "2704:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1701,11 +1701,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 4503,
+                  "id": 1586,
                   "name": "index",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4517,
-                  "src": "2717:13:31",
+                  "scope": 1600,
+                  "src": "2717:13:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1713,10 +1713,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 4502,
+                    "id": 1585,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2717:7:31",
+                    "src": "2717:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1726,19 +1726,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2672:59:31"
+              "src": "2672:59:10"
             },
             "returnParameters": {
-              "id": 4507,
+              "id": 1590,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4506,
+                  "id": 1589,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4517,
-                  "src": "2779:7:31",
+                  "scope": 1600,
+                  "src": "2779:7:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1746,10 +1746,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 4505,
+                    "id": 1588,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2779:7:31",
+                    "src": "2779:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1759,20 +1759,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2778:9:31"
+              "src": "2778:9:10"
             },
-            "scope": 4518,
-            "src": "2642:205:31",
+            "scope": 1601,
+            "src": "2642:205:10",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 4519,
-        "src": "56:2793:31"
+        "scope": 1602,
+        "src": "56:2793:10"
       }
     ],
-    "src": "0:2850:31"
+    "src": "0:2850:10"
   },
   "bytecode": "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820cf65b0de3ae526ac8af345644c6a8b25cdea548d8877a86d5e47db84e5c632db64736f6c63430005100032",
   "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820cf65b0de3ae526ac8af345644c6a8b25cdea548d8877a86d5e47db84e5c632db64736f6c63430005100032",

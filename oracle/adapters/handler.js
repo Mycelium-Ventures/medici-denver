@@ -69,4 +69,4 @@ module.exports.randomAddressAddress = wrappedHandler(randomAddressAddress)
 
 module.exports.twitchOAuth = wrappedHandler(twitch.oauth)
 module.exports.twitchViewReward = wrappedHandler(twitch.viewReward)
-module.exports.proxy = wrappedHandler(proxy)
+module.exports.proxy = proxy
