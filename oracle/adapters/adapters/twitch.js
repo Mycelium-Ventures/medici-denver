@@ -19,14 +19,14 @@ module.exports.oauth = async ({
     data
 }) => { 
     const { twitchId, ethAddress } = data;
+    console.log(data)
     if (!twitchId) { throw Error("Missing twitchId."); }
     if (!ethAddress) { throw Error("Missing address."); }
 
-    const address32Bytes = bufferToBytes32(Buffer.from(web3.utils.hexToBytes(ethAddress))).toString("hex");
-    const twitchId32Bytes = bufferToBytes32(Buffer.from(twitchId, 'ascii')).toString("hex");
+    const address32Bytes = '0x' + bufferToBytes32(Buffer.from(web3.utils.hexToBytes(ethAddress))).toString("hex");
+    const twitchId32Bytes = '0x' + bufferToBytes32(Buffer.from(twitchId, 'ascii')).toString("hex");    
     
-    const address32BytesString = address32Bytes.toString("hex");
-    const walletTwitchIdHash = namehash.hash(`wallet.${address32BytesString}.twitchId`)
+    const walletTwitchIdHash = namehash.hash(`wallet.${address32Bytes}.twitchId`)
     
     const batchAdd = {
         "_table":[walletHash, twitchIdHash, walletTwitchIdHash],
