@@ -11,7 +11,7 @@ import { Route, Switch } from "react-router-dom";
 
 import routes from './routes'
 
-import { ActionCheckAccts, ActionGetVideoMetrics, ActionCreateORMData, ActionGetTwitchLinkedProof, ActionCheckTwitchLinked } from './store/redux/profile'
+import { ActionCheckAccts, ActionGetVideoMetrics, ActionGetChannelParams, ActionSetChannelParams, ActionCreateORMData, ActionGetTwitchLinkedProof, ActionCheckTwitchLinked } from './store/redux/profile'
 import { welcomeShown } from './store/redux/profile';
 
 import ConnectModal from "./components/ConnectModal";
@@ -86,13 +86,16 @@ const App = (props) => {
 
 
   useEffect(() => {
+    // props.dispatch(ActionSetChannelParams({subRate: 25, perSecRate: 10, cheerRate: 100}))
     // props.dispatch(ActionGetTwitchLinkedProof())
     // props.dispatch(ActionCreateORMData())
     props.dispatch(ActionGetVideoMetrics())
+    props.dispatch(ActionGetChannelParams())
   }, [])
 
   useInterval(() => {
     props.dispatch(ActionGetVideoMetrics())
+    props.dispatch(ActionGetChannelParams())
   }, 30000)
 
   if (!props.profile.ready){
