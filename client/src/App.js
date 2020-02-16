@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import _ from 'lodash';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -11,7 +11,7 @@ import { Route, Switch } from "react-router-dom";
 
 import routes from './routes'
 
-import { ActionCheckAccts, ActionCreateORMData, ActionGetTwitchLinkedProof, ActionCheckTwitchLinked } from './store/redux/profile'
+import { ActionCheckAccts, ActionGetVideoMetrics, ActionCreateORMData, ActionGetTwitchLinkedProof, ActionCheckTwitchLinked } from './store/redux/profile'
 import { welcomeShown } from './store/redux/profile';
 
 import ConnectModal from "./components/ConnectModal";
@@ -19,6 +19,26 @@ import ConnectModal from "./components/ConnectModal";
 // import { DrizzleContext } from "@drizzle/react-plugin"
 // import { newContextComponents } from "@drizzle/react-components"
 // const { ContractData } = newContextComponents
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
 
 const App = (props) => {
 
@@ -66,9 +86,13 @@ const App = (props) => {
 
 
   useEffect(() => {
-    props.dispatch(ActionGetTwitchLinkedProof())
+    // props.dispatch(ActionGetTwitchLinkedProof())
     // props.dispatch(ActionCreateORMData())
   }, [])
+
+  useInterval(() => {
+    props.dispatch(ActionGetVideoMetrics())
+  }, 30000)
 
   if (!props.profile.ready){
     return <Loading/>

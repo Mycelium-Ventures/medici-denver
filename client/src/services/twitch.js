@@ -1,6 +1,6 @@
 
 
-const redirectUrl = 'http://localhost:3000/redirect_twitch'
+const redirectUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/redirect_twitch' : 'https://mycelium-ventures.github.io/medici-denver/redirect_twitch'
 
 export function authTwitch() {
 
