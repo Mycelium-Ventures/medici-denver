@@ -15,7 +15,7 @@ import reducers from './reducers'
 export const fm = new Fortmatic('pk_test_4FCC9EB428DA91E3', 'ropsten')
 export const fmWeb3 = new Web3(fm.getProvider())
 
-const drizzleOptions = DrizzleOptions()
+const drizzleOptions = DrizzleOptions(fmWeb3)
 
 export const history = createBrowserHistory()
 

@@ -11,9 +11,8 @@ import { Route, Switch } from "react-router-dom";
 
 import routes from './routes'
 
-import { ActionCheckAccts, ActionCheckTwitchLinked } from './store/redux/profile'
+import { ActionCheckAccts, ActionCreateORMData, ActionGetTwitchLinkedProof, ActionCheckTwitchLinked } from './store/redux/profile'
 import { welcomeShown } from './store/redux/profile';
-
 
 import ConnectModal from "./components/ConnectModal";
 
@@ -66,11 +65,10 @@ const App = (props) => {
   })
 
 
-  /*
   useEffect(() => {
-    props.dispatch(ActionCheckTwitchLinked())
-  }, [props.drizzleInitialized, props.profile.twitchId, props.profile.ethAddress])
-  */
+    props.dispatch(ActionGetTwitchLinkedProof())
+    // props.dispatch(ActionCreateORMData())
+  }, [])
 
   if (!props.profile.ready){
     return <Loading/>

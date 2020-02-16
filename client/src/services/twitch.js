@@ -9,7 +9,7 @@ export function authTwitch() {
   // JWT fetch - only embeds userId and username - can use https://id.twitch.tv/oauth2/keys to verify
   window.location.href = "https://id.twitch.tv/oauth2/authorize?"
     + "client_id=e2oo0q2wfiu9x3r0fzkh7cornp3652&"
-    + `redirect_uri=${redirectUrl}&response_type=token+id_token&`
+    + `redirect_uri=${redirectUrl}&response_type=token+id_token&force_verify&`
     + "scope=user:edit+openid";
 
   // Unused OAuth Call - requests token with access to user's follow + subscription data

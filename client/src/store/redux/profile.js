@@ -1,8 +1,14 @@
 import namehash from 'eth-ens-namehash'
-
-import drizzle from '../index'
+import axios from 'axios'
+import drizzle, { fmWeb3 } from '../index'
 
 import { createTable, addAddressToTable } from "../../services/contract";
+import ORMExternal from '../../contracts/ORMExternal'
+
+function bufferToBytes32(buffer) {
+  const padding = new Buffer(32 - buffer.length);
+  return Buffer.concat([padding, buffer])
+}
 
 /**
  * Redux - Profile for a Viewer
@@ -29,7 +35,8 @@ export const ProfileActionTypes = {
   LOGOUT: 'LOGOUT',
   CHECK_CONNECTED_ACCTS: 'CHECK_CONNECTED_ACCTS',
   WELCOME_SHOWN: "WELCOME_SHOWN",
-  SET_TWITCH_INFO: 'SET_TWITCH_INFO'
+  SET_TWITCH_INFO: 'SET_TWITCH_INFO',
+  SET_TWITCH_LINKED: 'SET_TWITCH_LINKED'
 };
 
 /*
@@ -44,6 +51,11 @@ const initialState = {
   twitchId: null,
   twitchUsername: null,
   twitchLinked: false,
+
+  // not used - but we fetch the transaction receipt
+  // really just doing this to prove the web3 Fortmatic works for calls
+  twitchLinkedProof: null,
+
   ytLinked: false,
   did: null,
   name: '',
@@ -52,7 +64,7 @@ const initialState = {
 
 // this only runs once on startup
 export const ActionCheckAccts = () => {
-  return async function(dispatch, getState, {fmWeb3}){
+  return async function(dispatch, getState, { fmWeb3 }){
 
     const state = getState()
 
@@ -95,7 +107,7 @@ export const ActionCheckAccts = () => {
 
 // NOT USED - testing only
 export const ActionCheckTwitchLinked = () => {
-  return async function(dispatch, getState, {fmWeb3}){
+  return async function(dispatch, getState, { fmWeb3 }){
 
     let state = getState()
 
@@ -104,7 +116,7 @@ export const ActionCheckTwitchLinked = () => {
     }
 
     const profile = state.reducers.profile
-    const {twitchId, ethAddress} = profile
+    const { twitchId, ethAddress } = profile
     const ORMContract = drizzle.contracts.ORMExternal;
 
     // if we have twitchId and ethAddress but twitchLinked is still false, we connect them
@@ -133,6 +145,7 @@ export const ActionCheckTwitchLinked = () => {
 
       //viewer table... ethaddress
 
+      console.log('addAddressToTable', viewerTableHash, ethAddress)
       await addAddressToTable(viewerTableHash, ethAddress);
 
       // const addStackId = ORMContract.methods.add.cacheSend(viewerTableHash, ethAddress)
@@ -148,7 +161,7 @@ export const ActionCheckTwitchLinked = () => {
       //   }, 1500)
       // })
 
-
+      /*
       const enumerateDataKey = ORMContract.methods.enumerate.cacheCall(viewerTableHash)
 
       await new Promise((resolve) => {
@@ -162,6 +175,7 @@ export const ActionCheckTwitchLinked = () => {
         }, 1500)
 
       })
+      */
       /*
       const readTxHash = await new Promise((resolve) => {
 
@@ -189,13 +203,6 @@ export const ActionCheckTwitchLinked = () => {
        */
 
 
-
-
-
-
-
-
-
     }
     // END if
 
@@ -208,7 +215,7 @@ export const ActionCheckTwitchLinked = () => {
  * if the ethAddress is also set, we call the endpoint with the data
  */
 export const ActionUpdateTwitch = (tokenData) => {
-  return async function(dispatch, getState, {fmWeb3}){
+  return async function(dispatch, getState){
 
     const twitchId = tokenData.sub
 
@@ -220,33 +227,73 @@ export const ActionUpdateTwitch = (tokenData) => {
 
     const state = getState()
 
-    const {ethAddress, twitchLinked} = state.reducers.profile
+    const { ethAddress, twitchLinked } = state.reducers.profile
 
     // if ethAddress is set too and we have not linked yet, send the data
-    if (ethAddress && !twitchLinked){
+    if (true){ // ethAddress && !twitchLinked){
 
-      const connectUrl = ''
+      const connectUrl = 'http://a114762ce4ea811eabb0f0ae02d88c5b-1117862074.us-east-1.elb.amazonaws.com/v2/specs/a155630985594b6c91f947d74d693434/runs'
 
-      /*
-      await fetch(connectUrl, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'no-cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
+
+      const resp = await axios.post(connectUrl, {
+        twitchId: twitchId.toString(),
+        ethAddress: state.reducers.profile.ethAddress
+      }, {
+        method: 'POST',
         headers: {
+          'X-Chainlink-EA-AccessKey': '29fc945b88f5485daf5160d0132c0e2a',
+          'X-Chainlink-EA-Secret': 'HG0JaTfwm35pCQNUgcWvuksXJDazML0PDmfqByWghTWxWtLx7y7Fh4qJH5HD6grT',
+          'Access-Control-Allow-Headers': '*',
           'Content-Type': 'application/json'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *client
-        body: JSON.stringify({
-          twitchId: twitchId,
-          ethAddress: state.reducers.profile.ethAddress
-        })
-      });
-      */
+        }
+      })
 
 
+      debugger
+
+      await dispatch({
+        type: ProfileActionTypes.SET_TWITCH_LINKED
+      })
     }
+
+    return Promise.resolve()
+  }
+}
+
+// TEST ONLY
+export const ActionCreateORMData = () => {
+  return async function(dispatch, getState, { fmWeb3 }){
+
+    const contractAddress = '0x737B262BFcD16A11dF2F3A681fDf15218Ef6eC20'
+
+    const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
+
+    const tableHash = namehash.hash('viewer')
+
+    const ethAddress = getState().reducers.profile.ethAddress
+
+    const ethAddress32Bytes = bufferToBytes32(Buffer.from(fmWeb3.utils.hexToBytes(ethAddress)));
+
+    console.log('ActionCreateORMData', tableHash, ethAddress)
+
+    const res = await contractInstance.methods.remove(tableHash, '0x2ee0d0c04d5d8a9db51ffb3f5ccb604ec70d2be1011af8822de77d549180dda9').send({from: ethAddress})
+
+    console.log(res)
+
+    return Promise.resolve()
+  }
+}
+
+export const ActionGetTwitchLinkedProof = () => {
+  return async function(dispatch, getState, { fmWeb3 }){
+
+    const contractAddress = '0x737B262BFcD16A11dF2F3A681fDf15218Ef6eC20'
+
+    const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
+
+    const result = await contractInstance.methods.enumerate('0x9da0db04b800c7f764a09bb5dcb4deae4e99b3fa9ea93675df2e9a7c34eb0234').call()
+
+    console.log(result)
 
     return Promise.resolve()
   }
@@ -254,7 +301,7 @@ export const ActionUpdateTwitch = (tokenData) => {
 
 //Simple function to set welcome shown to true
 export const welcomeShown = () => {
-  return async function(dispatch, getState, {fmWeb3}){
+  return async function(dispatch, getState, { fmWeb3 }){
     const state = getState()
     dispatch({
       type: ProfileActionTypes.WELCOME_SHOWN
@@ -272,7 +319,7 @@ export default {
 
   profile: (state = initialState, action) => {
 
-    switch (action.type) {
+    switch (action.type){
       case ProfileActionTypes.READY:
         return {
           ...state,
@@ -323,6 +370,12 @@ export default {
           ...state,
           twitchId: action.twitchId,
           twitchUsername: action.twitchUsername
+        }
+
+      case ProfileActionTypes.SET_TWITCH_LINKED:
+        return {
+          ...state,
+          twitchLinked: true
         }
     }
 

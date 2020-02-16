@@ -5,6 +5,7 @@ import ORMExternal from "../contractsPatches/ORMExternal.json"
 const options = (provider) => ({
   web3: {
     block: false,
+    customProvider: provider,
     fallback: {
       type: "ws",
       url: "wss://ropsten.infura.io/ws/v3/66117717d0b044a2a8c7fe221a0c0000"
