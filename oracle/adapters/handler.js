@@ -20,23 +20,23 @@ const encodeFunctionCall = require("./adapters/encodeFunctionCall").default;
 const randomAddressID = require("./adapters/medici").randomAddressID;
 const randomAddressAddress = require("./adapters/medici").randomAddressAddress;
 const twitch = require("./adapters/twitch");
+
 const proxy = require("./adapters/proxy").default;
 
-
-const parseHTTPEventResponse = ({statusCode,  body}) => { 
-    return { statusCode: statusCode, body: JSON.stringify(body) } 
-} 
+const parseHTTPEventResponse = ({statusCode,  body}) => {
+    return { statusCode: statusCode, body: JSON.stringify(body) }
+}
 
 const wrappedHandler = (handler) => {
     return async req => {
         const event = JSON.parse(req.body)
         try {
             const response = await handler(event)
-            return parseHTTPEventResponse(response) 
+            return parseHTTPEventResponse(response)
         } catch (error) {
             console.error(error)
-            const response = { 
-                statusCode: 400, 
+            const response = {
+                statusCode: 400,
                 body: {
                     jobRunID: event.id,
                     status: "errored",
@@ -45,7 +45,7 @@ const wrappedHandler = (handler) => {
             }
             return parseHTTPEventResponse(response)
         }
-    } 
+    }
 }
 
 module.exports.cryptocompare = wrappedHandler(cryptocompare)

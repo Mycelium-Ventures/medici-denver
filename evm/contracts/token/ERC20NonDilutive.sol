@@ -13,7 +13,6 @@ contract ERC20NonDilutive is ERC20Mintable {
     // Used to keep track of mint tokenId since burning
     // makes supply unreliable for usage as min tokenId
     uint256 public preferredStockMaxId;
-
     // Authorized claim per preferred share
     uint256 public authorizedPerShare;
     // Total claimed

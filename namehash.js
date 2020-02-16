@@ -1,6 +1,14 @@
-const namehash = require('eth-ens-namehash')
-const hash1 = namehash.hash('video.id.user.id.start')
-onst hash1 = namehash.hash('video.id.user.id.end')
-// '0xde9b09fd7c5f901e23a3f19fecc54828e9c848539801e86591bd9801b019f84f'
+ namehash = require('eth-ens-namehash');
 
-console.log(hash);
+let t1 = namehash.hash('twitchId')
+t1 = namehash.hash('video')
+
+t1 = namehash.hash('address')
+t1 = namehash.hash('address.<id>.twitchId')
+t1 = namehash.hash('address.<id>.fortmatic')
+
+t1 = namehash.hash('video.<id>.twitchId')
+t1 = namehash.hash('video.<id>.twitchId.<id>.time')
+
+t1 = namehash.hash('twitchId.<id>.creatorContract')
+
