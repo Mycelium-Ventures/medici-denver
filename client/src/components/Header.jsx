@@ -13,7 +13,7 @@ const Header = (props) => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light nav-header">
-      <img src={require("../assets/logo.png")} width={120} height={50} />
+      <img src={require("../assets/lion.png")} width={50} height={50} />
       <ul className="navbar-nav ml-auto">
         <li className="nav-item active">
           <Link className="nav-link" to="/creator">
