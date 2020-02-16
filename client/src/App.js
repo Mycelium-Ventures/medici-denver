@@ -15,6 +15,7 @@ import { ActionCheckAccts, ActionCreateORMData, ActionGetTwitchLinkedProof, Acti
 import { welcomeShown } from './store/redux/profile';
 
 import ConnectModal from "./components/ConnectModal";
+import Chat from "./components/Chat";
 
 // import { DrizzleContext } from "@drizzle/react-plugin"
 // import { newContextComponents } from "@drizzle/react-components"
@@ -103,16 +104,17 @@ const App = (props) => {
             const props = _.omit(item, ['page', 'path', 'type']);
             const R = item.type || Route;
             return (
-              <R
-                path={item.path}
-                key={i}
-                exact={true}
-                component={item.page}
-                {...props}
-              />
+                <R
+                  path={item.path}
+                  key={i}
+                  exact={true}
+                  component={item.page}
+                  {...props}
+                />
             )
           })}
         </Switch>
+        <Chat style={{margin: 0}}/>
     </div>
   );
 
