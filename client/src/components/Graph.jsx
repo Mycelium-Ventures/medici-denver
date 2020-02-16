@@ -3,6 +3,11 @@ import Chart from "react-highcharts";
 
 var data = [[1220832000000, 800], [1220918400000, 980], [1221004800000, 1400], [1221091200000, 1100], [1221177600000, 1900], [1221436800000, 1400], [1221523200000, 1200], [1221609600000, 800], [1221696000000, 950], [1221782400000, 1300], [1222041600000, 1400], [1222128000000, 1550], [1222214400000, 1700]];
 
+const startDate = new Date();
+startDate.setHours(startDate.getHours() - 1);
+
+
+
 var config = {
     rangeSelector: {
         selected: 1
@@ -50,7 +55,7 @@ var config = {
     },
     plotOptions: {
         series: {
-        pointStart: Date.UTC(2012, 0, 1),
+        pointStart: startDate,
         pointInterval: 24 * 3600 * 1000
         }
     },
@@ -70,7 +75,6 @@ var config = {
 
 class Graph extends Component {
 
-    // console.log(Date.UTC)
     render() {
         return (
             <div className="row">

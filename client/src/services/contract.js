@@ -1,6 +1,23 @@
 import drizzle from '../store/index'
 import namehash from 'eth-ens-namehash'
+import { fmWeb3 } from '../store'
 
+import contract_config from "../contract_config.json";
+import ERC20Test from "../contracts/ERC20Test.json"
+
+
+
+export const getBalance = async (ethAddress) => {
+    const contractInstance = new fmWeb3.eth.Contract(ERC20Test.abi, contract_config.ORM_address)
+    try {
+        var res = await contractInstance.methods.balanceOf(ethAddress).call();
+    }
+    catch(err) {
+        console.log(err)
+        return 0;
+    }
+    return res;
+}
 
 
 export const createTable = (name) => {

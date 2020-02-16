@@ -7,6 +7,8 @@ import Graph from "../../components/Graph";
 import {HashLoader} from "react-spinners";
 import ActivityLog from "../../components/ActivityLog";
 
+import { getBalance } from "../../services/contract";
+
 //Dummy data
 const activityDummy = [{
     username: "johnjohn",
@@ -29,9 +31,7 @@ const Overview = (props) => {
   const fromAddress = '0x09D2c8b17A9498dbDc4a909096DF484C46149e3c'
   const toAddress = '0xfEB943725Ed070e8D5645736484Ba6494dcBA31a'
   */
-  const contractAddress = '0x5cd0065D3fb758b8516C53308dE448023a2512f7'
 
-  const contractInstance = new fmWeb3.eth.Contract(ERC20Test.abi, contractAddress)
 
   const [balance, setBalance] = useState(0)
   const [isLoading, setLoading] = useState(true);
@@ -43,21 +43,14 @@ const Overview = (props) => {
   })
   */
 
-  useEffect(() => {
+  useEffect(async() => {
 
-    if (!props.profile.ethAddress){
-      return
-    }
-
-    contractInstance.methods.balanceOf(props.profile.ethAddress).call((err, res) => {
-      if (err){
-        console.error(err)
+      if (!props.profile.ethAddress){
         return
       }
-
+      var res = await getBalance(props.profile.ethAddress)
       setBalance(res)
       setLoading(false);
-    })
 
   }, [])
   if(isLoading) {
