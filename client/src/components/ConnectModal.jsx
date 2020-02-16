@@ -39,7 +39,7 @@ class ConnectModal extends Component {
   render() {
 
     const { connectTWI, connectFB, connectIN, connectTW, connectYT } = this.state;
-    console.log(this.props, "props");
+    // console.log(this.props, "props");
     return (
       <Modal
         show={this.props.connectModal}

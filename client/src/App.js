@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import { connect } from 'react-redux'
 import Loading from './pages/Loading'
 
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import routes from './routes'
 
@@ -59,7 +59,6 @@ const App = (props) => {
 
 
   useEffect(() => {
-    console.log(props.profile)
     if(!(props.profile.twitchLinked) && !(props.profile.welcomeShown)) {
       setConnect(true);
       props.dispatch(welcomeShown())
@@ -67,10 +66,11 @@ const App = (props) => {
   })
 
 
-
+  /*
   useEffect(() => {
     props.dispatch(ActionCheckTwitchLinked())
   }, [props.drizzleInitialized, props.profile.twitchId, props.profile.ethAddress])
+  */
 
   if (!props.profile.ready){
     return <Loading/>
