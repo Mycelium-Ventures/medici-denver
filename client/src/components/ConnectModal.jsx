@@ -13,7 +13,6 @@ class ConnectModal extends Component {
     super(props);
 
     this.state = {
-      connectTWI: false,
       connectFB: false,
       connectIN: false,
       connectTW: false,
@@ -24,7 +23,6 @@ class ConnectModal extends Component {
 
   connectTwitch = (event) => {
     authTwitch();
-    this.setState({connectTWI: !this.state.connectTWI })
   }
 
   renderWelcomeMessage = () => {
@@ -39,8 +37,11 @@ class ConnectModal extends Component {
 
   render() {
 
-    const { connectTWI, connectFB, connectIN, connectTW, connectYT } = this.state;
+    const { connectFB, connectIN, connectTW, connectYT } = this.state;
     // console.log(this.props, "props");
+
+    const connectTWI = this.props.profile.twitchLinked
+
     return (
       <Modal
         show={this.props.connectModal}

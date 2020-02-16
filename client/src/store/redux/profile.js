@@ -29,7 +29,8 @@ export const ProfileActionTypes = {
   LOGOUT: 'LOGOUT',
   CHECK_CONNECTED_ACCTS: 'CHECK_CONNECTED_ACCTS',
   WELCOME_SHOWN: "WELCOME_SHOWN",
-  SET_TWITCH_INFO: 'SET_TWITCH_INFO'
+  SET_TWITCH_INFO: 'SET_TWITCH_INFO',
+  SET_TWITCH_LINKED: 'SET_TWITCH_LINKED'
 };
 
 /*
@@ -246,6 +247,9 @@ export const ActionUpdateTwitch = (tokenData) => {
       */
 
 
+      await dispatch({
+        type: ProfileActionTypes.SET_TWITCH_LINKED
+      })
     }
 
     return Promise.resolve()
@@ -323,6 +327,12 @@ export default {
           ...state,
           twitchId: action.twitchId,
           twitchUsername: action.twitchUsername
+        }
+
+      case ProfileActionTypes.SET_TWITCH_LINKED:
+        return {
+          ...state,
+          twitchLinked: true
         }
     }
 

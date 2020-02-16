@@ -6,7 +6,7 @@ import RedirectTwitch from './components/RedirectTwitch'
 export default [
   {
     path: '/',
-    page: LandingPage
+    page: UserPage
   },
   {
     path: '/creator',
