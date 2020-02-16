@@ -13,15 +13,13 @@ class Loading extends Component {
 
   render() {
     return (
-      <div className="container m-5" style={{height: "80vh !important"}}>
-        <div class="d-flex justify-content-center h-100">
-            <HashLoader
-              size={150}
-              color={"#ce60a5"}
-              loading={true}
-            />
-        </div>
-      </div>
+      <div class="d-flex justify-content-center m-5">
+        <HashLoader
+          size={150}
+          color={"#ce60a5"}
+          loading={true}
+        />
+    </div>
     )
   }
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { fmWeb3 } from '../../store'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
-import ERC20Test from "../../contracts/ERC20Test.json"
 import Graph from "../../components/Graph";
 import {HashLoader} from "react-spinners";
 import ActivityLog from "../../components/ActivityLog";
@@ -25,7 +24,7 @@ const activityDummy = [{
   }]
 
 
-const Overview = (props) => {
+const Home = (props) => {
 
   /*
   const fromAddress = '0x09D2c8b17A9498dbDc4a909096DF484C46149e3c'
@@ -43,25 +42,24 @@ const Overview = (props) => {
   })
   */
 
-  useEffect(async() => {
+  useEffect(() => {
 
       if (!props.profile.ethAddress){
-        return
+        return;
       }
-      var res = await getBalance(props.profile.ethAddress)
-      setBalance(res)
-      setLoading(false);
+      getBalance(props.profile.ethAddress).then((res) => {
+        setBalance(res)
+        setLoading(false);
+      })
   }, [])
   if(isLoading) {
     return (
-      <div className="container m-5" style={{height: "80vh !important"}}>
-        <div class="d-flex justify-content-center h-100">
-            <HashLoader
-              size={150}
-              color={"#ce60a5"}
-              loading={isLoading}
-            />
-        </div>
+      <div class="d-flex justify-content-center m-5">
+          <HashLoader
+            size={150}
+            color={"#ce60a5"}
+            loading={isLoading}
+          />
       </div>
     )
   }
@@ -98,4 +96,4 @@ const mapStateToProps = (state) => {
     profile: state.reducers.profile
   }
 }
-export default connect(mapStateToProps)(Overview);
+export default connect(mapStateToProps)(Home);
