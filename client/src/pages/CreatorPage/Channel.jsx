@@ -7,6 +7,9 @@ import AdjustModal from "../../components/AdjustRateModal";
 import { getBalance } from "../../services/contract";
 
 
+
+
+
 const Channel = (props) => {
 
   const [balance, setBalance] = useState(0)
@@ -25,11 +28,13 @@ const Channel = (props) => {
         setBalance(res)
         setLoading(false);
     })
+    console.log(props);
   }, [])
 
   // adjustRates = (ev) => {
     
   // }
+
 
 
 
@@ -44,6 +49,7 @@ const Channel = (props) => {
       </div>
   )
 }
+if(props.profile.re)
   return (
     <main className="container">
       <AdjustModal
@@ -78,7 +84,7 @@ const Channel = (props) => {
               <div className="row">
                 <div className="col-lg-4">
                   <span className="sp-label">Views</span>
-                  <br /> <span>1200</span>
+                  <br /> <span></span>
                 </div>
                 <div className="col-lg-4">
                   <span className="sp-label">Cheers</span>
