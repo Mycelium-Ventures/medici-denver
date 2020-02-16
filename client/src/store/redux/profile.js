@@ -411,7 +411,7 @@ export const ActionGetVideoMetrics = () => {
           totalTime += parseInt(time, 16)
         })
 
-        data[twitchId][channelIds] = {
+        data[twitchId][channelId] = {
           viewTime: totalTime,
           metadata: resp.body
         }
