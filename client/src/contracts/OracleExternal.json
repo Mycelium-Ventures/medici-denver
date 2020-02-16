@@ -192,14 +192,14 @@
     "absolutePath": "contracts/OracleExternal.sol",
     "exportedSymbols": {
       "OracleExternal": [
-        3114
+        3138
       ]
     },
-    "id": 3115,
+    "id": 3139,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3022,
+        "id": 3046,
         "literals": [
           "solidity",
           "^",
@@ -212,9 +212,9 @@
       {
         "absolutePath": "@openzeppelin/upgrades/contracts/Initializable.sol",
         "file": "@openzeppelin/upgrades/contracts/Initializable.sol",
-        "id": 3023,
+        "id": 3047,
         "nodeType": "ImportDirective",
-        "scope": 3115,
+        "scope": 3139,
         "sourceUnit": 2648,
         "src": "91:60:24",
         "symbolAliases": [],
@@ -223,9 +223,9 @@
       {
         "absolutePath": "@openzeppelin/contracts-ethereum-package/contracts/ownership/Ownable.sol",
         "file": "@openzeppelin/contracts-ethereum-package/contracts/ownership/Ownable.sol",
-        "id": 3024,
+        "id": 3048,
         "nodeType": "ImportDirective",
-        "scope": 3115,
+        "scope": 3139,
         "sourceUnit": 665,
         "src": "152:82:24",
         "symbolAliases": [],
@@ -234,9 +234,9 @@
       {
         "absolutePath": "@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol",
         "file": "@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol",
-        "id": 3025,
+        "id": 3049,
         "nodeType": "ImportDirective",
-        "scope": 3115,
+        "scope": 3139,
         "sourceUnit": 541,
         "src": "235:78:24",
         "symbolAliases": [],
@@ -248,7 +248,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 3026,
+              "id": 3050,
               "name": "Initializable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 2647,
@@ -258,7 +258,7 @@
                 "typeString": "contract Initializable"
               }
             },
-            "id": 3027,
+            "id": 3051,
             "nodeType": "InheritanceSpecifier",
             "src": "651:13:24"
           },
@@ -266,7 +266,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 3028,
+              "id": 3052,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 664,
@@ -276,7 +276,7 @@
                 "typeString": "contract Ownable"
               }
             },
-            "id": 3029,
+            "id": 3053,
             "nodeType": "InheritanceSpecifier",
             "src": "666:7:24"
           }
@@ -289,9 +289,9 @@
         "contractKind": "contract",
         "documentation": "@title The Chainlink Oracle contract (OZ Upgradeable version)\n@notice Node operators can deploy this contract to fulfill requests sent to them\n@dev Upgradeable version of Oracle contract. Uses OpenZeppelin's Initializable, Ownable contracts.\n     Other Chainlink interfaces are unchanged.",
         "fullyImplemented": true,
-        "id": 3114,
+        "id": 3138,
         "linearizedBaseContracts": [
-          3114,
+          3138,
           664,
           29,
           2647
@@ -300,10 +300,10 @@
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 3032,
+            "id": 3056,
             "libraryName": {
               "contractScope": null,
-              "id": 3030,
+              "id": 3054,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 540,
@@ -316,7 +316,7 @@
             "nodeType": "UsingForDirective",
             "src": "678:27:24",
             "typeName": {
-              "id": 3031,
+              "id": 3055,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "697:7:24",
@@ -328,10 +328,10 @@
           },
           {
             "constant": false,
-            "id": 3036,
+            "id": 3060,
             "name": "authorizedNodes",
             "nodeType": "VariableDeclaration",
-            "scope": 3114,
+            "scope": 3138,
             "src": "709:47:24",
             "stateVariable": true,
             "storageLocation": "default",
@@ -340,9 +340,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 3035,
+              "id": 3059,
               "keyType": {
-                "id": 3033,
+                "id": 3057,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "717:7:24",
@@ -358,7 +358,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 3034,
+                "id": 3058,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "728:4:24",
@@ -373,22 +373,22 @@
           },
           {
             "body": {
-              "id": 3062,
+              "id": 3086,
               "nodeType": "Block",
               "src": "1532:437:24",
               "statements": [
                 {
                   "assignments": [
-                    3050,
+                    3074,
                     null
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3050,
+                      "id": 3074,
                       "name": "success",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3062,
+                      "scope": 3086,
                       "src": "1854:12:24",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -397,7 +397,7 @@
                         "typeString": "bool"
                       },
                       "typeName": {
-                        "id": 3049,
+                        "id": 3073,
                         "name": "bool",
                         "nodeType": "ElementaryTypeName",
                         "src": "1854:4:24",
@@ -411,7 +411,7 @@
                     },
                     null
                   ],
-                  "id": 3059,
+                  "id": 3083,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
@@ -420,11 +420,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 3055,
+                            "id": 3079,
                             "name": "_callbackFunctionId",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3040,
+                            "referencedDeclaration": 3064,
                             "src": "1916:19:24",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes4",
@@ -433,11 +433,11 @@
                           },
                           {
                             "argumentTypes": null,
-                            "id": 3056,
+                            "id": 3080,
                             "name": "_data",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3042,
+                            "referencedDeclaration": 3066,
                             "src": "1937:5:24",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes_calldata_ptr",
@@ -458,18 +458,18 @@
                           ],
                           "expression": {
                             "argumentTypes": null,
-                            "id": 3053,
+                            "id": 3077,
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 4472,
+                            "referencedDeclaration": 4443,
                             "src": "1893:3:24",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
                               "typeString": "abi"
                             }
                           },
-                          "id": 3054,
+                          "id": 3078,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -483,7 +483,7 @@
                             "typeString": "function (bytes4) pure returns (bytes memory)"
                           }
                         },
-                        "id": 3057,
+                        "id": 3081,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -507,18 +507,18 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 3051,
+                        "id": 3075,
                         "name": "_callbackAddress",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3038,
+                        "referencedDeclaration": 3062,
                         "src": "1871:16:24",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         }
                       },
-                      "id": 3052,
+                      "id": 3076,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -532,7 +532,7 @@
                         "typeString": "function (bytes memory) payable returns (bool,bytes memory)"
                       }
                     },
-                    "id": 3058,
+                    "id": 3082,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -552,39 +552,39 @@
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 3060,
+                    "id": 3084,
                     "name": "success",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 3050,
+                    "referencedDeclaration": 3074,
                     "src": "1957:7:24",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 3048,
-                  "id": 3061,
+                  "functionReturnParameters": 3072,
+                  "id": 3085,
                   "nodeType": "Return",
                   "src": "1950:14:24"
                 }
               ]
             },
             "documentation": "@notice Called by the Chainlink node to fulfill requests\n@dev Given params must hash back to the commitment stored from `oracleRequest`.\nWill call the callback address' callback function without bubbling up error\nchecking in a `require` so that the node can get paid.\n@param _callbackAddress The callback address to call for fulfillment\n@param _callbackFunctionId The callback function ID to use for fulfillment\n@param _data The data to return to the consuming contract\n@return Status if the external call was successful",
-            "id": 3063,
+            "id": 3087,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 3045,
+                "id": 3069,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 3044,
+                  "id": 3068,
                   "name": "onlyAuthorizedNode",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 3109,
+                  "referencedDeclaration": 3133,
                   "src": "1492:18:24",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -598,15 +598,15 @@
             "name": "fulfillExternalRequest",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3043,
+              "id": 3067,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3038,
+                  "id": 3062,
                   "name": "_callbackAddress",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3063,
+                  "scope": 3087,
                   "src": "1388:24:24",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -615,7 +615,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3037,
+                    "id": 3061,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1388:7:24",
@@ -630,10 +630,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 3040,
+                  "id": 3064,
                   "name": "_callbackFunctionId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3063,
+                  "scope": 3087,
                   "src": "1418:26:24",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -642,7 +642,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 3039,
+                    "id": 3063,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "1418:6:24",
@@ -656,10 +656,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 3042,
+                  "id": 3066,
                   "name": "_data",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3063,
+                  "scope": 3087,
                   "src": "1450:20:24",
                   "stateVariable": false,
                   "storageLocation": "calldata",
@@ -668,7 +668,7 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 3041,
+                    "id": 3065,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "1450:5:24",
@@ -684,15 +684,15 @@
               "src": "1382:92:24"
             },
             "returnParameters": {
-              "id": 3048,
+              "id": 3072,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3047,
+                  "id": 3071,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3063,
+                  "scope": 3087,
                   "src": "1524:4:24",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -701,7 +701,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3046,
+                    "id": 3070,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "1524:4:24",
@@ -716,7 +716,7 @@
               ],
               "src": "1523:6:24"
             },
-            "scope": 3114,
+            "scope": 3138,
             "src": "1351:618:24",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -724,7 +724,7 @@
           },
           {
             "body": {
-              "id": 3074,
+              "id": 3098,
               "nodeType": "Block",
               "src": "2242:40:24",
               "statements": [
@@ -733,25 +733,25 @@
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 3070,
+                      "id": 3094,
                       "name": "authorizedNodes",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3036,
+                      "referencedDeclaration": 3060,
                       "src": "2255:15:24",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                         "typeString": "mapping(address => bool)"
                       }
                     },
-                    "id": 3072,
+                    "id": 3096,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 3071,
+                      "id": 3095,
                       "name": "_node",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3065,
+                      "referencedDeclaration": 3089,
                       "src": "2271:5:24",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -769,30 +769,30 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 3069,
-                  "id": 3073,
+                  "functionReturnParameters": 3093,
+                  "id": 3097,
                   "nodeType": "Return",
                   "src": "2248:29:24"
                 }
               ]
             },
             "documentation": "@notice Use this to check if a node is authorized for fulfilling requests\n@param _node The address of the Chainlink node\n@return The authorization status of the node",
-            "id": 3075,
+            "id": 3099,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getAuthorizationStatus",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3066,
+              "id": 3090,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3065,
+                  "id": 3089,
                   "name": "_node",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3075,
+                  "scope": 3099,
                   "src": "2198:13:24",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -801,7 +801,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3064,
+                    "id": 3088,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2198:7:24",
@@ -818,15 +818,15 @@
               "src": "2197:15:24"
             },
             "returnParameters": {
-              "id": 3069,
+              "id": 3093,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3068,
+                  "id": 3092,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3075,
+                  "scope": 3099,
                   "src": "2236:4:24",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -835,7 +835,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3067,
+                    "id": 3091,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "2236:4:24",
@@ -850,7 +850,7 @@
               ],
               "src": "2235:6:24"
             },
-            "scope": 3114,
+            "scope": 3138,
             "src": "2166:116:24",
             "stateMutability": "view",
             "superFunction": null,
@@ -858,14 +858,14 @@
           },
           {
             "body": {
-              "id": 3090,
+              "id": 3114,
               "nodeType": "Block",
               "src": "2616:44:24",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 3088,
+                    "id": 3112,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -874,25 +874,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 3084,
+                        "id": 3108,
                         "name": "authorizedNodes",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3036,
+                        "referencedDeclaration": 3060,
                         "src": "2622:15:24",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 3086,
+                      "id": 3110,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 3085,
+                        "id": 3109,
                         "name": "_node",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3077,
+                        "referencedDeclaration": 3101,
                         "src": "2638:5:24",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -914,11 +914,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 3087,
+                      "id": 3111,
                       "name": "_allowed",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3079,
+                      "referencedDeclaration": 3103,
                       "src": "2647:8:24",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -931,23 +931,23 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 3089,
+                  "id": 3113,
                   "nodeType": "ExpressionStatement",
                   "src": "2622:33:24"
                 }
               ]
             },
             "documentation": "@notice Sets the fulfillment permission for a given node. Use `true` to allow, `false` to disallow.\n@param _node The address of the Chainlink node\n@param _allowed Bool value to determine if the node can fulfill requests",
-            "id": 3091,
+            "id": 3115,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 3082,
+                "id": 3106,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 3081,
+                  "id": 3105,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
@@ -965,15 +965,15 @@
             "name": "setFulfillmentPermission",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3080,
+              "id": 3104,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3077,
+                  "id": 3101,
                   "name": "_node",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3091,
+                  "scope": 3115,
                   "src": "2567:13:24",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -982,7 +982,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3076,
+                    "id": 3100,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2567:7:24",
@@ -997,10 +997,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 3079,
+                  "id": 3103,
                   "name": "_allowed",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3091,
+                  "scope": 3115,
                   "src": "2582:13:24",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1009,7 +1009,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3078,
+                    "id": 3102,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "2582:4:24",
@@ -1025,12 +1025,12 @@
               "src": "2566:30:24"
             },
             "returnParameters": {
-              "id": 3083,
+              "id": 3107,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2616:0:24"
             },
-            "scope": 3114,
+            "scope": 3138,
             "src": "2533:127:24",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1038,7 +1038,7 @@
           },
           {
             "body": {
-              "id": 3108,
+              "id": 3132,
               "nodeType": "Block",
               "src": "2778:125:24",
               "statements": [
@@ -1052,7 +1052,7 @@
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
                         },
-                        "id": 3103,
+                        "id": 3127,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1061,34 +1061,34 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 3094,
+                            "id": 3118,
                             "name": "authorizedNodes",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3036,
+                            "referencedDeclaration": 3060,
                             "src": "2792:15:24",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                               "typeString": "mapping(address => bool)"
                             }
                           },
-                          "id": 3097,
+                          "id": 3121,
                           "indexExpression": {
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 3095,
+                              "id": 3119,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 4485,
+                              "referencedDeclaration": 4456,
                               "src": "2808:3:24",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 3096,
+                            "id": 3120,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1121,7 +1121,7 @@
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           },
-                          "id": 3102,
+                          "id": 3126,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1130,18 +1130,18 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 3098,
+                              "id": 3122,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 4485,
+                              "referencedDeclaration": 4456,
                               "src": "2823:3:24",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 3099,
+                            "id": 3123,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1162,7 +1162,7 @@
                             "arguments": [],
                             "expression": {
                               "argumentTypes": [],
-                              "id": 3100,
+                              "id": 3124,
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
@@ -1173,7 +1173,7 @@
                                 "typeString": "function () view returns (address)"
                               }
                             },
-                            "id": 3101,
+                            "id": 3125,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1202,7 +1202,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "4e6f7420616e20617574686f72697a6564206e6f646520746f2066756c66696c6c207265717565737473",
-                        "id": 3104,
+                        "id": 3128,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1229,21 +1229,21 @@
                           "typeString": "literal_string \"Not an authorized node to fulfill requests\""
                         }
                       ],
-                      "id": 3093,
+                      "id": 3117,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4488,
-                        4489
+                        4459,
+                        4460
                       ],
-                      "referencedDeclaration": 4489,
+                      "referencedDeclaration": 4460,
                       "src": "2784:7:24",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 3105,
+                    "id": 3129,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1257,23 +1257,23 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3106,
+                  "id": 3130,
                   "nodeType": "ExpressionStatement",
                   "src": "2784:107:24"
                 },
                 {
-                  "id": 3107,
+                  "id": 3131,
                   "nodeType": "PlaceholderStatement",
                   "src": "2897:1:24"
                 }
               ]
             },
             "documentation": "@dev Reverts if `msg.sender` is not authorized to fulfill requests",
-            "id": 3109,
+            "id": 3133,
             "name": "onlyAuthorizedNode",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 3092,
+              "id": 3116,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "2775:2:24"
@@ -1283,10 +1283,10 @@
           },
           {
             "constant": false,
-            "id": 3113,
+            "id": 3137,
             "name": "______gap",
             "nodeType": "VariableDeclaration",
-            "scope": 3114,
+            "scope": 3138,
             "src": "2978:29:24",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1296,7 +1296,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 3110,
+                "id": 3134,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "2978:7:24",
@@ -1305,11 +1305,11 @@
                   "typeString": "uint256"
                 }
               },
-              "id": 3112,
+              "id": 3136,
               "length": {
                 "argumentTypes": null,
                 "hexValue": "3530",
-                "id": 3111,
+                "id": 3135,
                 "isConstant": false,
                 "isLValue": false,
                 "isPure": true,
@@ -1335,7 +1335,7 @@
             "visibility": "private"
           }
         ],
-        "scope": 3115,
+        "scope": 3139,
         "src": "624:2387:24"
       }
     ],
