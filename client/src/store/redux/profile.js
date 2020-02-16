@@ -1,5 +1,5 @@
 import namehash from 'eth-ens-namehash'
-import axios from 'axios'
+import _ from 'lodash'
 import drizzle, { fmWeb3 } from '../index'
 
 import { createTable, addAddressToTable } from "../../services/contract";
@@ -36,7 +36,8 @@ export const ProfileActionTypes = {
   CHECK_CONNECTED_ACCTS: 'CHECK_CONNECTED_ACCTS',
   WELCOME_SHOWN: "WELCOME_SHOWN",
   SET_TWITCH_INFO: 'SET_TWITCH_INFO',
-  SET_TWITCH_LINKED: 'SET_TWITCH_LINKED'
+  SET_TWITCH_LINKED: 'SET_TWITCH_LINKED',
+  SET_VIDEO_DATA: 'SET_VIDEO_DATA'
 };
 
 /*
@@ -59,7 +60,8 @@ const initialState = {
   ytLinked: false,
   did: null,
   name: '',
-  welcomeShown: false
+  welcomeShown: false,
+  videos: {}
 }
 
 // this only runs once on startup
@@ -232,25 +234,13 @@ export const ActionUpdateTwitch = (tokenData) => {
     // if ethAddress is set too and we have not linked yet, send the data
     if (true){ // ethAddress && !twitchLinked){
 
-      const connectUrl = 'http://a114762ce4ea811eabb0f0ae02d88c5b-1117862074.us-east-1.elb.amazonaws.com/v2/specs/a155630985594b6c91f947d74d693434/runs'
+      const connectUrl = `http://bp2jemn2ji.execute-api.us-east-1.amazonaws.com/dev/proxy?twitchId=${twitchId}&ethAddress=${state.reducers.profile.ethAddress}`
 
-      /*
-      const resp = await axios.post(connectUrl, {
-        twitchId: twitchId.toString(),
-        ethAddress: state.reducers.profile.ethAddress
-      }, {
-        method: 'POST',
-        headers: {
-          'X-Chainlink-EA-AccessKey': '29fc945b88f5485daf5160d0132c0e2a',
-          'X-Chainlink-EA-Secret': 'HG0JaTfwm35pCQNUgcWvuksXJDazML0PDmfqByWghTWxWtLx7y7Fh4qJH5HD6grT',
-          'Access-Control-Allow-Headers': '*',
-          'Content-Type': 'application/json'
-        }
+      const resp = await fetch(connectUrl, {
+        method: 'GET',
+        mode: 'no-cors',
+        credentials: 'omit'
       })
-
-
-      debugger
-      */
 
       await dispatch({
         type: ProfileActionTypes.SET_TWITCH_LINKED
@@ -325,6 +315,62 @@ export const ActionGetTwitchLinkedProof = () => {
     return Promise.resolve()
   }
 }
+
+/**
+ * Get all the video watch times and add them into a struct
+ */
+export const ActionGetVideoMetrics = () => {
+  return async function(dispatch, getState, { fmWeb3 }){
+
+    console.log('ActionGetVideoMetrics')
+
+    const contractAddress = '0x737B262BFcD16A11dF2F3A681fDf15218Ef6eC20'
+
+    const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
+
+    // get all videos
+    const videoHashed = namehash.hash('video')
+
+    const videos = await contractInstance.methods.enumerate(videoHashed).call()
+
+    console.log('videos', videos)
+
+    if (videos.length <= 0){
+      return Promise.resolve()
+    }
+
+    const data = {}
+
+    // loop through each video and get twitchIds
+    for (let i = 0, videoLen = videos.length; i < videoLen; i++){
+      let videoId = videos[i]
+
+      data[videoId] = {}
+
+      let videoTwitchHash = namehash.hash(`video.${videoId}.twitchId`)
+      let twitchIds = await contractInstance.methods.enumerate(videoTwitchHash).call()
+
+      // loop through each video/twitchId and get the time
+      for (let j = 0; j < twitchIds.length; j++){
+
+        let twitchId = twitchIds[j]
+
+        let videoTwitchIdTimeHash = namehash.hash(`video.${videoId}.twitchId.${twitchId}.time`)
+        let viewTimes = await contractInstance.methods.enumerate(videoTwitchIdTimeHash).call() // can be multiple
+
+        data[videoId][twitchId] = viewTimes.length ? _.sum(viewTimes) : 0
+      }
+    }
+
+    await dispatch({
+      type: ProfileActionTypes.SET_VIDEO_DATA,
+      videos: data
+    })
+
+    return Promise.resolve()
+  }
+}
+
 
 //Simple function to set welcome shown to true
 export const welcomeShown = () => {
@@ -403,6 +449,12 @@ export default {
         return {
           ...state,
           twitchLinked: true
+        }
+
+      case ProfileActionTypes.SET_VIDEO_DATA:
+        return {
+          ...state,
+          videos: action.videos
         }
     }
 
