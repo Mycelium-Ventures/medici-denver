@@ -99,7 +99,7 @@ const Overview = (props) => {
         padding: "30",
       },
       headerFormat: '<div class="tool-tip"><p>Week of {point.x}</p><hr/>',
-      pointFormat: '<p>1000 points <p/><p class="green-text">+80% Increase</p></div>',
+      pointFormat: '<p>{point.y} points <p/><p class="green-text">+80% Increase</p></div>',
       valueDecimals: 2,
       xDateFormat: '%Y-%m-%d',
     }
@@ -110,15 +110,57 @@ const Overview = (props) => {
     <main className="container">
       <div className="row acc-title p-4 ml-2">
         <div className="col-lg-9 text-left pl-1 mt-3">
-          <h6>Your Platform Subs: 1500</h6>
+          <h6>Platform Subs: 1500</h6>
         </div>
         <div className="col-lg-3 text-right pl-1 mt-3">
-          <h6>Your Points: {numeral(balance).format('0,0')}</h6>
+          <h6>Points: {numeral(balance).format('0,0')}</h6>
         </div>
       </div>
       <div className="row sec-1">
         <div className="col-lg-2 text-left pl-5">
           <h6>Home</h6>
+          <hr style={{border: "0.8px solid white"}}/>
+        </div>
+      </div>
+      {/* <div className="row sec-1">
+        <div className="col-lg-2 text-left pl-5">
+          <h6 style={{fontWeight: 300}}>Transactions</h6>
+        </div>
+      </div> */}
+      <div className="card-body transaction-card transaction-text mx-5 px-4">
+        <div className="row text-center">
+          <div className="col-lg-3">
+            <h6>yoyoy</h6>
+          </div>
+          <div className="col-lg-5">
+            watch your video for 25 minutes and 8 seconds
+          </div>
+          <div className="col-lg-4">
+            20000 
+            <img
+              src={require("../../assets/coin.png")}
+              width={20}
+              height={20}
+              className="pl-1"
+            />
+          </div>
+        </div>
+        <div className="row  text-center">
+          <div className="col-lg-3">
+            <h6>yoyoy</h6>
+          </div>
+          <div className="col-lg-5">
+            watch your video for 25 minutes and 8 seconds
+          </div>
+          <div className="col-lg-4">
+            20000 
+            <img
+              src={require("../../assets/coin.png")}
+              width={20}
+              height={20}
+              className="pl-1"
+            />
+          </div>
         </div>
       </div>
       <div className="row pt-3">

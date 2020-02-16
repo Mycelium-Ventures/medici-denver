@@ -62,6 +62,11 @@ h5 {
   width: 100%;
 }
 
+.transaction-card {
+  border: 0.6px solid #fcff5a !important;
+  border-radius: 15px !important;
+}
+
 .overview-card {
   /* background-color: transparent !important; */
   border: 1px solid lightgray !important;
@@ -109,7 +114,11 @@ h5 {
 }
 
 .c-modal {
-  color: #fff !important;
+  color: #fff!important;
+}
+
+.transaction-text {
+  color: rgb(254, 246, 216)!important;
 }
 
 .sec-2 .card-body .sp-label {

@@ -14,6 +14,12 @@ class Overview extends Component {
             <h6>0$</h6>
           </div>
         </div>
+        <div className="row sec-1">
+          <div className="col-lg-2 text-left pl-5">
+            <h6>Wallet</h6>
+            <hr style={{border: "0.8px solid white"}}/>
+          </div>
+        </div>
         <div className="row">
           <div className="overview-card text-left">
             <h6>Claim Tokens</h6>
@@ -33,7 +39,14 @@ class Overview extends Component {
         </div>
         <div className="row mt-5">
             <div className="col-lg-12">
-              <h1 style={{color: "white"}}>20,000 Medici</h1>
+              <h1 style={{color: "white"}}>20,000
+                <img
+                src={require("../../assets/coin.png")}
+                width={50}
+                height={50}
+                className="pl-1"
+              />
+            </h1>
             </div>
         </div>
         <div className="row">

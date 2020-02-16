@@ -86,7 +86,7 @@ class CreatorSidebar extends Component {
                 width={30}
                 height={30}
               />
-              Your Channel
+              My Channel
             </a>
             <a
               className={`${wallet ? "active" : ""}`}

@@ -12,7 +12,7 @@ class UserPage extends Component {
             <div className="col-lg-9 text-left pl-1 mt-3">
               <h1>My Points: 20,000</h1>
             </div>
-            <div className="col-lg-3 text-right pl-1 mt-3 claim-btn">
+            <div className="col-lg-3 text-center pl-1 mt-4 claim-btn">
               <button><h5>Redeem Points</h5></button>
             </div>
           </div>
