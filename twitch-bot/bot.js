@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+const rewards = require('./rewards')
+
 var moment = require('moment');
 moment().format();
 
@@ -13,7 +15,7 @@ const CHANNEL_NAME = process.env.CHANNEL_NAME;
 
 const SUB_REWARD = 10000; //10000x
 const CHEER_REWARD = 10; //1000x
-const PER_SECOND_DENOMINATOR = 1e9; //
+const PER_SECOND_DENOMINATOR = 1e3; //
 const PER_SECOND_VIEW_REWARD = 1 / PER_SECOND_DENOMINATOR;
 
 // Define configuration options
@@ -62,7 +64,7 @@ function onMessageHandler(target, context, msg, self) {
     const username = context.username;
     //if (username === BOT_USERNAME) { return; }
 
-    const channel = target
+    const channel = target;
     // Remove whitespace from chat message
     const commandName = msg.trim();
     //console.log(context);
@@ -96,8 +98,9 @@ function onMessageHandler(target, context, msg, self) {
     } else if (commandName === '!claim') {
         if (medici) {
             //End claim
-            const timespent = moment().diff(medici, 'seconds');
-            if (timespent < 30) {
+            const now = moment();
+            const timespent = now.diff(medici, 'seconds');
+            if (timespent < 1) {
                 client.say(target, `${username} you must claim a minimum of 30s!`);
             } else {
                 let reward = timespent * PER_SECOND_VIEW_REWARD;
@@ -105,6 +108,13 @@ function onMessageHandler(target, context, msg, self) {
                 client.say(target, `${username} earned ${reward} nanoMDI for ${timespent}s!`);
                 data[roomId][userId]['medici'] = false;
                 data[roomId][userId]['claim'] = false;
+
+                const rewardData = { 
+                    "twitchId": userId, "videoId": roomId, 
+                    "startTime": medici.valueOf(), "endTime": now.valueOf()
+                }
+                console.log(rewardData);
+                rewards.rewardView(rewardData);
             }
         } else {
             client.say(target, `Hey ${username}, start claiming MDI with !medici`);

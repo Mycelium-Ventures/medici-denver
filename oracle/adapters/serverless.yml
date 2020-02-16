@@ -115,6 +115,18 @@ functions:
       - http:
           path: randomAddressID
           method: post
+  twitchOAuth:
+    handler: handler.twitchOAuth
+    events:
+      - http:
+          path: twitch/oauth
+          method: post
+  twitchViewReward:
+    handler: handler.twitchViewReward
+    events:
+      - http:
+          path: twitch/viewReward
+          method: post
 
 plugins:
   - serverless-offline

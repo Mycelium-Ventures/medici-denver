@@ -6,7 +6,7 @@ contract ORMExternal is ORM, OracleExternal {
     event addRowEvent(bytes32 indexed _table, bytes32 indexed _row);
     event removeRowEvent(bytes32 indexed _table, bytes32 indexed _row);
 
-    function addTable(bytes32 _table) public onlyAuthorizedNode returns (bool) {
+    function addTable(bytes32 _table) external onlyAuthorizedNode returns (bool) {
 
         bool added = _addTable(_table);
         if (added) {
@@ -15,7 +15,7 @@ contract ORMExternal is ORM, OracleExternal {
         return added;
     }
 
-    function add(bytes32 _table, bytes32 _row) public onlyAuthorizedNode returns (bool) {
+    function add(bytes32 _table, bytes32 _row) external onlyAuthorizedNode returns (bool) {
 
         bool added = _add(_table, _row);
         if (added) {
@@ -24,7 +24,20 @@ contract ORMExternal is ORM, OracleExternal {
         return added;
     }
 
-    function remove(bytes32 _table, bytes32 _row) public onlyAuthorizedNode returns (bool) {
+    function addBatch(bytes32[] calldata _table, bytes32[] calldata _row) external onlyAuthorizedNode returns (bool[] memory) {
+        require(_table.length == _row.length, "Invalid entries!");
+
+        bool[] memory added = new bool[](_table.length);
+        for (uint256 i = 0; i < _table.length; i++) {
+            added[i] = _add(_table[i], _row[i]);
+            if (added[i]) {
+                emit addRowEvent(_table[i], _row[i]); }
+        }
+
+        return added;
+    }
+
+    function remove(bytes32 _table, bytes32 _row) external onlyAuthorizedNode returns (bool) {
 
         bool removed = _remove(_table, _row);
         if (removed) {

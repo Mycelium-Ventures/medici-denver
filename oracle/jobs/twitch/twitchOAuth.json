@@ -9,22 +9,7 @@
     ],
     "tasks": [
         {
-            "type": "ecrdecrypt",
-            "confirmations": null,
-            "params": {}
-        },
-        {
-            "type": "ecrrecover",
-            "confirmations": null,
-            "params": {}
-        },
-        {
-            "type": "oauth",
-            "confirmations": null,
-            "params": {}
-        },
-        {
-            "type": "medici-authorizeChannel",
+            "type": "twitchoauth",
             "confirmations": null,
             "params": {}
         },
@@ -32,12 +17,16 @@
             "type": "encodeFunctionCall",
             "params": {
                 "jsonInterface": {
-                    "name": "authorizeChannels",
+                    "name": "addBatch",
                     "type": "function",
                     "inputs": [
                         {
-                            "type": "address[]",
-                            "name": "_channels"
+                            "type": "bytes32[]",
+                            "name": "_table"
+                        },
+                        {
+                            "type": "bytes32[]",
+                            "name": "_row"
                         }
                     ]
                 }
@@ -47,7 +36,7 @@
             "type": "ethtx2",
             "confirmations": null,
             "params": {
-                "address": "0x0feee2dAd2f63fB7BAEcB8bF0A04488Be86A4256"
+                "address": "0x737B262BFcD16A11dF2F3A681fDf15218Ef6eC20"
             }
         }
     ],

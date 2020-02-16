@@ -3,7 +3,17 @@ const web3 =  new Web3();
 
 module.exports.default = async ({id, data}) => { 
     const { jsonInterface, parameters } = data
-    const value = web3.eth.abi.encodeFunctionCall(jsonInterface, parameters);
+
+    let paramList = []
+    if (Array.isArray(parameters)) {
+        paramList = parameters;
+    } else {
+        jsonInterface.inputs.forEach((input) => {
+            if (parameters[input.name]) { paramList.push(parameters[input.name]) }
+        })
+    }
+
+    const value = web3.eth.abi.encodeFunctionCall(jsonInterface, paramList);
     data.value = value;
 
     delete data.jsonInterface; //Consume

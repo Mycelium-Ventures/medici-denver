@@ -29,6 +29,7 @@
             "params": {}
         },
         {
+            "type": "encodeFunctionCall",
             "params": {
                 "jsonInterface": {
                     "name": "authorizeUsers",
