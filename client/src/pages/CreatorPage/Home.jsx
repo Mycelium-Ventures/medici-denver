@@ -51,7 +51,6 @@ const Overview = (props) => {
       var res = await getBalance(props.profile.ethAddress)
       setBalance(res)
       setLoading(false);
-
   }, [])
   if(isLoading) {
     return (
