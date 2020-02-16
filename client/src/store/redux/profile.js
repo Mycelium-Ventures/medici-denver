@@ -2,6 +2,8 @@ import namehash from 'eth-ens-namehash'
 
 import drizzle from '../index'
 
+import { createTable, addAddressToTable } from "../../services/contract";
+
 /**
  * Redux - Profile for a Viewer
  *
@@ -103,55 +105,45 @@ export const ActionCheckTwitchLinked = () => {
     const ORMContract = drizzle.contracts.ORMExternal;
 
     // if we have twitchId and ethAddress but twitchLinked is still false, we connect them
-    if (profile.twitchId && profile.ethAddress && !profile.twitchLinked){
+    //TODO: change true
+    if (true && profile.ethAddress && !profile.twitchLinked){
+
+      // const viewerTableHash = await createTable("viewer");
+      // console.log(viewerTableHash)
 
       const viewerTableHash = namehash.hash('viewer')
-
       console.log('viewer', viewerTableHash)
-
       const addTableStackId = ORMContract.methods.addTable.cacheSend(viewerTableHash)
-
       const addTableTxHash = await new Promise((resolve) => {
-
         const interval = setInterval(() => {
-
           state = getState()
-
           const txHash = state.transactionStack[addTableStackId]
-
           if (state.transactions[txHash] && state.transactions[txHash].status === 'success'){
             clearInterval(interval)
             resolve(txHash)
           }
-
           // console.log(state.transactions[txHash].status)
-
         }, 1500)
-
       })
 
       // const viewerTwitchId = namehash.hash(`viewer.${ethAddress}.clarenceTest`)
 
-      const addStackId = ORMContract.methods.add.cacheSend(viewerTableHash, ethAddress)
+      //viewer table... ethaddress
 
-      const addTxHash = await new Promise((resolve) => {
+      await addAddressToTable(viewerTableHash, ethAddress);
 
-        const interval = setInterval(() => {
-
-          state = getState()
-
-          const txHash = state.transactionStack[addStackId]
-
-          if (state.transactions[txHash] && state.transactions[txHash].status === 'success'){
-            clearInterval(interval)
-            resolve(txHash)
-          }
-
-          // console.log(state.transactions[txHash].status)
-
-        }, 1500)
-
-      })
+      // const addStackId = ORMContract.methods.add.cacheSend(viewerTableHash, ethAddress)
+      // const addTxHash = await new Promise((resolve) => {
+      //   const interval = setInterval(() => {
+      //     state = getState()
+      //     const txHash = state.transactionStack[addStackId]
+      //     if (state.transactions[txHash] && state.transactions[txHash].status === 'success'){
+      //       clearInterval(interval)
+      //       resolve(txHash)
+      //     }
+      //     // console.log(state.transactions[txHash].status)
+      //   }, 1500)
+      // })
 
 
       const enumerateDataKey = ORMContract.methods.enumerate.cacheCall(viewerTableHash)
