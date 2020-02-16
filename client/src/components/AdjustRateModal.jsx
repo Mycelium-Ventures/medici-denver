@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import {ActionSetChannelParams} from "../store/redux/profile";
+import { connect } from 'react-redux'
+
 
 async function adjustRates(props, subRate, viewRate, cheersRate) {
-  alert("adjust rates");
   props.dispatch(ActionSetChannelParams({subRate: subRate, perSecRate: viewRate, cheerRate: cheersRate}))
-
 }
 
 const AdjustRateModal = props => {
@@ -92,7 +92,7 @@ const AdjustRateModal = props => {
             
             </div>
             <div className="col-12 p-1 m-1 login-btn">
-              <button onClick={() => adjustRates(props, subRate, viewRate, cheersRate)}>Adjust</button>
+              <button onClick={(ev) => adjustRates(props, subRate, viewRate, cheersRate)}>Adjust</button>
             </div>
           </div>
         </div>
@@ -101,4 +101,10 @@ const AdjustRateModal = props => {
   );
 };
 
-export default AdjustRateModal;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.reducers.profile,
+  }
+}
+
+export default connect(mapStateToProps)(AdjustRateModal)

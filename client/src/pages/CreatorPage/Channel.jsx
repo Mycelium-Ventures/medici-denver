@@ -49,7 +49,6 @@ const Channel = (props) => {
       </div>
   )
 }
-if(props.profile.re)
   return (
     <main className="container">
       <AdjustModal
@@ -84,7 +83,7 @@ if(props.profile.re)
               <div className="row">
                 <div className="col-lg-4">
                   <span className="sp-label">Views</span>
-                  <br /> <span></span>
+                  <br /> <span>1200</span>
                 </div>
                 <div className="col-lg-4">
                   <span className="sp-label">Cheers</span>
