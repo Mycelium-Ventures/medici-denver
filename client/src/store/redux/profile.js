@@ -269,17 +269,28 @@ export const ActionCreateORMData = () => {
 
     const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
 
-    const tableHash = namehash.hash('viewer')
+    // const tableHash = namehash.hash('viewer')
 
     const ethAddress = getState().reducers.profile.ethAddress
 
-    const ethAddress32Bytes = bufferToBytes32(Buffer.from(fmWeb3.utils.hexToBytes(ethAddress)));
+    // const ethAddress32Bytes = bufferToBytes32(Buffer.from(fmWeb3.utils.hexToBytes(ethAddress)));
 
-    console.log('ActionCreateORMData', tableHash, ethAddress)
+    // console.log('ActionCreateORMData', tableHash, ethAddress)
 
-    const res = await contractInstance.methods.remove(tableHash, '0x2ee0d0c04d5d8a9db51ffb3f5ccb604ec70d2be1011af8822de77d549180dda9').send({from: ethAddress})
+    // const res = await contractInstance.methods.remove(tableHash, '0x2ee0d0c04d5d8a9db51ffb3f5ccb604ec70d2be1011af8822de77d549180dda9').send({from: ethAddress})
 
-    console.log(res)
+
+    // START reward fake data
+    const videoId = '492575058' // Medici
+    // const videoId = '492564773' // Jake
+    // const videoId = '137492398' // Taregant
+
+    const twitchId = videoId
+    const videoTwitchIdHash = namehash.hash(`twitchId.${videoId}.video.${twitchId}.views`);
+
+    const res = await contractInstance.methods.addTable(videoTwitchIdHash).send({from: ethAddress})
+
+    console.log(res || null)
 
     return Promise.resolve()
   }
@@ -295,12 +306,16 @@ export const ActionGetTwitchLinkedProof = () => {
     // this has the binding data
     const viewerTableHash = namehash.hash('viewer')
 
-    // const mediciActivityHash = namehash.hash(`twitchId.492575058.video.492575058.views`)
+    // const mediciActivityHash = namehash.hash(`video.492575058.twitchId.492575058.views`)
+
+    // const taregantActivityHash = namehash.hash(`video.137492398.twitchId.137492398.views`)
+
+    // const jakeActivityHash = namehash.hash(`video.492564773.twitchId.492564773.views`)
 
     let result = null
 
     try {
-      result = await contractInstance.methods.containsKey(viewerTableHash).call()
+      result = await contractInstance.methods.getTables().call()
     } catch (err){
       console.error(err)
     }

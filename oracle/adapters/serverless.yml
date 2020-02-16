@@ -78,7 +78,7 @@ functions:
     events:
       - http:
           path: youtube/videos
-          method: post 
+          method: post
   ecrrecover:
     handler: handler.ecrrecover
     events:
@@ -132,7 +132,7 @@ functions:
     events:
       - http:
           path: proxy
-          method: post
+          method: get
 
 
 plugins:
