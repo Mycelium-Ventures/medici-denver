@@ -1,5 +1,8 @@
 import React, { Component } from "react"
 import ActivityLog from "../components/ActivityLog";
+// import EmbedTwitch from "../components/EmbedTwitch";
+import ReactTwitchEmbedVideo from "react-twitch-embed-video"
+
 
 //Dummy data
 const activityDummy = [{
@@ -85,14 +88,20 @@ class UserPage extends Component {
                     </div>
                   </div>
                   <div className="col-lg-9 pt-2 text-center">
-                  <iframe
+                    {/* <EmbedTwitch /> */}
+                    <ReactTwitchEmbedVideo 
+                      height={400}
+                      width={750}
+                      autoplay={true}
+                      channel="medicicrypto" />
+                  {/* <iframe
                     src="https://clips.twitch.tv/embed?clip=IncredulousAbstemiousFennelImGlitch"
                     height="300"
                     width="600"
                     frameborder="0"
                     scrolling="no"
                     allowfullscreen="true">
-                  </iframe>
+                  </iframe> */}
                   </div>
                 </div>
               </div>
