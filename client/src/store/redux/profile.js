@@ -37,7 +37,8 @@ export const ProfileActionTypes = {
   WELCOME_SHOWN: "WELCOME_SHOWN",
   SET_TWITCH_INFO: 'SET_TWITCH_INFO',
   SET_TWITCH_LINKED: 'SET_TWITCH_LINKED',
-  SET_VIDEO_DATA: 'SET_VIDEO_DATA'
+  SET_VIDEO_DATA: 'SET_VIDEO_DATA',
+  SET_CHANNEL_PARAMS: 'SET_CHANNEL_PARAMS'
 };
 
 /*
@@ -61,7 +62,8 @@ const initialState = {
   did: null,
   name: '',
   welcomeShown: false,
-  videos: {}
+  videos: {},
+  channelParams: {}
 }
 
 // this only runs once on startup
@@ -350,6 +352,75 @@ export const ActionGetTwitchLinkedProof = () => {
   }
 }
 
+export const ActionSetChannelParams = (chanParams) => {
+  return async function(dispatch, getState, { fmWeb3 }){
+
+    const state = getState()
+
+    const {twitchId, ethAddress} = state.reducers.profile
+
+    const contractAddress = '0x737B262BFcD16A11dF2F3A681fDf15218Ef6eC20'
+
+    const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
+
+    // take chanParams and make it 3 comma separated numbers - TODO: learn a better way to compress (structs?)
+    const chanParamsCsv = `${chanParams.subRate},${chanParams.perSecRate},${chanParams.cheerRate}`
+
+    const chanParams32Bytes = '0x' + bufferToBytes32(Buffer.from(chanParamsCsv, 'ascii')).toString("hex");
+
+    console.log('chanParams32Bytes', chanParams32Bytes)
+
+    const tableHash = namehash.hash(`dev.twitchId.${twitchId}.channelParams`)
+    await contractInstance.methods.addTable(tableHash).send({from: ethAddress})
+    await contractInstance.methods.add(tableHash, chanParams32Bytes).send({from: ethAddress})
+
+    await dispatch({
+      type: ProfileActionTypes.SET_CHANNEL_PARAMS,
+      channelParams: chanParams
+    })
+
+    return Promise.resolve()
+  }
+}
+
+export const ActionGetChannelParams = () => {
+  return async function(dispatch, getState, { fmWeb3 }){
+
+    const state = getState()
+
+    const {twitchId, ethAddress} = state.reducers.profile
+
+    const contractAddress = '0x737B262BFcD16A11dF2F3A681fDf15218Ef6eC20'
+
+    const contractInstance = new fmWeb3.eth.Contract(ORMExternal.abi, contractAddress)
+
+    const tableHash = namehash.hash(`dev.twitchId.${twitchId}.channelParams`)
+
+    const chanParamsHex = await contractInstance.methods.enumerate(tableHash).call()
+
+    let chanParamsHexTrim = _.trimStart(chanParamsHex[0].substring(2, chanParamsHex[0].length), '0')
+
+    const chanParamsCsv = Buffer.from(chanParamsHexTrim, 'hex').toString()
+
+    if (chanParamsCsv.length <= 0){
+      return Promise.resolve()
+    }
+
+    let chanParams = chanParamsCsv.split(',')
+
+    await dispatch({
+      type: ProfileActionTypes.SET_CHANNEL_PARAMS,
+      channelParams: {
+        subRate: parseInt(chanParams[0]),
+        perSecRate: parseInt(chanParams[1]),
+        cheerRate: parseInt(chanParams[2])
+      }
+    })
+
+    return Promise.resolve()
+  }
+}
+
 /**
  * Get all the video watch times and add them into a struct
  */
@@ -379,21 +450,21 @@ export const ActionGetVideoMetrics = () => {
     for (let i = 0, twitchIdsLen = twitchIds.length; i < twitchIdsLen; i++){
       let twitchId = parseInt(twitchIds[i], 16)
 
-      console.log(twitchId)
+      // console.log(twitchId)
 
       data[twitchId] = {}
 
       let videoTwitchHash = namehash.hash(`dev.twitchId.${twitchId}.channel`)
       let channelIds = await contractInstance.methods.enumerate(videoTwitchHash).call()
 
-      console.log('channelIds', channelIds)
+      // console.log('channelIds', channelIds)
 
       // loop through each video/twitchId and get the time
       for (let j = 0; j < channelIds.length; j++){
 
         let channelId = parseInt(channelIds[j], 16)
 
-        let connectUrl = `https://api.twitch.tv/helix/users?login=${channelId}`
+        let connectUrl = `https://api.twitch.tv/helix/users?id=${channelId}`
 
         // fetch the channel meta data
         const resp = await fetch(connectUrl, {
@@ -413,7 +484,7 @@ export const ActionGetVideoMetrics = () => {
 
         data[twitchId][channelId] = {
           viewTime: totalTime,
-          metadata: resp.body
+          metadata: await resp.json()
         }
       }
     }
@@ -511,6 +582,12 @@ export default {
         return {
           ...state,
           videos: action.videos
+        }
+
+      case ProfileActionTypes.SET_CHANNEL_PARAMS:
+        return {
+          ...state,
+          channelParams: action.channelParams
         }
     }
 
