@@ -10,10 +10,7 @@ class Campaigns extends Component {
         </div>
         <div className="row acc-title p-4 ml-2">
           <div className="col-lg-9 text-left pl-1 mt-3">
-            <h6>John Starmer</h6>
-          </div>
-          <div className="col-lg-3 text-right pl-1 mt-3">
-            <h6>0$</h6>
+          <h6>Platform Subs: 1500</h6>
           </div>
         </div>
       </main>
