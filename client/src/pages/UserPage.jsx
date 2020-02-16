@@ -46,7 +46,7 @@ const UserPage = (props) => {
       console.log(user);
       console.log(videos.user);
       let creator = videos[user];
-        console.log(creator);
+      console.log(creator);
       let viewTime = videos[user].viewTime;
       console.log(viewTime);
 
