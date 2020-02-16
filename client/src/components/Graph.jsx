@@ -70,7 +70,7 @@ var config = {
 
 class Graph extends Component {
 
-
+    // console.log(Date.UTC)
     render() {
         return (
             <div className="row">
