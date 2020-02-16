@@ -161,14 +161,14 @@
     "absolutePath": "contracts/OracleExternalConsumer.sol",
     "exportedSymbols": {
       "OracleExternalConsumer": [
-        3170
+        3194
       ]
     },
-    "id": 3171,
+    "id": 3195,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3116,
+        "id": 3140,
         "literals": [
           "solidity",
           "^",
@@ -181,9 +181,9 @@
       {
         "absolutePath": "@openzeppelin/contracts-ethereum-package/contracts/ownership/Ownable.sol",
         "file": "@openzeppelin/contracts-ethereum-package/contracts/ownership/Ownable.sol",
-        "id": 3117,
+        "id": 3141,
         "nodeType": "ImportDirective",
-        "scope": 3171,
+        "scope": 3195,
         "sourceUnit": 665,
         "src": "25:82:25",
         "symbolAliases": [],
@@ -195,7 +195,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 3118,
+              "id": 3142,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 664,
@@ -205,7 +205,7 @@
                 "typeString": "contract Ownable"
               }
             },
-            "id": 3119,
+            "id": 3143,
             "nodeType": "InheritanceSpecifier",
             "src": "144:7:25"
           }
@@ -218,9 +218,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 3170,
+        "id": 3194,
         "linearizedBaseContracts": [
-          3170,
+          3194,
           664,
           29,
           2647
@@ -230,10 +230,10 @@
         "nodes": [
           {
             "constant": false,
-            "id": 3123,
+            "id": 3147,
             "name": "authorizedOracles",
             "nodeType": "VariableDeclaration",
-            "scope": 3170,
+            "scope": 3194,
             "src": "159:49:25",
             "stateVariable": true,
             "storageLocation": "default",
@@ -242,9 +242,9 @@
               "typeString": "mapping(address => bool)"
             },
             "typeName": {
-              "id": 3122,
+              "id": 3146,
               "keyType": {
-                "id": 3120,
+                "id": 3144,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "167:7:25",
@@ -260,7 +260,7 @@
                 "typeString": "mapping(address => bool)"
               },
               "valueType": {
-                "id": 3121,
+                "id": 3145,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "178:4:25",
@@ -275,7 +275,7 @@
           },
           {
             "body": {
-              "id": 3134,
+              "id": 3158,
               "nodeType": "Block",
               "src": "510:44:25",
               "statements": [
@@ -284,25 +284,25 @@
                     "argumentTypes": null,
                     "baseExpression": {
                       "argumentTypes": null,
-                      "id": 3130,
+                      "id": 3154,
                       "name": "authorizedOracles",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3123,
+                      "referencedDeclaration": 3147,
                       "src": "523:17:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                         "typeString": "mapping(address => bool)"
                       }
                     },
-                    "id": 3132,
+                    "id": 3156,
                     "indexExpression": {
                       "argumentTypes": null,
-                      "id": 3131,
+                      "id": 3155,
                       "name": "_oracle",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3125,
+                      "referencedDeclaration": 3149,
                       "src": "541:7:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -320,30 +320,30 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 3129,
-                  "id": 3133,
+                  "functionReturnParameters": 3153,
+                  "id": 3157,
                   "nodeType": "Return",
                   "src": "516:33:25"
                 }
               ]
             },
             "documentation": "@notice Use this to check if a oracle contract is authorized for fulfilling requests\n@param _oracle The address of the oracle contract\n@return The authorization status of the oracle contract",
-            "id": 3135,
+            "id": 3159,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getAuthorizationStatus",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3126,
+              "id": 3150,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3125,
+                  "id": 3149,
                   "name": "_oracle",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3135,
+                  "scope": 3159,
                   "src": "464:15:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -352,7 +352,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3124,
+                    "id": 3148,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "464:7:25",
@@ -369,15 +369,15 @@
               "src": "463:17:25"
             },
             "returnParameters": {
-              "id": 3129,
+              "id": 3153,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3128,
+                  "id": 3152,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3135,
+                  "scope": 3159,
                   "src": "504:4:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -386,7 +386,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3127,
+                    "id": 3151,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "504:4:25",
@@ -401,7 +401,7 @@
               ],
               "src": "503:6:25"
             },
-            "scope": 3170,
+            "scope": 3194,
             "src": "432:122:25",
             "stateMutability": "view",
             "superFunction": null,
@@ -409,14 +409,14 @@
           },
           {
             "body": {
-              "id": 3150,
+              "id": 3174,
               "nodeType": "Block",
               "src": "892:48:25",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 3148,
+                    "id": 3172,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -425,25 +425,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 3144,
+                        "id": 3168,
                         "name": "authorizedOracles",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3123,
+                        "referencedDeclaration": 3147,
                         "src": "898:17:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                           "typeString": "mapping(address => bool)"
                         }
                       },
-                      "id": 3146,
+                      "id": 3170,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 3145,
+                        "id": 3169,
                         "name": "_oracle",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3137,
+                        "referencedDeclaration": 3161,
                         "src": "916:7:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -465,11 +465,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 3147,
+                      "id": 3171,
                       "name": "_allowed",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3139,
+                      "referencedDeclaration": 3163,
                       "src": "927:8:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -482,23 +482,23 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 3149,
+                  "id": 3173,
                   "nodeType": "ExpressionStatement",
                   "src": "898:37:25"
                 }
               ]
             },
             "documentation": "@notice Sets the fulfillment permission for a given node. Use `true` to allow, `false` to disallow.\n@param _oracle The address of the Chainlink node\n@param _allowed Bool value to determine if the node can fulfill requests",
-            "id": 3151,
+            "id": 3175,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 3142,
+                "id": 3166,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 3141,
+                  "id": 3165,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
@@ -516,15 +516,15 @@
             "name": "setFulfillmentPermission",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3140,
+              "id": 3164,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3137,
+                  "id": 3161,
                   "name": "_oracle",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3151,
+                  "scope": 3175,
                   "src": "841:15:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -533,7 +533,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3136,
+                    "id": 3160,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "841:7:25",
@@ -548,10 +548,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 3139,
+                  "id": 3163,
                   "name": "_allowed",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3151,
+                  "scope": 3175,
                   "src": "858:13:25",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -560,7 +560,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3138,
+                    "id": 3162,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "858:4:25",
@@ -576,12 +576,12 @@
               "src": "840:32:25"
             },
             "returnParameters": {
-              "id": 3143,
+              "id": 3167,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "892:0:25"
             },
-            "scope": 3170,
+            "scope": 3194,
             "src": "807:133:25",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -589,7 +589,7 @@
           },
           {
             "body": {
-              "id": 3168,
+              "id": 3192,
               "nodeType": "Block",
               "src": "1060:127:25",
               "statements": [
@@ -603,7 +603,7 @@
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
                         },
-                        "id": 3163,
+                        "id": 3187,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -612,34 +612,34 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 3154,
+                            "id": 3178,
                             "name": "authorizedOracles",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3123,
+                            "referencedDeclaration": 3147,
                             "src": "1074:17:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
                               "typeString": "mapping(address => bool)"
                             }
                           },
-                          "id": 3157,
+                          "id": 3181,
                           "indexExpression": {
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 3155,
+                              "id": 3179,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 4485,
+                              "referencedDeclaration": 4456,
                               "src": "1092:3:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 3156,
+                            "id": 3180,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -672,7 +672,7 @@
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           },
-                          "id": 3162,
+                          "id": 3186,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -681,18 +681,18 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 3158,
+                              "id": 3182,
                               "name": "msg",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 4485,
+                              "referencedDeclaration": 4456,
                               "src": "1107:3:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_magic_message",
                                 "typeString": "msg"
                               }
                             },
-                            "id": 3159,
+                            "id": 3183,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -713,7 +713,7 @@
                             "arguments": [],
                             "expression": {
                               "argumentTypes": [],
-                              "id": 3160,
+                              "id": 3184,
                               "name": "owner",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
@@ -724,7 +724,7 @@
                                 "typeString": "function () view returns (address)"
                               }
                             },
-                            "id": 3161,
+                            "id": 3185,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -753,7 +753,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "4e6f7420616e20617574686f72697a6564206e6f646520746f2066756c66696c6c207265717565737473",
-                        "id": 3164,
+                        "id": 3188,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -780,21 +780,21 @@
                           "typeString": "literal_string \"Not an authorized node to fulfill requests\""
                         }
                       ],
-                      "id": 3153,
+                      "id": 3177,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4488,
-                        4489
+                        4459,
+                        4460
                       ],
-                      "referencedDeclaration": 4489,
+                      "referencedDeclaration": 4460,
                       "src": "1066:7:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 3165,
+                    "id": 3189,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -808,23 +808,23 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3166,
+                  "id": 3190,
                   "nodeType": "ExpressionStatement",
                   "src": "1066:109:25"
                 },
                 {
-                  "id": 3167,
+                  "id": 3191,
                   "nodeType": "PlaceholderStatement",
                   "src": "1181:1:25"
                 }
               ]
             },
             "documentation": "@dev Reverts if `msg.sender` is not authorized to fulfill requests",
-            "id": 3169,
+            "id": 3193,
             "name": "onlyAuthorizedOracle",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 3152,
+              "id": 3176,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1057:2:25"
@@ -833,7 +833,7 @@
             "visibility": "internal"
           }
         ],
-        "scope": 3171,
+        "scope": 3195,
         "src": "109:1080:25"
       }
     ],

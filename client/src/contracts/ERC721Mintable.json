@@ -695,10 +695,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4488,
-                        4489
+                        4459,
+                        4460
                       ],
-                      "referencedDeclaration": 4488,
+                      "referencedDeclaration": 4459,
                       "src": "349:7:14",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
