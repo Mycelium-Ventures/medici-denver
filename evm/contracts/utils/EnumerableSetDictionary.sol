@@ -74,9 +74,11 @@ library EnumerableSetDictionary {
         internal
         returns (bool)
     {
-        require(containsKey(setDictionary, key), "Error key does not exist!");
-
-        return setDictionary.data[key].add(value);
+        if(containsKey(setDictionary, key)) {
+          return setDictionary.data[key].add(value);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -87,9 +89,11 @@ library EnumerableSetDictionary {
         internal
         returns (bool)
     {
-        require(containsKey(setDictionary, key), "Error key does not exist!");
-        
-        return setDictionary.keys.remove(key) && setDictionary.data[key].remove(value);
+        if(containsKey(setDictionary, key)) {
+            return setDictionary.keys.remove(key) && setDictionary.data[key].remove(value);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -100,9 +104,11 @@ library EnumerableSetDictionary {
         view
         returns (bool)
     {
-        require(containsKey(setDictionary, key), "Error key does not exist!");
-
-        return setDictionary.data[key].contains(value);
+        if(containsKey(setDictionary, key)) {
+            return setDictionary.data[key].contains(value);
+        } else {
+            return false;
+        }
     }
 
     function getValueForKey(SetDictionary storage setDictionary, bytes32 key)
@@ -110,24 +116,22 @@ library EnumerableSetDictionary {
         view
         returns (EnumerableSet.Set storage)
     {
-        require(containsKey(setDictionary, key), "Error key does not exist!");
+        require(containsKey(setDictionary, key), "Key does not exist!");
 
         return setDictionary.data[key];
     }
-
-    
 
     function enumerateForKey(SetDictionary storage setDictionary, bytes32 key)
         internal
         view
         returns (bytes32[] memory)
     {
-        require(containsKey(setDictionary, key), "Error key does not exist!");
-
-        return setDictionary.data[key].enumerate();
+        if (containsKey(setDictionary, key)) {
+            return setDictionary.data[key].enumerate();
+        } else {
+            return new bytes32[](0);
+        }
     }
-
-    
 
     /**
      * @dev Returns the number of elements on the setDictionary. O(1).
@@ -137,9 +141,11 @@ library EnumerableSetDictionary {
         view
         returns (uint256)
     {
-        require(containsKey(setDictionary, key), "Error key does not exist!");
-
-        return setDictionary.data[key].length();
+        if (containsKey(setDictionary, key)) {
+            return setDictionary.data[key].length();
+        } else {
+            return 0;
+        }
     }
 
    /** @dev Returns the element stored at position `index` in the setDictionary. O(1).
@@ -155,9 +161,11 @@ library EnumerableSetDictionary {
         view
         returns (bytes32)
     {
-        require(containsKey(setDictionary, key), "Error key does not exist!");
+        if (containsKey(setDictionary, key)) {
+            return setDictionary.data[key].get(index);
+        }
 
-        return setDictionary.data[key].get(index);
+        return 0x00000000000000000000000000000000;
     }
 
 }

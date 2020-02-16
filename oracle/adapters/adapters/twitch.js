@@ -2,16 +2,18 @@ const namehash = require('eth-ens-namehash')
 const Web3 = require('web3');
 const web3 = new Web3();
 
-//const hash1 = namehash.hash('video.id.user.id.start')
-//const hash1 = namehash.hash('video.id.user.id.end')
-//'0xde9b09fd7c5f901e23a3f19fecc54828e9c848539801e86591bd9801b019f84f'
-
-const walletHash = namehash.hash('wallet')
-const twitchIdHash = namehash.hash('twitchId')
-
 function bufferToBytes32(buffer) {
     const padding = new Buffer(32 - buffer.length);
     return Buffer.concat([padding, buffer])
+}
+
+function stringToBytes32(str, enc) {
+    const buffer = Buffer.from(str, enc)
+    return '0x' + bufferToBytes32(buffer).toString('hex')
+}
+
+function integerToBytes32(num) {
+    return web3.eth.abi.encodeParameter('uint256', num);
 }
 
 module.exports.oauth = async ({
@@ -25,12 +27,22 @@ module.exports.oauth = async ({
 
     const address32Bytes = '0x' + bufferToBytes32(Buffer.from(web3.utils.hexToBytes(ethAddress))).toString("hex");
     const twitchId32Bytes = '0x' + bufferToBytes32(Buffer.from(twitchId, 'ascii')).toString("hex");    
-    
-    const walletTwitchIdHash = namehash.hash(`wallet.${address32Bytes}.twitchId`)
-    
+    console.log(address32Bytes)
+    console.log(twitchId32Bytes)
+
+
+
+    const addressTable = namehash.hash('address')
+    //assert(addressTable === '0xb160867a71bae0eb025e7a38d47b10c9ca6a2f559fa6e4118c43804c117924e0')
+    const twitchIdTable = namehash.hash('twitchId')
+    //assert(twitchIdTable === '0x69cadcb5ac61bf9149b90aead3b3b2bc5feddfb165339585cd96012ad68d1fb5')
+    const addressTwitchIdTableDef = namehash.hash(`address.id.twitchId`)
+    //assert(addressTwitchIdTableDef === '0x53050e48568738786081ca9af10911bbb94b8354c09c0e036099ab614137937f')
+    const addressTwitchIdTable = namehash.hash(`address.${address32Bytes}.twitchId`)
+
     const batchAdd = {
-        "_table":[walletHash, twitchIdHash, walletTwitchIdHash],
-        "_row": [address32Bytes, twitchId32Bytes, twitchId32Bytes]
+        "_table":[addressTable, twitchIdTable, addressTwitchIdTableDef, addressTwitchIdTable],
+        "_row": [address32Bytes, twitchId32Bytes, addressTwitchIdTable, twitchId32Bytes]
     }
 
     return { 
@@ -63,14 +75,18 @@ module.exports.viewReward = async ({
 }) => {
     const { twitchId, videoId, startTime, endTime } = data;
 
-    const twitchIdVideoHash = namehash.hash(`twitchId.${twitchId}.video.${videoId}.views`);
-    const videoTwitchIdHash = namehash.hash(`video.${videoId}.twitchId.${twitchId}.views`);
+    const channel = namehash.hash(`channel`);
+    const twitchIdChannelTableDef = namehash.hash(`twitchId.id.channel`);
+    const twitchIdChannelViewsTableDef = namehash.hash(`twitchId.id.channel.id.views`);
+
+    const twitchIdChannelTable = namehash.hash(`twitchId.${twitchId}.channel`);
+    const twitchIdChannelViewsTable = namehash.hash(`twitchId.${twitchId}.channel.${videoId}.views`);
     const time = endTime - startTime;
-    const timeEncoded = '0x' + web3.eth.abi.encodeParameter('uint256', time);
+    const timeEncoded = integerToBytes32(time);
 
     const batchAdd = {
-        "_table":[twitchIdVideoHash, videoTwitchIdHash],
-        "_row": [timeEncoded, timeEncoded]
+        "_table":[channel, twitchIdChannelTable, twitchIdChannelViewsTable, twitchIdChannelViewsTableDef, twitchIdChannelTableDef],
+        "_row": [stringToBytes32(videoId), stringToBytes32(videoId),  timeEncoded, twitchIdChannelViewsTable, twitchIdChannelTable]
     }
 
     return { 

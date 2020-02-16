@@ -5,8 +5,5 @@ import "@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol";
 
 contract CreatorContract is Ownable {
 
-    function initialize() initializer {
-        Ownable.initialize(msg.data
-    }
 
 }
