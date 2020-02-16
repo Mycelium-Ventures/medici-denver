@@ -25,6 +25,7 @@ const persistConfig = {
 }
 
 const appReducers = {
+  // todo rename this to root
   reducers: persistReducer(persistConfig, reducers),
 
   // this must be on the root level

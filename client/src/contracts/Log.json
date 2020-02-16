@@ -212,7 +212,7 @@
         "id": 2679,
         "nodeType": "ImportDirective",
         "scope": 2697,
-        "sourceUnit": 3171,
+        "sourceUnit": 3195,
         "src": "91:38:21",
         "symbolAliases": [],
         "unitAlias": ""
@@ -226,10 +226,10 @@
               "id": 2680,
               "name": "OracleExternalConsumer",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3170,
+              "referencedDeclaration": 3194,
               "src": "147:22:21",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_OracleExternalConsumer_$3170",
+                "typeIdentifier": "t_contract$_OracleExternalConsumer_$3194",
                 "typeString": "contract OracleExternalConsumer"
               }
             },
@@ -242,7 +242,7 @@
           29,
           664,
           2647,
-          3170
+          3194
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -250,7 +250,7 @@
         "id": 2696,
         "linearizedBaseContracts": [
           2696,
-          3170,
+          3194,
           664,
           29,
           2647

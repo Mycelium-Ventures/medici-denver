@@ -370,14 +370,14 @@
     "absolutePath": "contracts/token/ERC20Test.sol",
     "exportedSymbols": {
       "ERC20Test": [
-        3728
+        3752
       ]
     },
-    "id": 3729,
+    "id": 3753,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3724,
+        "id": 3748,
         "literals": [
           "solidity",
           "^",
@@ -390,9 +390,9 @@
       {
         "absolutePath": "@openzeppelin/contracts-ethereum-package/contracts/token/ERC20/ERC20Mintable.sol",
         "file": "@openzeppelin/contracts-ethereum-package/contracts/token/ERC20/ERC20Mintable.sol",
-        "id": 3725,
+        "id": 3749,
         "nodeType": "ImportDirective",
-        "scope": 3729,
+        "scope": 3753,
         "sourceUnit": 1126,
         "src": "26:90:27",
         "symbolAliases": [],
@@ -404,7 +404,7 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 3726,
+              "id": 3750,
               "name": "ERC20Mintable",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 1125,
@@ -414,7 +414,7 @@
                 "typeString": "contract ERC20Mintable"
               }
             },
-            "id": 3727,
+            "id": 3751,
             "nodeType": "InheritanceSpecifier",
             "src": "140:13:27"
           }
@@ -430,9 +430,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 3728,
+        "id": 3752,
         "linearizedBaseContracts": [
-          3728,
+          3752,
           1125,
           233,
           1076,
@@ -443,7 +443,7 @@
         "name": "ERC20Test",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 3729,
+        "scope": 3753,
         "src": "118:40:27"
       }
     ],

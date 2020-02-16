@@ -28,7 +28,8 @@ export const ProfileActionTypes = {
   READY: 'READY',
   LOGOUT: 'LOGOUT',
   CHECK_CONNECTED_ACCTS: 'CHECK_CONNECTED_ACCTS',
-  WELCOME_SHOWN: "WELCOME_SHOWN"
+  WELCOME_SHOWN: "WELCOME_SHOWN",
+  SET_TWITCH_INFO: 'SET_TWITCH_INFO'
 };
 
 /*
@@ -41,6 +42,7 @@ const initialState = {
   loading: true,
   ethAddress: null,
   twitchId: null,
+  twitchUsername: null,
   twitchLinked: false,
   ytLinked: false,
   did: null,
@@ -91,6 +93,7 @@ export const ActionCheckAccts = () => {
   }
 }
 
+// NOT USED - testing only
 export const ActionCheckTwitchLinked = () => {
   return async function(dispatch, getState, {fmWeb3}){
 
@@ -200,6 +203,55 @@ export const ActionCheckTwitchLinked = () => {
   }
 }
 
+/**
+ * Pass in the newly fetched twitchId and twitchUsername,
+ * if the ethAddress is also set, we call the endpoint with the data
+ */
+export const ActionUpdateTwitch = (tokenData) => {
+  return async function(dispatch, getState, {fmWeb3}){
+
+    const twitchId = tokenData.sub
+
+    await dispatch({
+      type: ProfileActionTypes.SET_TWITCH_INFO,
+      twitchId: twitchId,
+      twitchUsername: tokenData.preferred_username
+    })
+
+    const state = getState()
+
+    const {ethAddress, twitchLinked} = state.reducers.profile
+
+    // if ethAddress is set too and we have not linked yet, send the data
+    if (ethAddress && !twitchLinked){
+
+      const connectUrl = ''
+
+      /*
+      await fetch(connectUrl, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'no-cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *client
+        body: JSON.stringify({
+          twitchId: twitchId,
+          ethAddress: state.reducers.profile.ethAddress
+        })
+      });
+      */
+
+
+    }
+
+    return Promise.resolve()
+  }
+}
+
 //Simple function to set welcome shown to true
 export const welcomeShown = () => {
   return async function(dispatch, getState, {fmWeb3}){
@@ -264,6 +316,13 @@ export default {
           ...state,
           name: action.name,
           country: action.country
+        }
+
+      case ProfileActionTypes.SET_TWITCH_INFO:
+        return {
+          ...state,
+          twitchId: action.twitchId,
+          twitchUsername: action.twitchUsername
         }
     }
 

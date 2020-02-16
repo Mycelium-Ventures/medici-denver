@@ -7,19 +7,28 @@ contract ORMExternal is ORM, OracleExternal {
     event removeRowEvent(bytes32 indexed _table, bytes32 indexed _row);
 
     function addTable(bytes32 _table) public onlyAuthorizedNode returns (bool) {
-        emit addTableEvent(_table);
 
-        return _addTable(_table);
+        bool added = _addTable(_table);
+        if (added) {
+            emit addTableEvent(_table); }
+
+        return added;
     }
 
     function add(bytes32 _table, bytes32 _row) public onlyAuthorizedNode returns (bool) {
-        emit addRowEvent(_table, _row);
 
-        return _add(_table, _row);
+        bool added = _add(_table, _row);
+        if (added) {
+            emit addRowEvent(_table, _row); }
+
+        return added;
     }
 
     function remove(bytes32 _table, bytes32 _row) public onlyAuthorizedNode returns (bool) {
-        emit removeRowEvent(_table, _row);
+
+        bool removed = _remove(_table, _row);
+        if (removed) {
+            emit removeRowEvent(_table, _row); }
 
         return _remove(_table, _row);
     }
