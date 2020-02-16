@@ -5,6 +5,11 @@ import drizzle, { fmWeb3 } from '../index'
 import { createTable, addAddressToTable } from "../../services/contract";
 import ORMExternal from '../../contracts/ORMExternal'
 
+function bufferToBytes32(buffer) {
+  const padding = new Buffer(32 - buffer.length);
+  return Buffer.concat([padding, buffer])
+}
+
 /**
  * Redux - Profile for a Viewer
  *
@@ -267,11 +272,11 @@ export const ActionCreateORMData = () => {
 
     const ethAddress = getState().reducers.profile.ethAddress
 
+    const ethAddress32Bytes = bufferToBytes32(Buffer.from(fmWeb3.utils.hexToBytes(ethAddress)));
+
     console.log('ActionCreateORMData', tableHash, ethAddress)
 
-    debugger
-
-    const res = await contractInstance.methods.add(tableHash, fmWeb3.utils.hexToBytes(ethAddress)).send({from: ethAddress})
+    const res = await contractInstance.methods.remove(tableHash, '0x2ee0d0c04d5d8a9db51ffb3f5ccb604ec70d2be1011af8822de77d549180dda9').send({from: ethAddress})
 
     console.log(res)
 

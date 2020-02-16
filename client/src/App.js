@@ -66,8 +66,8 @@ const App = (props) => {
 
 
   useEffect(() => {
-    // props.dispatch(ActionGetTwitchLinkedProof())
-    props.dispatch(ActionCreateORMData())
+    props.dispatch(ActionGetTwitchLinkedProof())
+    // props.dispatch(ActionCreateORMData())
   }, [])
 
   if (!props.profile.ready){
