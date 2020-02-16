@@ -41,15 +41,15 @@ const AdjustRateModal = props => {
                     <div className="row sec-2">
                     <div className="col-lg-4">
                         <span className="sp-label" style={{color: "rgb(180, 8, 196)"}}>Views</span>
-                        <br /> <span >1200</span>
+                        <br /> <span >{props.profile.channelParams.perSecRate}</span>
                     </div>
                     <div className="col-lg-4">
                         <span className="sp-label" style={{color: "rgb(180, 8, 196)"}}>Cheers</span>
-                        <br /> <span>1200</span>
+                        <br /> <span>{props.profile.channelParams.cheerRate}</span>
                     </div>
                     <div className="col-lg-4">
                         <span className="sp-label" style={{color: "rgb(180, 8, 196)"}}>Subs</span>
-                        <br /> <span>1200</span>
+                        <br /> <span>{props.profile.channelParams.subRate}</span>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@ const AdjustRateModal = props => {
               />
             </div>
             <div className="col-3">
-            
+
             </div>
             <div className="col-12 p-1 m-1 login-btn">
               <button onClick={(ev) => adjustRates(props, subRate, viewRate, cheersRate)}>Adjust</button>

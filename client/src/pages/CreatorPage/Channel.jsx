@@ -31,13 +31,6 @@ const Channel = (props) => {
     console.log(props);
   }, [])
 
-  // adjustRates = (ev) => {
-    
-  // }
-
-
-
-
   if(isLoading) {
     return (
       <div class="d-flex justify-content-center m-5">
@@ -83,15 +76,15 @@ const Channel = (props) => {
               <div className="row">
                 <div className="col-lg-4">
                   <span className="sp-label">Views</span>
-                  <br /> <span>1200</span>
+                  <br /> <span>{props.profile.channelParams.perSecRate}</span>
                 </div>
                 <div className="col-lg-4">
                   <span className="sp-label">Cheers</span>
-                  <br /> <span>1200</span>
+                  <br /> <span>{props.profile.channelParams.cheerRate}</span>
                 </div>
                 <div className="col-lg-4">
                   <span className="sp-label">Subs</span>
-                  <br /> <span>1200</span>
+                  <br /> <span>{props.profile.channelParams.subRate}</span>
                 </div>
               </div>
               <div className="row pt-2">
@@ -104,15 +97,15 @@ const Channel = (props) => {
               <div className="row">
                 <div className="col-lg-4">
                   <span className="sp-label">Views</span>
-                  <br /> <span>1200</span>
+                  <br /> <span>0</span>
                 </div>
                 <div className="col-lg-4">
                   <span className="sp-label">Cheers</span>
-                  <br /> <span>1200</span>
+                  <br /> <span>0</span>
                 </div>
                 <div className="col-lg-4">
                   <span className="sp-label">Subs</span>
-                  <br /> <span>1200</span>
+                  <br /> <span>0</span>
                 </div>
               </div>
             </div>

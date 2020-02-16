@@ -264,9 +264,8 @@ export const ActionCreateORMData = () => {
 
     const ethAddress = getState().reducers.profile.ethAddress
 
-    let tableHash;
 
-    /*
+
     let tableHash = namehash.hash(`dev.twitchId`)
 
     await contractInstance.methods.addTable(tableHash).send({from: ethAddress})
@@ -278,7 +277,7 @@ export const ActionCreateORMData = () => {
     await contractInstance.methods.addTable(tableHash).send({from: ethAddress})
 
     await contractInstance.methods.add(tableHash, fmWeb3.eth.abi.encodeParameter('uint256', 25199180)).send({from: ethAddress})
-    */
+
     tableHash = namehash.hash(`dev.twitchId.137492398.channel.25199180.views`)
 
     await contractInstance.methods.addTable(tableHash).send({from: ethAddress})

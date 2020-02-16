@@ -28,7 +28,7 @@ const options = (provider) => ({
     ]
   },
   polls: {
-    accounts: 3000
+    accounts: 5000
   }
 })
 

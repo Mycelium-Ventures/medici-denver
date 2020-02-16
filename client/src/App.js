@@ -86,7 +86,7 @@ const App = (props) => {
 
 
   useEffect(() => {
-    props.dispatch(ActionSetChannelParams({subRate: 25, perSecRate: 10, cheerRate: 100}))
+    // props.dispatch(ActionSetChannelParams({subRate: 25, perSecRate: 10, cheerRate: 100}))
     // props.dispatch(ActionGetTwitchLinkedProof())
     // props.dispatch(ActionCreateORMData())
     props.dispatch(ActionGetVideoMetrics())
