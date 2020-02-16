@@ -16,6 +16,11 @@ contract ORMExternal is ORM, OracleExternal {
     }
 
     function add(bytes32 _table, bytes32 _row) external onlyAuthorizedNode returns (bool) {
+        if (!exists(_table)) {
+            bool addedTable = _addTable(_table);
+            if (addedTable) {
+                emit addTableEvent(_table); }
+        }
 
         bool added = _add(_table, _row);
         if (added) {
@@ -46,7 +51,7 @@ contract ORMExternal is ORM, OracleExternal {
         return _remove(_table, _row);
     }
 
-    function containsKey(bytes32 _table) public view returns (bool) {
+    function exists(bytes32 _table) public view returns (bool) {
         return _containsKey(_table);
     }
 

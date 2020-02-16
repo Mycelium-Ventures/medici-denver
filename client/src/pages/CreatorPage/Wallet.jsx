@@ -3,12 +3,22 @@ import {HashLoader} from "react-spinners";
 import numeral from 'numeral'
 import { connect } from 'react-redux'
 import { getBalance } from "../../services/contract";
+import {buy} from "../../services/contract";
+import BuyModal from "../../components/BuyModal";
+
 
 
 
 const Wallet = (props) => {
+
+
   const [balance, setBalance] = useState(0)
   const [isLoading, setLoading] = useState(true);
+  const [buyModal, setBuyModal] = useState(false);
+
+  function setModal() {
+    setBuyModal(!buyModal);
+  }
   useEffect(() => {
 
     if (!props.profile.ethAddress){
@@ -32,7 +42,10 @@ const Wallet = (props) => {
   }
   return (
     <main className="container">
-
+      <BuyModal
+        closeModal={setModal}
+        buyModal={buyModal}
+      />
       <div className="row acc-title p-4 ml-2">
         <div className="col-lg-9 text-left pl-1 mt-3">
           <h6>Platform Subs: 1500</h6>
@@ -55,7 +68,7 @@ const Wallet = (props) => {
             Request a grant and our team will be more than willing<br/> to give you free Medici if your account fits.
           </p>
           <div className="nav-item login-btn">
-            <button>Request Grant</button>
+            <button onClick={() => alert("Grant requested, check your account in an hour")}>Request Grant</button>
           </div>
         </div>
       </div>
@@ -80,7 +93,7 @@ const Wallet = (props) => {
       <div className="row">
         <div className="col-lg-12">
           <div className="nav-item login-btn">
-            <button>Buy More</button>
+            <button onClick={(ev) => setModal()}>Buy More</button>
           </div>
         </div>
       </div>

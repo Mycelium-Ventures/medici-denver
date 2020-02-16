@@ -21,7 +21,7 @@ module.exports = {
             networkId: '5777',
         },
         ropsten: {
-            gas: process.env.ROPSTEN_GASLIMIT || 6721975,
+            gas: process.env.ROPSTEN_GASLIMIT || 6000000,
             gasPrice: process.env.ROPSTEN_GASPRICE || 50000000000,
             provider: function () {
                 return new HDWalletProvider(process.env.ROPSTEN_HD_WALLET_MNEMONIC, process.env.ROPSTEN_RPC);

@@ -3,7 +3,7 @@ import namehash from 'eth-ens-namehash'
 import { fmWeb3 } from '../store'
 
 import contract_config from "../contract_config.json";
-import ERC20Test from "../contracts/ERC20Test.json"
+import ERC20Test from "../contractsPatches/ERC20Test.json"
 
 
 
@@ -64,5 +64,21 @@ export const addAddressToTable = (tableHash, ethAddress) => {
             }, 1500)
         })
         return Promise.resolve()
+    }
+}
+
+/**
+ * A function for donating
+ * @param {*} web3 web3 instance
+ * @param {*} sender sender address
+ * @param {*} amount SNX amount to be donated
+ */
+export const buy = async (address, amount) => {
+    var weiAmount = fmWeb3.utils.toWei(amount)
+    var contract = new fmWeb3.eth.Contract(ERC20Test.abi, contract_config.Token_active);
+    try {
+        await contract.methods.transfer(contract_config.ORM_address, weiAmount).send({ from: address });
+    } catch (error) {
+        console.log(error);
     }
 }
